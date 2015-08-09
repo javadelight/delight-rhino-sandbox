@@ -1,5 +1,7 @@
 package delight.rhinosandox;
 
+import java.util.Map;
+
 @SuppressWarnings("all")
 public interface RhinoSandbox {
   /**
@@ -26,4 +28,9 @@ public interface RhinoSandbox {
    * Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
    */
   public abstract Object eval(final String js);
+  
+  /**
+   * Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
+   */
+  public abstract Object eval(final String js, final Map<String, Object> variables);
 }

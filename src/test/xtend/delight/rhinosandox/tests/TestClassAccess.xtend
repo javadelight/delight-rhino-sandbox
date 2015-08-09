@@ -20,10 +20,8 @@ class TestClassAccess {
 	def void test() {
 		val sandbox = RhinoSandboxes.create
 		
-		
 		val embedded = new TestEmbed
 		sandbox.inject("test",embedded)
-		
 		
 		sandbox.eval("var x=1+1;test.setValue(''+x);")
 		

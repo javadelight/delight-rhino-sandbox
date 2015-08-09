@@ -36,7 +36,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		}
 	}
 
-}
+
 	
 	override Object evalWithGlobalScope(String js) {
 		

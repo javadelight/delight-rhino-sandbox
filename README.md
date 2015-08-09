@@ -20,10 +20,8 @@ Java objects must be made explicitly available.
 ```java
 RhinoSandbox sandbox = RhinoSandboxes.create();
 
-String javaObject = "hello";
+sandbox.inject("fromJava", new Object());
 
-sandbox.inject("fromJava", javaObject);
-
-Object res = sandbox.eval("fromJava.length()
+sandbox.eval("fromJava.getClass();");
 
 ```

@@ -12,7 +12,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	var ContextFactory contextFactory
 	var ScriptableObject scope
-
+	var int instructionLimit
 	
 
 	val Map<String, Object> inScope
@@ -69,7 +69,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	override RhinoSandbox setInstructionLimit(int limit) {
-		this.instructionLimit = limit;
+		instructionLimit = limit;
 	}
 
 	/**

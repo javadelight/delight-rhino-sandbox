@@ -17,6 +17,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   private ScriptableObject scope;
   
+  private int instructionLimit;
+  
   private final Map<String, Object> inScope;
   
   /**
@@ -73,7 +75,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   @Override
   public RhinoSandbox setInstructionLimit(final int limit) {
-    return this.setInstructionLimit(limit);
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from int to RhinoSandbox");
   }
   
   /**

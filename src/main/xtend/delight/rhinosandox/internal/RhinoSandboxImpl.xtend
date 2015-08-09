@@ -34,7 +34,6 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			scope = context.initSafeStandardObjects(null, true)
 			
 			for (entry: inScope.entrySet) {
-				
 				scope.put(entry.key, scope, Context.toObject(entry.value, scope))
 			}
 			

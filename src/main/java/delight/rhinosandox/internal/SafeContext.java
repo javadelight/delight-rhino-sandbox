@@ -58,7 +58,6 @@ public class SafeContext extends ContextFactory {
         throw new ScriptDurationException();
       }
       mcx.instructions = (mcx.instructions + SafeContext.INSTRUCTION_STEPS);
-      InputOutput.<Long>println(Long.valueOf(mcx.instructions));
       if (((this.maxInstructions > 0) && (mcx.instructions > this.maxInstructions))) {
         InputOutput.<String>println("cpu abuse");
         throw new ScriptCPUAbuseException();

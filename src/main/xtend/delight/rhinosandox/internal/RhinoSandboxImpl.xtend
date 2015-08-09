@@ -45,6 +45,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	override Object evalWithGlobalScope(String js) {
+		assertContext
+		
 		try {
 			val context = Context.enter
 			return context.evaluateString(scope, js, "js", 1, null)

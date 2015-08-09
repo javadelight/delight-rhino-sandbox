@@ -38,9 +38,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       this.scope = _initSafeStandardObjects;
       for (final Object o : this.inScope) {
         Class<?> _class = o.getClass();
-        String _name = _class.getName();
+        String _simpleName = _class.getSimpleName();
         Scriptable _object = Context.toObject(o, this.scope);
-        this.scope.put(_name, this.scope, _object);
+        this.scope.put(_simpleName, this.scope, _object);
       }
     } finally {
       Context.exit();

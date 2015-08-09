@@ -35,7 +35,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			
 			for (Object o: inScope) {
 				
-				scope.put(o.class.name, scope, Context.toObject(o, scope))
+				scope.put(o.class.simpleName, scope, Context.toObject(o, scope))
 			}
 			
 		} finally {

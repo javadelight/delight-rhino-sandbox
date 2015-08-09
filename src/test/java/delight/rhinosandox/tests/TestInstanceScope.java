@@ -21,5 +21,7 @@ public class TestInstanceScope {
     Object _eval = sandbox.eval("s;");
     Assert.assertEquals("me", _eval);
     sandbox.eval("s=\"newvalue\";");
+    Object _eval_1 = sandbox.eval("s;");
+    Assert.assertEquals("me", _eval_1);
   }
 }

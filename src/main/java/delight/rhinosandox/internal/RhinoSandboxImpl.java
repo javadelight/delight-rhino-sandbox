@@ -1,7 +1,6 @@
 package delight.rhinosandox.internal;
 
 import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.internal.SafeContext;
 import delight.rhinosandox.internal.SandboxClassShutter;
@@ -46,15 +45,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   @Override
   public Object eval(final String js) {
     this.assertContext();
-    boolean _isSealed = this.scope.isSealed();
-    boolean _not = (!_isSealed);
-    if (_not) {
-      this.scope.sealObject();
-      boolean _isSealed_1 = this.scope.isSealed();
-      Preconditions.checkState(_isSealed_1);
-    }
     try {
-      final Context context = this.contextFactory.enterContext();
+      final Context context = Context.enter();
       context.setClassShutter(this.classShutter);
       final Scriptable instanceScope = context.newObject(this.scope);
       instanceScope.setPrototype(this.scope);

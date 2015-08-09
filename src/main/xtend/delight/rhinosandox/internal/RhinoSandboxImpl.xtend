@@ -36,35 +36,33 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		}
 	}
 
-
-	
 	override Object evalWithGlobalScope(String js) {
-		
 	}
-	
+
 	override Object eval(String js) {
 		assertContext
-		
-		if (!scope.isSealed) {
-			scope.sealObject
-			Preconditions.checkState(scope.isSealed)
-		}
+
 		try {
-			val Context context = contextFactory.enterContext
+
+			val context = Context.enter
+
+//			if (!scope.isSealed) {
+//				scope.sealObject
+//				Preconditions.checkState(scope.isSealed)
+//			}
+
 			context.classShutter = classShutter
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(scope);
 			instanceScope.setPrototype(scope);
 			instanceScope.setParentScope(null);
-			
+
 			return context.evaluateString(scope, js, "js", 1, null)
-			
+
 		} finally {
 			Context.exit
 		}
-		
-		
-		
+
 	}
 
 	override RhinoSandbox setInstructionLimit(int limit) {

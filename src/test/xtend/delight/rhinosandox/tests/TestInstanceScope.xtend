@@ -1,7 +1,8 @@
 package delight.rhinosandox.tests
 
-import org.junit.Test
 import delight.rhinosandox.RhinoSandboxes
+import org.junit.Assert
+import org.junit.Test
 
 class TestInstanceScope {
 	
@@ -21,8 +22,9 @@ class TestInstanceScope {
 		
 		sandbox.evalWithGlobalScope('var s="me";');
 		
-		println(sandbox.eval('s;'))
+		Assert.assertEquals("me", sandbox.eval('s;'))
 		
+		sandbox.eval('s="newvalue";')		
 	}
 	
 }

@@ -2,7 +2,7 @@ package delight.rhinosandox.tests;
 
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.RhinoSandboxes;
-import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.junit.Assert;
 import org.junit.Test;
 
 @SuppressWarnings("all")
@@ -19,6 +19,7 @@ public class TestInstanceScope {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
     sandbox.evalWithGlobalScope("var s=\"me\";");
     Object _eval = sandbox.eval("s;");
-    InputOutput.<Object>println(_eval);
+    Assert.assertEquals("me", _eval);
+    sandbox.eval("s=\"newvalue\";");
   }
 }

@@ -20,10 +20,10 @@ class TestClassAccess {
 	def void test() {
 		val sandbox = RhinoSandboxes.create
 		
-		sandbox.inject(new TestEmbed)
+		sandbox.inject("test",new TestEmbed)
 		
 		
-		sandbox.eval("var x=1+1;"+TestEmbed.simpleName+".printThis(''+x);")
+		sandbox.eval("var x=1+1;test.printThis(''+x);")
 		
 		Assert.assertEquals("2", value)
 		

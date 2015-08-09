@@ -92,18 +92,6 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     return _xblockexpression;
   }
   
-  @Override
-  public RhinoSandbox inject(final Object object) {
-    RhinoSandboxImpl _xblockexpression = null;
-    {
-      Class<?> _class = object.getClass();
-      String _simpleName = _class.getSimpleName();
-      this.inject(_simpleName, object);
-      _xblockexpression = this;
-    }
-    return _xblockexpression;
-  }
-  
   public RhinoSandboxImpl() {
     HashMap<String, Object> _hashMap = new HashMap<String, Object>();
     this.inScope = _hashMap;

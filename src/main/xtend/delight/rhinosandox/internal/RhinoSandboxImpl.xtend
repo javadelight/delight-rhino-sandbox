@@ -93,11 +93,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this
 	}
 
-	override RhinoSandbox inject(Object object) {
-		inject(object.class.simpleName, object)
-
-		this
-	}
+	
 
 	new() {	
 		this.inScope = new HashMap<String, Object>

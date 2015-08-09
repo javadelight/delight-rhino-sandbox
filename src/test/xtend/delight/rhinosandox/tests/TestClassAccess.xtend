@@ -5,50 +5,47 @@ import org.junit.Assert
 import org.junit.Test
 
 class TestClassAccess {
-	 
-	
+
 	static class TestEmbed {
 		public String value
+
 		def void setValue(String s) {
 			value = s
 		}
 	}
-	
+
 	@Test
 	def void test_access_allowed() {
 		val sandbox = RhinoSandboxes.create
-		
+
 		val embedded = new TestEmbed
-		sandbox.inject("test",embedded)
-		
+		sandbox.inject("test", embedded)
+
 		sandbox.eval("var x=1+1;test.setValue(''+x);")
-		
+
 		Assert.assertEquals("2", embedded.value)
-		
+
 	}
-	
+
 	@Test
 	def void test_java_variable() {
 		val sandbox = RhinoSandboxes.create();
 
-val String javaObject = "hello";
+		val String javaObject = "hello";
 
-sandbox.inject("fromJava", javaObject);
+		sandbox.inject("fromJava", javaObject);
 
-val Object res = sandbox.eval("fromJava.length");
+		val Object res = sandbox.eval("fromJava.length");
 
-println(res)
+		println(res)
 	}
-	
+
 	@Test(expected=Exception)
 	def void test_system_out_forbidden() {
 		val sandbox = RhinoSandboxes.create
 
-		
 		sandbox.eval("java.lang.System.out.println('hello');")
-		
-	
-		
+
 	}
-	
+
 }

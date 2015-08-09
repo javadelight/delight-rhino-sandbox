@@ -15,7 +15,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	
 
-	val public Map<String, Object> inScope
+	val Map<String, Object> inScope
 
 	/**
 	 * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
@@ -99,8 +99,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this
 	}
 
-	new() {
-		
+	new() {	
 		this.inScope = new HashMap<String, Object>
 	}
 

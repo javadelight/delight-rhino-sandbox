@@ -17,7 +17,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   private ScriptableObject scope;
   
-  public final Map<String, Object> inScope;
+  private final Map<String, Object> inScope;
   
   /**
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts

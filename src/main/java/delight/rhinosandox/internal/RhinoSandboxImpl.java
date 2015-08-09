@@ -54,7 +54,12 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   @Override
   public Object evalWithGlobalScope(final String js) {
-    return null;
+    try {
+      final Context context = Context.enter();
+      return context.evaluateString(this.scope, js, "js", 1, null);
+    } finally {
+      Context.exit();
+    }
   }
   
   @Override
@@ -65,7 +70,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       final Scriptable instanceScope = context.newObject(this.scope);
       instanceScope.setPrototype(this.scope);
       instanceScope.setParentScope(null);
-      return context.evaluateString(this.scope, js, "js", 1, null);
+      return context.evaluateString(instanceScope, js, "js", 1, null);
     } finally {
       Context.exit();
     }
@@ -114,7 +119,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     {
       boolean _containsKey = this.inScope.containsKey(variableName);
       if (_containsKey) {
-        throw new IllegalArgumentException((("A variable with the name [" + variableName) + "] has already been defined."));
+        throw new IllegalArgumentException(
+          (("A variable with the name [" + variableName) + "] has already been defined."));
       }
       this.inScope.put(variableName, object);
       _xblockexpression = this;

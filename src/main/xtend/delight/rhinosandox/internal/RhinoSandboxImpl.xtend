@@ -30,41 +30,47 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		ContextFactory.initGlobal(contextFactory)
 		contextFactory.maxInstructions = instructionLimit
 		contextFactory.maxRuntimeInMs = maxDuration
-		
+
 		try {
 			val Context context = contextFactory.enterContext
 			scope = context.initSafeStandardObjects(null, true)
-			
-			for (entry: inScope.entrySet) {
+
+			for (entry : inScope.entrySet) {
 				scope.put(entry.key, scope, Context.toObject(entry.value, scope))
 			}
-			
+
 		} finally {
 			Context.exit
 		}
 	}
 
 	override Object evalWithGlobalScope(String js) {
+		try {
+			val context = Context.enter
+			return context.evaluateString(scope, js, "js", 1, null)
+		} finally {
+			Context.exit
+		}
 	}
-	
+
 	override Object eval(String js, Map<String, Object> variables) {
 		assertContext
 
 		try {
 			val context = Context.enter
-			
+
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(scope);
 			instanceScope.setPrototype(scope);
 			instanceScope.setParentScope(null);
 
-			return context.evaluateString(scope, js, "js", 1, null)
+			return context.evaluateString(instanceScope, js, "js", 1, null)
 
 		} finally {
 			Context.exit
 		}
 	}
-	
+
 	override Object eval(String js) {
 		eval(js, new HashMap)
 
@@ -72,11 +78,11 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	override RhinoSandbox setInstructionLimit(int limit) {
 		this.instructionLimit = limit
-		
+
 		if (contextFactory != null) {
 			contextFactory.maxInstructions = instructionLimit
 		}
-		
+
 		this
 	}
 
@@ -85,27 +91,26 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	 */
 	override RhinoSandbox setMaxDuration(int limitInMs) {
 		this.maxDuration = limitInMs
-		
+
 		if (contextFactory != null) {
 			contextFactory.maxRuntimeInMs = maxDuration
 		}
-		
+
 		this
 	}
 
 	override RhinoSandbox inject(String variableName, Object object) {
 		if (this.inScope.containsKey(variableName)) {
-			throw new IllegalArgumentException('A variable with the name ['+variableName+'] has already been defined.')
+			throw new IllegalArgumentException(
+				'A variable with the name [' + variableName + '] has already been defined.')
 		}
-		
+
 		this.inScope.put(variableName, object)
-		
+
 		this
 	}
 
-	
-
-	new() {	
+	new() {
 		this.inScope = new HashMap<String, Object>
 	}
 

@@ -27,16 +27,14 @@ class TestClassAccess {
 		
 	}
 	
-	@Test
+	@Test(expected=Exception)
 	def void test_system_out_forbidden() {
 		val sandbox = RhinoSandboxes.create
+
 		
-		val embedded = new TestEmbed
-		sandbox.inject("test",embedded)
+		sandbox.eval("java.lang.System.out.println('hello');")
 		
-		println(sandbox.eval("test.getClass();"))
-		
-		println('here')
+	
 		
 	}
 	

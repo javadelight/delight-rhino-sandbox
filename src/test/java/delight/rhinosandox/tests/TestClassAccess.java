@@ -2,7 +2,6 @@ package delight.rhinosandox.tests;
 
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.RhinoSandboxes;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,13 +24,9 @@ public class TestClassAccess {
     Assert.assertEquals("2", embedded.value);
   }
   
-  @Test
+  @Test(expected = Exception.class)
   public void test_system_out_forbidden() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
-    final TestClassAccess.TestEmbed embedded = new TestClassAccess.TestEmbed();
-    sandbox.inject("test", embedded);
-    Object _eval = sandbox.eval("test.getClass();");
-    InputOutput.<Object>println(_eval);
-    InputOutput.<String>println("here");
+    sandbox.eval("java.lang.System.out.println(\'hello\');");
   }
 }

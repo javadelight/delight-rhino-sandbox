@@ -34,7 +34,9 @@ class TestClassAccess {
 		val embedded = new TestEmbed
 		sandbox.inject("test",embedded)
 		
-		sandbox.eval("test.getClass();")
+		println(sandbox.eval("test.getClass();"))
+		
+		println('here')
 		
 	}
 	

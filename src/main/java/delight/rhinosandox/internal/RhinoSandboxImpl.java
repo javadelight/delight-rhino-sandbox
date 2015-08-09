@@ -52,7 +52,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
-  public Object eval(final String js) {
+  public Object eval(final String js, final Map<String, Object> variables) {
     this.assertContext();
     try {
       final Context context = Context.enter();
@@ -63,6 +63,12 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     } finally {
       Context.exit();
     }
+  }
+  
+  @Override
+  public Object eval(final String js) {
+    HashMap<String, Object> _hashMap = new HashMap<String, Object>();
+    return this.eval(js, _hashMap);
   }
   
   @Override

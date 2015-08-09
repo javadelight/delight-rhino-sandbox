@@ -45,19 +45,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	override Object evalWithGlobalScope(String js) {
 	}
-
-	override Object eval(String js) {
+	
+	override Object eval(String js, Map<String, Object> variables) {
 		assertContext
 
 		try {
-
 			val context = Context.enter
-
-//			if (!scope.isSealed) {
-//				scope.sealObject
-//				Preconditions.checkState(scope.isSealed)
-//			}
-
 			
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(scope);
@@ -69,6 +62,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		} finally {
 			Context.exit
 		}
+	}
+	
+	override Object eval(String js) {
+		eval(js, new HashMap)
 
 	}
 

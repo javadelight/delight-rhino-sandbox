@@ -4,8 +4,6 @@ import delight.rhinosandox.RhinoSandboxes
 import org.junit.Assert
 import org.junit.Test
 
-import static delight.rhinosandox.tests.TestClassAccess.*
-
 class TestClassAccess {
 	 
 	

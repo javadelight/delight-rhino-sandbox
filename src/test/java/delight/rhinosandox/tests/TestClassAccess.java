@@ -26,7 +26,7 @@ public class TestClassAccess {
   }
   
   @Test
-  public void test_access_getClass_forbidden() {
+  public void test_system_out_forbidden() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
     final TestClassAccess.TestEmbed embedded = new TestClassAccess.TestEmbed();
     sandbox.inject("test", embedded);

@@ -28,7 +28,7 @@ class TestClassAccess {
 	}
 	
 	@Test
-	def void test_access_getClass_forbidden() {
+	def void test_system_out_forbidden() {
 		val sandbox = RhinoSandboxes.create
 		
 		val embedded = new TestEmbed

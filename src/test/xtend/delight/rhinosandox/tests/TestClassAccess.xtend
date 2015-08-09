@@ -31,11 +31,11 @@ class TestClassAccess {
 	def void test_java_variable() {
 		val sandbox = RhinoSandboxes.create();
 
-		val String javaObject = "hello";
+		
 
-		sandbox.inject("fromJava", javaObject);
+		sandbox.inject("fromJava", this);
 
-		val Object res = sandbox.eval("fromJava.length");
+		val Object res = sandbox.eval("fromJava.getClass().toString();");
 
 		println(res)
 	}

@@ -88,11 +88,13 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			throw new IllegalArgumentException('A variable with the name ['+variableName+'] has already been defined.')
 		}
 		
-		this.inScope.put(object.class.simpleName, object)
+		this.inScope.put(variableName, object)
+		
+		this
 	}
 
 	override RhinoSandbox inject(Object object) {
-		
+		inject(object.class.simpleName, object)
 
 		this
 	}

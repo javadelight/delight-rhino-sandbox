@@ -8,6 +8,8 @@ interface RhinoSandbox {
 	 */
 	def RhinoSandbox inject(Object object)
 
+	def RhinoSandbox inject(String variableName, Object object)
+
 	/**
 	 * Sets the maximum instructions allowed for script execution.
 	 */

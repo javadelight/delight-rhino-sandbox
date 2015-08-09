@@ -8,6 +8,8 @@ public interface RhinoSandbox {
    */
   public abstract RhinoSandbox inject(final Object object);
   
+  public abstract RhinoSandbox inject(final String variableName, final Object object);
+  
   /**
    * Sets the maximum instructions allowed for script execution.
    */

@@ -58,13 +58,28 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   @Override
   public RhinoSandbox inject(final String variableName, final Object object) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nType mismatch: cannot convert from Object to RhinoSandbox");
+    RhinoSandboxImpl _xblockexpression = null;
+    {
+      boolean _containsKey = this.inScope.containsKey(variableName);
+      if (_containsKey) {
+        throw new IllegalArgumentException((("A variable with the name [" + variableName) + "] has already been defined."));
+      }
+      this.inScope.put(variableName, object);
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
   }
   
   @Override
   public RhinoSandbox inject(final Object object) {
-    return this;
+    RhinoSandboxImpl _xblockexpression = null;
+    {
+      Class<?> _class = object.getClass();
+      String _simpleName = _class.getSimpleName();
+      this.inject(_simpleName, object);
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
   }
   
   public RhinoSandboxImpl() {

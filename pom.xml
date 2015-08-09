@@ -39,12 +39,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.javadelight</groupId>
-			<artifactId>delight-async</artifactId>
-			<version>[0.0.1,)</version>
-			
-		</dependency>
+		
 
 		
 		

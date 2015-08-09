@@ -5,7 +5,7 @@ import delight.rhinosandox.RhinoSandboxes
 
 class TestInstanceScope {
 	
-	@Test
+	@Test(expected=Exception)
 	def void test_instance_scopes() {
 		
 		val sandbox = RhinoSandboxes.create

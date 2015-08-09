@@ -6,7 +6,7 @@ import org.junit.Test;
 
 @SuppressWarnings("all")
 public class TestInstanceScope {
-  @Test
+  @Test(expected = Exception.class)
   public void test_instance_scopes() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
     sandbox.eval("var s=\"me\";");

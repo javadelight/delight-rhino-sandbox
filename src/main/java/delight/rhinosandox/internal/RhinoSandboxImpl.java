@@ -54,11 +54,12 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     }
     try {
       final Context context = this.contextFactory.enterContext();
+      context.setClassShutter(this.classShutter);
       final Scriptable instanceScope = context.newObject(this.scope);
       instanceScope.setPrototype(this.scope);
       instanceScope.setParentScope(null);
     } finally {
-      this.contextFactory.exit();
+      Context.exit();
     }
     return null;
   }

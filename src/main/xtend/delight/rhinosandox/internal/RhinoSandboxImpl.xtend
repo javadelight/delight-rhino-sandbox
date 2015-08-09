@@ -49,7 +49,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		}
 		try {
 			val Context context = contextFactory.enterContext
-			
+			context.classShutter = classShutter
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(scope);
 			instanceScope.setPrototype(scope);
@@ -58,7 +58,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			
 			
 		} finally {
-			contextFactory.exit
+			Context.exit
 		}
 		
 		return null

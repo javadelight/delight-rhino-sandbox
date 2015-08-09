@@ -3,11 +3,8 @@ package delight.rhinosandox;
 @SuppressWarnings("all")
 public interface RhinoSandbox {
   /**
-   * <p>Add a new class to the list of allowed classes.
-   * <p>WARNING: Adding a new class, AFTER a script has been evaluated, will destroy the engine and recreate it. The script context will thus be lost.
+   * Will add a global variable available to all scripts executed with this sandbox.
    */
-  public abstract RhinoSandbox inject(final Object object);
-  
   public abstract RhinoSandbox inject(final String variableName, final Object object);
   
   /**
@@ -21,7 +18,7 @@ public interface RhinoSandbox {
   public abstract RhinoSandbox setMaxDuration(final int limitInMs);
   
   /**
-   * Evaluate the given script with the global scope. That is all new gobal variables written will be avaialble to all other scripts.
+   * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
    */
   public abstract Object evalWithGlobalScope(final String js);
   

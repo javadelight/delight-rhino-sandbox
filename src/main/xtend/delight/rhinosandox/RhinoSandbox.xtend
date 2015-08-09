@@ -31,7 +31,8 @@ interface RhinoSandbox {
 	def Object eval(String js)
 	
 	/**
-	 * Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
+	 * <p>Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
+	 * <p><code>variables</code> defines variables with Java objects which will be available for the execution of this script.
 	 */
 	def Object eval(String js, Map<String, Object> variables)
 

@@ -33,5 +33,5 @@ RhinoSandbox sandbox = RhinoSandboxes.create();
 sandbox.setInstructionLimit(1000000);
 
 sandbox.eval("while (true) { }");
---> results in ScriptCPUAbuseException
+// --> results in ScriptCPUAbuseException
 ```

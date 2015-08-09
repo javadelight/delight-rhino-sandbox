@@ -10,8 +10,9 @@ class TestInstanceScope {
 		
 		val sandbox = RhinoSandboxes.create
 		
+		sandbox.eval('var s="me";');
 		
-		
+		sandbox.eval('s;')		
 	}
 	
 }

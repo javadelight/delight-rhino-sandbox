@@ -9,5 +9,7 @@ public class TestInstanceScope {
   @Test
   public void test_instance_scopes() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
+    sandbox.eval("var s=\"me\";");
+    sandbox.eval("s;");
   }
 }

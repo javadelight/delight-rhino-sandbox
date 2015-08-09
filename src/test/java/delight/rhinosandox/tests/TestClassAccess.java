@@ -20,7 +20,7 @@ public class TestClassAccess {
     sandbox.allow(_testEmbed);
     String _simpleName = TestClassAccess.TestEmbed.class.getSimpleName();
     String _plus = ("var x=1+1;" + _simpleName);
-    String _plus_1 = (_plus + ".printThis(\'\'+x);");
+    String _plus_1 = (_plus + ".printThis(\'\'+x);TestEmbed;");
     final Object res = sandbox.eval(_plus_1);
     InputOutput.<Object>println(res);
   }

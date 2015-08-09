@@ -17,7 +17,7 @@ class TestClassAccess {
 		
 		sandbox.allow(new TestEmbed)
 		
-		val res = sandbox.eval("var x=1+1;"+TestEmbed.simpleName+".printThis(''+x);")
+		val res = sandbox.eval("var x=1+1;"+TestEmbed.simpleName+".printThis(''+x);TestEmbed;")
 		
 		println(res)
 		

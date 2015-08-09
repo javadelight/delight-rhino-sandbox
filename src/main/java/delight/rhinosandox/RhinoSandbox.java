@@ -6,7 +6,7 @@ public interface RhinoSandbox {
    * <p>Add a new class to the list of allowed classes.
    * <p>WARNING: Adding a new class, AFTER a script has been evaluated, will destroy the engine and recreate it. The script context will thus be lost.
    */
-  public abstract RhinoSandbox allow(final Class<?> clazz);
+  public abstract RhinoSandbox allow(final Object object);
   
   /**
    * Sets the maximum instructions allowed for script execution.

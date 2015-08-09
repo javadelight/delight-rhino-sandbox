@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.internal.SafeContext;
 import delight.rhinosandox.internal.SandboxClassShutter;
+import java.util.HashSet;
 import java.util.Set;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
@@ -80,11 +81,10 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
-  public RhinoSandbox allow(final Class<?> clazz) {
+  public RhinoSandbox allow(final Object object) {
     RhinoSandboxImpl _xblockexpression = null;
     {
-      String _name = clazz.getName();
-      this.classShutter.allowedClasses.add(_name);
+      this.inScope.add(object);
       _xblockexpression = this;
     }
     return _xblockexpression;
@@ -93,5 +93,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   public RhinoSandboxImpl() {
     SandboxClassShutter _sandboxClassShutter = new SandboxClassShutter();
     this.classShutter = _sandboxClassShutter;
+    HashSet<Object> _hashSet = new HashSet<Object>();
+    this.inScope = _hashSet;
   }
 }

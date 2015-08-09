@@ -7,7 +7,6 @@ import org.mozilla.javascript.Context
 import org.mozilla.javascript.ContextFactory
 import org.mozilla.javascript.Scriptable
 import org.mozilla.javascript.ScriptableObject
-import com.google.common.base.Preconditions
 
 class RhinoSandboxImpl implements RhinoSandbox {
 
@@ -84,15 +83,15 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this.maxDuration = limitInMs
 	}
 
-	override RhinoSandbox allow(Class<?> clazz) {
-		this.classShutter.allowedClasses.add(clazz.name)
+	override RhinoSandbox allow(Object object) {
+		this.inScope.add(object)
 
 		this
 	}
 
 	new() {
 		this.classShutter = new SandboxClassShutter
-
+		this.inScope = new HashSet<Object>
 	}
 
 }

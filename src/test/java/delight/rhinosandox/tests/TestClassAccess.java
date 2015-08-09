@@ -28,7 +28,8 @@ public class TestClassAccess {
   @Test
   public void test_java_variable() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
-    sandbox.inject("fromJava", this);
+    Object _object = new Object();
+    sandbox.inject("fromJava", _object);
     final Object res = sandbox.eval("fromJava.getClass().toString();");
     InputOutput.<Object>println(res);
   }

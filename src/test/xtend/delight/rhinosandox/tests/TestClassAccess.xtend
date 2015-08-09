@@ -7,11 +7,11 @@ import org.junit.Test
 import static delight.rhinosandox.tests.TestClassAccess.*
 
 class TestClassAccess {
-	
-	static String value
+	 
 	
 	static class TestEmbed {
-		def void printThis(String s) {
+		public String value
+		def void setValue(String s) {
 			value = s
 		}
 	}
@@ -20,12 +20,14 @@ class TestClassAccess {
 	def void test() {
 		val sandbox = RhinoSandboxes.create
 		
-		sandbox.inject("test",new TestEmbed)
+		
+		val embedded = new TestEmbed
+		sandbox.inject("test",embedded)
 		
 		
-		sandbox.eval("var x=1+1;test.printThis(''+x);")
+		sandbox.eval("var x=1+1;test.setValue(''+x);")
 		
-		Assert.assertEquals("2", value)
+		Assert.assertEquals("2", embedded.value)
 		
 		
 	}

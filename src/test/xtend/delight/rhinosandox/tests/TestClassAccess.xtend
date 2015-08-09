@@ -9,7 +9,7 @@ class TestClassAccess {
 	def void test() {
 		val sandbox = RhinoSandboxes.create
 		
-		val res = sandbox.eval("var x=1+1;x;")
+		val res = sandbox.eval("var x=1+1;java.lang.System.out.println(x);")
 		
 		println(res)
 		

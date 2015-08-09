@@ -13,7 +13,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	var ContextFactory contextFactory
 	var ScriptableObject scope
 
-	val SandboxClassShutter classShutter
+	
 
 	val public Set<Object> inScope
 
@@ -58,7 +58,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 //				Preconditions.checkState(scope.isSealed)
 //			}
 
-			context.classShutter = classShutter
+			
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(scope);
 			instanceScope.setPrototype(scope);
@@ -90,7 +90,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	new() {
-		this.classShutter = new SandboxClassShutter
+		
 		this.inScope = new HashSet<Object>
 	}
 

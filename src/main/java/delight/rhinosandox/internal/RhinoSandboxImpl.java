@@ -3,7 +3,6 @@ package delight.rhinosandox.internal;
 import com.google.common.base.Objects;
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.internal.SafeContext;
-import delight.rhinosandox.internal.SandboxClassShutter;
 import java.util.HashSet;
 import java.util.Set;
 import org.mozilla.javascript.Context;
@@ -16,8 +15,6 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   private ContextFactory contextFactory;
   
   private ScriptableObject scope;
-  
-  private final SandboxClassShutter classShutter;
   
   public final Set<Object> inScope;
   
@@ -57,7 +54,6 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     this.assertContext();
     try {
       final Context context = Context.enter();
-      context.setClassShutter(this.classShutter);
       final Scriptable instanceScope = context.newObject(this.scope);
       instanceScope.setPrototype(this.scope);
       instanceScope.setParentScope(null);
@@ -91,8 +87,6 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   public RhinoSandboxImpl() {
-    SandboxClassShutter _sandboxClassShutter = new SandboxClassShutter();
-    this.classShutter = _sandboxClassShutter;
     HashSet<Object> _hashSet = new HashSet<Object>();
     this.inScope = _hashSet;
   }

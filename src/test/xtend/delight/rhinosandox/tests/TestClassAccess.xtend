@@ -1,13 +1,18 @@
 package delight.rhinosandox.tests
 
-import org.junit.Test
 import delight.rhinosandox.RhinoSandboxes
+import org.junit.Assert
+import org.junit.Test
+
+import static delight.rhinosandox.tests.TestClassAccess.*
 
 class TestClassAccess {
 	
+	static String value
+	
 	static class TestEmbed {
 		def void printThis(String s) {
-			println(s)
+			value = s
 		}
 	}
 	
@@ -18,9 +23,9 @@ class TestClassAccess {
 		sandbox.inject(new TestEmbed)
 		
 		
-		val res = sandbox.eval("var x=1+1;"+TestEmbed.simpleName+".printThis(''+x);")
+		sandbox.eval("var x=1+1;"+TestEmbed.simpleName+".printThis(''+x);")
 		
-		println(res)
+		Assert.assertEquals("2", value)
 		
 		
 	}

@@ -23,5 +23,15 @@ RhinoSandbox sandbox = RhinoSandboxes.create();
 sandbox.inject("fromJava", new Object());
 
 sandbox.eval("fromJava.getClass();");
+```
 
+To protect against CPU abusive scripts, limits on the number of instructions allowed for the script can be set.
+
+```java
+RhinoSandbox sandbox = RhinoSandboxes.create();
+
+sandbox.setInstructionLimit(1000000);
+
+sandbox.eval("while (true) { }");
+--> results in ScriptCPUAbuseException
 ```

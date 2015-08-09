@@ -13,11 +13,13 @@ import org.mozilla.javascript.ScriptableObject;
 
 @SuppressWarnings("all")
 public class RhinoSandboxImpl implements RhinoSandbox {
-  private ContextFactory contextFactory;
+  private SafeContext contextFactory;
   
   private ScriptableObject scope;
   
   private int instructionLimit;
+  
+  private long maxDuration;
   
   private final Map<String, Object> inScope;
   
@@ -32,6 +34,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     SafeContext _safeContext = new SafeContext();
     this.contextFactory = _safeContext;
     ContextFactory.initGlobal(this.contextFactory);
+    this.contextFactory.maxInstructions = this.instructionLimit;
+    this.contextFactory.maxRuntimeInMs = this.maxDuration;
     try {
       final Context context = this.contextFactory.enterContext();
       ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, true);
@@ -75,8 +79,16 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   @Override
   public RhinoSandbox setInstructionLimit(final int limit) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nType mismatch: cannot convert from int to RhinoSandbox");
+    RhinoSandboxImpl _xblockexpression = null;
+    {
+      this.instructionLimit = limit;
+      boolean _notEquals = (!Objects.equal(this.contextFactory, null));
+      if (_notEquals) {
+        this.contextFactory.maxInstructions = this.instructionLimit;
+      }
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
   }
   
   /**
@@ -84,7 +96,16 @@ public class RhinoSandboxImpl implements RhinoSandbox {
    */
   @Override
   public RhinoSandbox setMaxDuration(final int limitInMs) {
-    return this.setMaxDuration(limitInMs);
+    RhinoSandboxImpl _xblockexpression = null;
+    {
+      this.maxDuration = limitInMs;
+      boolean _notEquals = (!Objects.equal(this.contextFactory, null));
+      if (_notEquals) {
+        this.contextFactory.maxRuntimeInMs = this.maxDuration;
+      }
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
   }
   
   @Override

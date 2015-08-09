@@ -10,10 +10,10 @@ import org.mozilla.javascript.ScriptableObject
 
 class RhinoSandboxImpl implements RhinoSandbox {
 
-	var ContextFactory contextFactory
+	var SafeContext contextFactory
 	var ScriptableObject scope
 	var int instructionLimit
-	
+	var long maxDuration
 
 	val Map<String, Object> inScope
 
@@ -28,7 +28,9 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		contextFactory = new SafeContext()
 
 		ContextFactory.initGlobal(contextFactory)
-
+		contextFactory.maxInstructions = instructionLimit
+		contextFactory.maxRuntimeInMs = maxDuration
+		
 		try {
 			val Context context = contextFactory.enterContext
 			scope = context.initSafeStandardObjects(null, true)
@@ -69,7 +71,13 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	override RhinoSandbox setInstructionLimit(int limit) {
-		instructionLimit = limit;
+		this.instructionLimit = limit
+		
+		if (contextFactory != null) {
+			contextFactory.maxInstructions = instructionLimit
+		}
+		
+		this
 	}
 
 	/**
@@ -77,6 +85,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	 */
 	override RhinoSandbox setMaxDuration(int limitInMs) {
 		this.maxDuration = limitInMs
+		
+		if (contextFactory != null) {
+			contextFactory.maxRuntimeInMs = maxDuration
+		}
+		
+		this
 	}
 
 	override RhinoSandbox inject(String variableName, Object object) {

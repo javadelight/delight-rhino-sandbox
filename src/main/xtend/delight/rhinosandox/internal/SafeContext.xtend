@@ -14,8 +14,8 @@ class SafeContext extends ContextFactory {
 
 	final static int INSTRUCTION_STEPS = 10000;
 
-    long maxRuntimeInMs
-    int maxInstructions
+    public var long maxRuntimeInMs
+    public var int maxInstructions
 
 	static class CountContext extends Context {
 		long startTime
@@ -45,13 +45,14 @@ class SafeContext extends ContextFactory {
 	override void observeInstructionCount(Context cx, int instructionCount) {
 		val CountContext mcx = cx as CountContext;
 		val long currentTime = System.currentTimeMillis();
-		if (currentTime - mcx.startTime > maxRuntimeInMs) {
+		if (maxRuntimeInMs > 0 && currentTime - mcx.startTime > maxRuntimeInMs) {
 			throw new ScriptDurationException
 		}
 		
 		mcx.instructions = mcx.instructions + INSTRUCTION_STEPS
-		
-		if (mcx.instructions > maxInstructions) {
+		println(mcx.instructions)
+		if (maxInstructions > 0 && mcx.instructions > maxInstructions) {
+			println('cpu abuse')
 			throw new ScriptCPUAbuseException
 		}
 	}

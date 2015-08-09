@@ -3,6 +3,7 @@ package delight.rhinosandox.internal;
 import delight.rhinosandox.exceptions.ScriptCPUAbuseException;
 import delight.rhinosandox.exceptions.ScriptDurationException;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.Callable;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
@@ -21,9 +22,9 @@ public class SafeContext extends ContextFactory {
   
   private final static int INSTRUCTION_STEPS = 10000;
   
-  private long maxRuntimeInMs;
+  public long maxRuntimeInMs;
   
-  private int maxInstructions;
+  public int maxInstructions;
   
   @Override
   public Context makeContext() {
@@ -53,11 +54,13 @@ public class SafeContext extends ContextFactory {
     try {
       final SafeContext.CountContext mcx = ((SafeContext.CountContext) cx);
       final long currentTime = System.currentTimeMillis();
-      if (((currentTime - mcx.startTime) > this.maxRuntimeInMs)) {
+      if (((this.maxRuntimeInMs > 0) && ((currentTime - mcx.startTime) > this.maxRuntimeInMs))) {
         throw new ScriptDurationException();
       }
       mcx.instructions = (mcx.instructions + SafeContext.INSTRUCTION_STEPS);
-      if ((mcx.instructions > this.maxInstructions)) {
+      InputOutput.<Long>println(Long.valueOf(mcx.instructions));
+      if (((this.maxInstructions > 0) && (mcx.instructions > this.maxInstructions))) {
+        InputOutput.<String>println("cpu abuse");
         throw new ScriptCPUAbuseException();
       }
     } catch (Throwable _e) {

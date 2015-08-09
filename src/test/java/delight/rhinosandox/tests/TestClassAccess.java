@@ -2,6 +2,7 @@ package delight.rhinosandox.tests;
 
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.RhinoSandboxes;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,6 +23,15 @@ public class TestClassAccess {
     sandbox.inject("test", embedded);
     sandbox.eval("var x=1+1;test.setValue(\'\'+x);");
     Assert.assertEquals("2", embedded.value);
+  }
+  
+  @Test
+  public void test_java_variable() {
+    final RhinoSandbox sandbox = RhinoSandboxes.create();
+    final String javaObject = "hello";
+    sandbox.inject("fromJava", javaObject);
+    final Object res = sandbox.eval("fromJava.length");
+    InputOutput.<Object>println(res);
   }
   
   @Test(expected = Exception.class)

@@ -27,6 +27,19 @@ class TestClassAccess {
 		
 	}
 	
+	@Test
+	def void test_java_variable() {
+		val sandbox = RhinoSandboxes.create();
+
+val String javaObject = "hello";
+
+sandbox.inject("fromJava", javaObject);
+
+val Object res = sandbox.eval("fromJava.length");
+
+println(res)
+	}
+	
 	@Test(expected=Exception)
 	def void test_system_out_forbidden() {
 		val sandbox = RhinoSandboxes.create

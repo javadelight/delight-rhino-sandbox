@@ -45,6 +45,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   @Override
   public Object eval(final String js) {
+    this.assertContext();
     boolean _isSealed = this.scope.isSealed();
     boolean _not = (!_isSealed);
     if (_not) {

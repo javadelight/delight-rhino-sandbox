@@ -43,6 +43,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 	
 	override Object eval(String js) {
+		assertContext
+		
 		if (!scope.isSealed) {
 			scope.sealObject
 			Preconditions.checkState(scope.isSealed)

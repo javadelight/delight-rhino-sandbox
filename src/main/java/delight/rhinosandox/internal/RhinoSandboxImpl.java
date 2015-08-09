@@ -38,7 +38,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     this.contextFactory.maxRuntimeInMs = this.maxDuration;
     try {
       final Context context = this.contextFactory.enterContext();
-      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, true);
+      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, false);
       this.scope = _initSafeStandardObjects;
       Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
       for (final Map.Entry<String, Object> entry : _entrySet) {

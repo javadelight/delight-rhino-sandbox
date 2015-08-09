@@ -16,11 +16,19 @@ public class TestClassAccess {
   }
   
   @Test
-  public void test() {
+  public void test_access_allowed() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
     final TestClassAccess.TestEmbed embedded = new TestClassAccess.TestEmbed();
     sandbox.inject("test", embedded);
     sandbox.eval("var x=1+1;test.setValue(\'\'+x);");
     Assert.assertEquals("2", embedded.value);
+  }
+  
+  @Test
+  public void test_access_getClass_forbidden() {
+    final RhinoSandbox sandbox = RhinoSandboxes.create();
+    final TestClassAccess.TestEmbed embedded = new TestClassAccess.TestEmbed();
+    sandbox.inject("test", embedded);
+    sandbox.eval("test.getClass();");
   }
 }

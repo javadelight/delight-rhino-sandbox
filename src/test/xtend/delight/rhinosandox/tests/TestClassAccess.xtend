@@ -15,7 +15,7 @@ class TestClassAccess {
 	}
 	
 	@Test
-	def void test() {
+	def void test_access_allowed() {
 		val sandbox = RhinoSandboxes.create
 		
 		val embedded = new TestEmbed
@@ -25,6 +25,16 @@ class TestClassAccess {
 		
 		Assert.assertEquals("2", embedded.value)
 		
+	}
+	
+	@Test
+	def void test_access_getClass_forbidden() {
+		val sandbox = RhinoSandboxes.create
+		
+		val embedded = new TestEmbed
+		sandbox.inject("test",embedded)
+		
+		sandbox.eval("test.getClass();")
 		
 	}
 	

@@ -1,8 +1,8 @@
 package delight.rhinosandox.internal
 
 import delight.rhinosandox.RhinoSandbox
-import java.util.HashSet
-import java.util.Set
+import java.util.HashMap
+import java.util.Map
 import org.mozilla.javascript.Context
 import org.mozilla.javascript.ContextFactory
 import org.mozilla.javascript.Scriptable
@@ -15,7 +15,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	
 
-	val public Set<Object> inScope
+	val public Map<String, Object> inScope
 
 	/**
 	 * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
@@ -84,14 +84,14 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	override RhinoSandbox inject(Object object) {
-		this.inScope.add(object)
+		this.inScope.put(object.class.simpleName, object)
 
 		this
 	}
 
 	new() {
 		
-		this.inScope = new HashSet<Object>
+		this.inScope = new HashMap<String, Object>
 	}
 
 }

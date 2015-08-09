@@ -1,10 +1,8 @@
 package delight.rhinosandox.internal;
 
-import com.google.common.base.Objects;
 import delight.rhinosandox.RhinoSandbox;
-import delight.rhinosandox.internal.SafeContext;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
@@ -16,32 +14,14 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   private ScriptableObject scope;
   
-  public final Set<Object> inScope;
+  public final Map<String, Object> inScope;
   
   /**
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
    */
   public void assertContext() {
-    boolean _notEquals = (!Objects.equal(this.contextFactory, null));
-    if (_notEquals) {
-      return;
-    }
-    SafeContext _safeContext = new SafeContext();
-    this.contextFactory = _safeContext;
-    ContextFactory.initGlobal(this.contextFactory);
-    try {
-      final Context context = this.contextFactory.enterContext();
-      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, true);
-      this.scope = _initSafeStandardObjects;
-      for (final Object o : this.inScope) {
-        Class<?> _class = o.getClass();
-        String _simpleName = _class.getSimpleName();
-        Scriptable _object = Context.toObject(o, this.scope);
-        this.scope.put(_simpleName, this.scope, _object);
-      }
-    } finally {
-      Context.exit();
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nType mismatch: cannot convert from Map<String, Object> to Iterable<?> | Object[]");
   }
   
   @Override
@@ -80,14 +60,16 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   public RhinoSandbox inject(final Object object) {
     RhinoSandboxImpl _xblockexpression = null;
     {
-      this.inScope.add(object);
+      Class<?> _class = object.getClass();
+      String _simpleName = _class.getSimpleName();
+      this.inScope.put(_simpleName, object);
       _xblockexpression = this;
     }
     return _xblockexpression;
   }
   
   public RhinoSandboxImpl() {
-    HashSet<Object> _hashSet = new HashSet<Object>();
-    this.inScope = _hashSet;
+    HashMap<String, Object> _hashMap = new HashMap<String, Object>();
+    this.inScope = _hashMap;
   }
 }

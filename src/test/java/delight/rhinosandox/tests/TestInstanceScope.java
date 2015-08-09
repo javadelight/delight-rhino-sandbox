@@ -20,7 +20,7 @@ public class TestInstanceScope {
     sandbox.evalWithGlobalScope("var s=\"me\";");
     Object _eval = sandbox.eval("s;");
     Assert.assertEquals("me", _eval);
-    sandbox.eval("s=\"newvalue\";");
+    sandbox.eval("s=\"newvalue\"; s;");
     Object _eval_1 = sandbox.eval("s;");
     Assert.assertEquals("me", _eval_1);
   }

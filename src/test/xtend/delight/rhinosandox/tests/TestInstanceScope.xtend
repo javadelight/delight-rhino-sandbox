@@ -24,9 +24,11 @@ class TestInstanceScope {
 		
 		Assert.assertEquals("me", sandbox.eval('s;'))
 		
-		sandbox.eval('s="newvalue";')
+		sandbox.eval('s="newvalue"; s;')
 		
 		Assert.assertEquals("me", sandbox.eval('s;'))		
+		
+		
 	}
 	
 }

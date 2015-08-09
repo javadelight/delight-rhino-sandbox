@@ -83,7 +83,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this.maxDuration = limitInMs
 	}
 
-	override RhinoSandbox allow(Object object) {
+	override RhinoSandbox inject(Object object) {
 		this.inScope.add(object)
 
 		this

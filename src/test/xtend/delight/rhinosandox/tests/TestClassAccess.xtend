@@ -15,9 +15,10 @@ class TestClassAccess {
 	def void test() {
 		val sandbox = RhinoSandboxes.create
 		
-		sandbox.allow(new TestEmbed)
+		sandbox.inject(new TestEmbed)
 		
-		val res = sandbox.eval("var x=1+1;"+TestEmbed.simpleName+".printThis(''+x);TestEmbed;")
+		
+		val res = sandbox.eval("var x=1+1;"+TestEmbed.simpleName+".printThis(''+x);")
 		
 		println(res)
 		

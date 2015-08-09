@@ -81,7 +81,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
-  public RhinoSandbox allow(final Object object) {
+  public RhinoSandbox inject(final Object object) {
     RhinoSandboxImpl _xblockexpression = null;
     {
       this.inScope.add(object);

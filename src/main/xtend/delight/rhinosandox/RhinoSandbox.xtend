@@ -6,7 +6,7 @@ interface RhinoSandbox {
 	 * <p>Add a new class to the list of allowed classes.
 	 * <p>WARNING: Adding a new class, AFTER a script has been evaluated, will destroy the engine and recreate it. The script context will thus be lost.
 	 */
-	def RhinoSandbox allow(Object object)
+	def RhinoSandbox inject(Object object)
 
 	/**
 	 * Sets the maximum instructions allowed for script execution.

@@ -17,10 +17,10 @@ public class TestClassAccess {
   public void test() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
     TestClassAccess.TestEmbed _testEmbed = new TestClassAccess.TestEmbed();
-    sandbox.allow(_testEmbed);
+    sandbox.inject(_testEmbed);
     String _simpleName = TestClassAccess.TestEmbed.class.getSimpleName();
     String _plus = ("var x=1+1;" + _simpleName);
-    String _plus_1 = (_plus + ".printThis(\'\'+x);TestEmbed;");
+    String _plus_1 = (_plus + ".printThis(\'\'+x);");
     final Object res = sandbox.eval(_plus_1);
     InputOutput.<Object>println(res);
   }

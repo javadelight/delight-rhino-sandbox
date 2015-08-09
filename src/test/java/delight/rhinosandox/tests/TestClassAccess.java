@@ -3,15 +3,24 @@ package delight.rhinosandox.tests;
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.RhinoSandboxes;
 import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.junit.Test;
 
 @SuppressWarnings("all")
 public class TestClassAccess {
-  @Test
-  public void test() {
+  public static class Test {
+    public void printThis(final String s) {
+      InputOutput.<String>println(s);
+    }
+  }
+  
+  /* @
+   */public void test() {
     final RhinoSandbox sandbox = RhinoSandboxes.create();
-    sandbox.allow(System.class);
-    final Object res = sandbox.eval("var x=1+1;java.lang.System.out.println(x);");
+    TestClassAccess.Test _test = new TestClassAccess.Test();
+    sandbox.allow(_test);
+    String _name = TestClassAccess.Test.class.getName();
+    String _plus = ("var x=1+1;" + _name);
+    String _plus_1 = (_plus + ".printThis(x);");
+    final Object res = sandbox.eval(_plus_1);
     InputOutput.<Object>println(res);
   }
 }

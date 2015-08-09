@@ -1,8 +1,11 @@
 package delight.rhinosandox.internal;
 
+import com.google.common.base.Objects;
 import delight.rhinosandox.RhinoSandbox;
+import delight.rhinosandox.internal.SafeContext;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
@@ -20,12 +23,27 @@ public class RhinoSandboxImpl implements RhinoSandbox {
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
    */
   public void assertContext() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field o is undefined for the type RhinoSandboxImpl"
-      + "\nThe method or field o is undefined for the type RhinoSandboxImpl"
-      + "\nType mismatch: cannot convert from Map<String, Object> to Iterable<?>"
-      + "\nclass cannot be resolved"
-      + "\nsimpleName cannot be resolved");
+    boolean _notEquals = (!Objects.equal(this.contextFactory, null));
+    if (_notEquals) {
+      return;
+    }
+    SafeContext _safeContext = new SafeContext();
+    this.contextFactory = _safeContext;
+    ContextFactory.initGlobal(this.contextFactory);
+    try {
+      final Context context = this.contextFactory.enterContext();
+      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, true);
+      this.scope = _initSafeStandardObjects;
+      Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
+      for (final Map.Entry<String, Object> entry : _entrySet) {
+        String _key = entry.getKey();
+        Object _value = entry.getValue();
+        Scriptable _object = Context.toObject(_value, this.scope);
+        this.scope.put(_key, this.scope, _object);
+      }
+    } finally {
+      Context.exit();
+    }
   }
   
   @Override

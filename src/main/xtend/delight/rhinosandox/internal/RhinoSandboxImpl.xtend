@@ -16,6 +16,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	val SandboxClassShutter classShutter
 
+	val public Set<Object> inScope
+
 	/**
 	 * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
 	 */
@@ -31,6 +33,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		try {
 			val Context context = contextFactory.enterContext
 			scope = context.initSafeStandardObjects(null, true)
+			
+			for (Object o: inScope) {
+				
+				scope.put(o.class.name, scope, Context.toObject(o, scope))
+			}
+			
 		} finally {
 			Context.exit
 		}

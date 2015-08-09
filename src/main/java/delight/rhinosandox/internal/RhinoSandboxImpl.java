@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.internal.SafeContext;
 import delight.rhinosandox.internal.SandboxClassShutter;
+import java.util.Set;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
@@ -16,6 +17,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   private ScriptableObject scope;
   
   private final SandboxClassShutter classShutter;
+  
+  public final Set<Object> inScope;
   
   /**
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
@@ -32,6 +35,12 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       final Context context = this.contextFactory.enterContext();
       ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, true);
       this.scope = _initSafeStandardObjects;
+      for (final Object o : this.inScope) {
+        Class<?> _class = o.getClass();
+        String _name = _class.getName();
+        Scriptable _object = Context.toObject(o, this.scope);
+        this.scope.put(_name, this.scope, _object);
+      }
     } finally {
       Context.exit();
     }

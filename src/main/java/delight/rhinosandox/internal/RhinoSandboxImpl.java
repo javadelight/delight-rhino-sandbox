@@ -58,10 +58,10 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       final Scriptable instanceScope = context.newObject(this.scope);
       instanceScope.setPrototype(this.scope);
       instanceScope.setParentScope(null);
+      return context.evaluateString(this.scope, js, "js", 1, null);
     } finally {
       Context.exit();
     }
-    return null;
   }
   
   @Override

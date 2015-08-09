@@ -55,13 +55,13 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			instanceScope.setPrototype(scope);
 			instanceScope.setParentScope(null);
 			
-			
+			return context.evaluateString(scope, js, "js", 1, null)
 			
 		} finally {
 			Context.exit
 		}
 		
-		return null
+		
 		
 	}
 

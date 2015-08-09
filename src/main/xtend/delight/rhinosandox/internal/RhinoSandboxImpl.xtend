@@ -12,27 +12,31 @@ import com.google.common.base.Preconditions
 class RhinoSandboxImpl implements RhinoSandbox {
 
 	var ContextFactory contextFactory
-    var ScriptableObject scope
-	
+	var ScriptableObject scope
+
 	val SandboxClassShutter classShutter
-    
-    /**
-     * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
-     */
+
+	/**
+	 * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
+	 */
 	def void assertContext() {
 		if (contextFactory != null) {
 			return
 		}
-		
+
 		contextFactory = new SafeContext()
-		
+
 		ContextFactory.initGlobal(contextFactory)
 
-		val Context context = contextFactory.enterContext
-		scope = context.initSafeStandardObjects(null, true)
-		contextFactory.exit
-	
+		try {
+			val Context context = contextFactory.enterContext
+			scope = context.initSafeStandardObjects(null, true)
+		} finally {
+			Context.exit
+		}
 	}
+
+}
 	
 	override Object evalWithGlobalScope(String js) {
 		

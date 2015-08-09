@@ -14,8 +14,6 @@ import org.mozilla.javascript.ScriptableObject;
 public class RhinoSandboxImpl implements RhinoSandbox {
   private ContextFactory contextFactory;
   
-  private Context context;
-  
   private ScriptableObject scope;
   
   private final SandboxClassShutter classShutter;
@@ -31,8 +29,10 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     SafeContext _safeContext = new SafeContext();
     this.contextFactory = _safeContext;
     ContextFactory.initGlobal(this.contextFactory);
-    ScriptableObject _initSafeStandardObjects = this.context.initSafeStandardObjects(null, true);
+    final Context context = this.contextFactory.enterContext();
+    ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, true);
     this.scope = _initSafeStandardObjects;
+    this.contextFactory.exit();
   }
   
   @Override
@@ -50,8 +50,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       Preconditions.checkState(_isSealed_1);
     }
     try {
-      this.contextFactory.enterContext();
-      final Scriptable instanceScope = this.context.newObject(this.scope);
+      final Context context = this.contextFactory.enterContext();
+      final Scriptable instanceScope = context.newObject(this.scope);
       instanceScope.setPrototype(this.scope);
       instanceScope.setParentScope(null);
     } finally {

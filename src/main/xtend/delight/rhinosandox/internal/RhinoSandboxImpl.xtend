@@ -12,7 +12,6 @@ import com.google.common.base.Preconditions
 class RhinoSandboxImpl implements RhinoSandbox {
 
 	var ContextFactory contextFactory
-	var Context context;
     var ScriptableObject scope
 	
 	val SandboxClassShutter classShutter
@@ -28,11 +27,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		contextFactory = new SafeContext()
 		
 		ContextFactory.initGlobal(contextFactory)
-		
-		
-		
 
+		val Context context = contextFactory.enterContext
 		scope = context.initSafeStandardObjects(null, true)
+		contextFactory.exit
 	
 	}
 	
@@ -46,7 +44,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			Preconditions.checkState(scope.isSealed)
 		}
 		try {
-			contextFactory.enterContext
+			val Context context = contextFactory.enterContext
 			
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(scope);

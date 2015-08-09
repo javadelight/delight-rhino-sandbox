@@ -21,7 +21,11 @@ public class RhinoSandboxImpl implements RhinoSandbox {
    */
   public void assertContext() {
     throw new Error("Unresolved compilation problems:"
-      + "\nType mismatch: cannot convert from Map<String, Object> to Iterable<?> | Object[]");
+      + "\nThe method or field o is undefined for the type RhinoSandboxImpl"
+      + "\nThe method or field o is undefined for the type RhinoSandboxImpl"
+      + "\nType mismatch: cannot convert from Map<String, Object> to Iterable<?>"
+      + "\nclass cannot be resolved"
+      + "\nsimpleName cannot be resolved");
   }
   
   @Override

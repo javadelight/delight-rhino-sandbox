@@ -33,7 +33,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			val Context context = contextFactory.enterContext
 			scope = context.initSafeStandardObjects(null, true)
 			
-			for (Object o: inScope) {
+			for (entry: inScope) {
 				
 				scope.put(o.class.simpleName, scope, Context.toObject(o, scope))
 			}

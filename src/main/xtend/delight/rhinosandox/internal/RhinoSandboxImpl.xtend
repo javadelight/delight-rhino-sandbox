@@ -83,8 +83,16 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this.maxDuration = limitInMs
 	}
 
-	override RhinoSandbox inject(Object object) {
+	override RhinoSandbox inject(String variableName, Object object) {
+		if (this.inScope.containsKey(variableName)) {
+			throw new IllegalArgumentException('A variable with the name ['+variableName+'] has already been defined.')
+		}
+		
 		this.inScope.put(object.class.simpleName, object)
+	}
+
+	override RhinoSandbox inject(Object object) {
+		
 
 		this
 	}

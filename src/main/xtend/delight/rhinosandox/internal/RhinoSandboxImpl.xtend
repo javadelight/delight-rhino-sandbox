@@ -106,7 +106,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this
 	}
 	
-	override RhinoSandbox inject(Class<?> clazz) {
+	override RhinoSandbox inject(Class<ScriptableObject> clazz) {
 		ScriptableObject.defineClass(globalScope, clazz)
 		this
 	}

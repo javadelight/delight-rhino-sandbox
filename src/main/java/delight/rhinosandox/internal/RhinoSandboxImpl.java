@@ -6,6 +6,7 @@ import delight.rhinosandox.internal.SafeContext;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
@@ -119,9 +120,17 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
-  public RhinoSandbox inject(final Class<?> clazz) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nBounds mismatch: The type argument <?> is not a valid substitute for the bounded type parameter <T extends Scriptable> of the method defineClass(Scriptable, Class<T>)");
+  public RhinoSandbox inject(final Class<ScriptableObject> clazz) {
+    try {
+      RhinoSandboxImpl _xblockexpression = null;
+      {
+        ScriptableObject.<ScriptableObject>defineClass(this.globalScope, clazz);
+        _xblockexpression = this;
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
   
   @Override

@@ -47,12 +47,21 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	def void assertSafeScope(Context context) {
-		safeScope = context.initSafeStandardObjects(globalScope, true)
+		if (safeScope != null) {
+			return
+		}
+
+		if (useSafeStandardObjects) {
+			safeScope = context.initSafeStandardObjects(globalScope, true)
+			return
+		}
+		
+		
 	}
 
 	override Object evalWithGlobalScope(String js) {
 		assertContextFactory
-		
+
 		try {
 			val context = Context.enter
 			return context.evaluateString(globalScope, js, "js", 1, null)
@@ -66,15 +75,14 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		try {
 			val context = Context.enter
-			
-					
+
 			assertSafeScope(context)
-			//globalScope.sealObject
+			// globalScope.sealObject
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(safeScope);
 			instanceScope.setPrototype(safeScope);
 			instanceScope.setParentScope(null);
-			
+
 			return context.evaluateString(instanceScope, js, "js", 1, null)
 
 		} finally {
@@ -109,12 +117,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		this
 	}
-	
+
 	override RhinoSandbox inject(Class<ScriptableObject> clazz) {
 		ScriptableObject.defineClass(globalScope, clazz)
 		this
 	}
-	
+
 	override RhinoSandbox inject(String variableName, Object object) {
 		if (this.inScope.containsKey(variableName)) {
 			throw new IllegalArgumentException(

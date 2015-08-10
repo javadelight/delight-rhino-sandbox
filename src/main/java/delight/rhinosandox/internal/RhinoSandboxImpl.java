@@ -58,8 +58,15 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   public void assertSafeScope(final Context context) {
-    ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(this.globalScope, true);
-    this.safeScope = _initSafeStandardObjects;
+    boolean _notEquals = (!Objects.equal(this.safeScope, null));
+    if (_notEquals) {
+      return;
+    }
+    if (this.useSafeStandardObjects) {
+      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(this.globalScope, true);
+      this.safeScope = _initSafeStandardObjects;
+      return;
+    }
   }
   
   @Override

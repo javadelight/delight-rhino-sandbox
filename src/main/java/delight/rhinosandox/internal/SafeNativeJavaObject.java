@@ -1,17 +1,16 @@
 package delight.rhinosandox.internal;
 
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.Scriptable;
 
 @SuppressWarnings("all")
-public class SafeNativeJavaObject {
+public class SafeNativeJavaObject extends NativeJavaObject {
   public SafeNativeJavaObject(final Scriptable scope, final Object javaObject, final Class<?> staticType) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nInvalid number of arguments. The constructor Object() is not applicable for the arguments (Scriptable,Object,Class<?>)");
+    super(scope, javaObject, staticType);
   }
   
-  /* @Override
-   */public Object get;
-  
-  private Procedure1<? super String> name;
+  @Override
+  public Object get(final String name, final Scriptable start) {
+    return super.get(name, start);
+  }
 }

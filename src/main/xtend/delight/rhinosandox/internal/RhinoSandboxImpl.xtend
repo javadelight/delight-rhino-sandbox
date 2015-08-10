@@ -15,6 +15,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	var ScriptableObject safeScope
 	var int instructionLimit
 	var long maxDuration
+	var boolean useSafeStandardObjects;
 
 	val Map<String, Object> inScope
 
@@ -124,6 +125,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	new() {
 		this.inScope = new HashMap<String, Object>
+		this.useSafeStandardObjects = false
 	}
 
 }

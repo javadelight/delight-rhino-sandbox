@@ -24,6 +24,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   private long maxDuration;
   
+  private boolean useSafeStandardObjects;
+  
   private final Map<String, Object> inScope;
   
   /**
@@ -151,5 +153,6 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   public RhinoSandboxImpl() {
     HashMap<String, Object> _hashMap = new HashMap<String, Object>();
     this.inScope = _hashMap;
+    this.useSafeStandardObjects = false;
   }
 }

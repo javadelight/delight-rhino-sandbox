@@ -1,6 +1,5 @@
 package delight.rhinosandox.internal;
 
-import java.util.HashSet;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.ClassShutter;
@@ -16,7 +15,9 @@ public class SafeClassShutter implements ClassShutter {
   }
   
   public SafeClassShutter() {
-    HashSet<String> _hashSet = new HashSet<String>();
-    this.allowedClasses = _hashSet;
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method allowedClassed is undefined for the type SafeClassShutter"
+      + "\nThe syntax for type literals is typeof(EcmaError) or EcmaError."
+      + "\nadd cannot be resolved");
   }
 }

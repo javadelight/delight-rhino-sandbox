@@ -15,6 +15,7 @@ class SafeClassShutter implements ClassShutter {
 	
 	new() {
 		this.allowedClasses = new HashSet
+		this.allowedClassed.add(org.mozilla.javascript.EcmaError.class.name)
 	}
 	
 }

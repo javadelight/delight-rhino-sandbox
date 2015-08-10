@@ -9,13 +9,13 @@ class SafeClassShutter implements ClassShutter {
 	val public Set<String> allowedClasses
 	
 	override visibleToScripts(String fullClassName) {
-		println("test "+fullClassName+" has "+allowedClasses)
+		// println("test "+fullClassName+" has "+allowedClasses)
 		return allowedClasses.contains(fullClassName)
 	}
 	
 	new() {
 		this.allowedClasses = new HashSet
-		this.allowedClassed.add(org.mozilla.javascript.EcmaError.class.name)
+		this.allowedClasses.add(org.mozilla.javascript.EcmaError.name)
 	}
 	
 }

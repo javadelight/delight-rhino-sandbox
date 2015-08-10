@@ -1,8 +1,9 @@
 package delight.rhinosandox.internal;
 
+import java.util.HashSet;
 import java.util.Set;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.ClassShutter;
+import org.mozilla.javascript.EcmaError;
 
 @SuppressWarnings("all")
 public class SafeClassShutter implements ClassShutter {
@@ -10,14 +11,13 @@ public class SafeClassShutter implements ClassShutter {
   
   @Override
   public boolean visibleToScripts(final String fullClassName) {
-    InputOutput.<String>println(((("test " + fullClassName) + " has ") + this.allowedClasses));
     return this.allowedClasses.contains(fullClassName);
   }
   
   public SafeClassShutter() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method allowedClassed is undefined for the type SafeClassShutter"
-      + "\nThe syntax for type literals is typeof(EcmaError) or EcmaError."
-      + "\nadd cannot be resolved");
+    HashSet<String> _hashSet = new HashSet<String>();
+    this.allowedClasses = _hashSet;
+    String _name = EcmaError.class.getName();
+    this.allowedClasses.add(_name);
   }
 }

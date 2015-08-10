@@ -34,8 +34,9 @@ class TestClassAccess {
 		sandbox.inject("fromJava", new Object());
 		
 		sandbox.allow(String)
+		sandbox.allow(Class)
 		
-		val Object res = sandbox.eval("fromJava.toString();");
+		val Object res = sandbox.eval("fromJava.toString().getClass().forName('java.lang.System');");
 
 		
 	}

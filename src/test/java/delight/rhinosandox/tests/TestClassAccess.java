@@ -30,7 +30,8 @@ public class TestClassAccess {
     Object _object = new Object();
     sandbox.inject("fromJava", _object);
     sandbox.allow(String.class);
-    final Object res = sandbox.eval("fromJava.toString();");
+    sandbox.allow(Class.class);
+    final Object res = sandbox.eval("fromJava.toString().getClass().forName(\'java.lang.System\');");
   }
   
   @Test(expected = Exception.class)

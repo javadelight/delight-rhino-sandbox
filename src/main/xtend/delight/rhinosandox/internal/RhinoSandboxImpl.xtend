@@ -34,7 +34,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		try {
 			val Context context = contextFactory.enterContext
-			globalScope = context.initSafeStandardObjects(null, false)
+			globalScope = context.initStandardObjects(null, false)
 
 			for (entry : inScope.entrySet) {
 				globalScope.put(entry.key, globalScope, Context.toObject(entry.value, globalScope))
@@ -64,11 +64,13 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			
 			globalScope.sealObject
 			
+			safeScope = context.initSafeStandardObjects(globalScope, true)
+			
 			// any new globals will not be avaialbe in global scope
-			val Scriptable instanceScope = context.newObject(globalScope);
+			val Scriptable instanceScope = context.newObject(safeScope);
 			instanceScope.setPrototype(globalScope);
 			instanceScope.setParentScope(null);
-
+			
 			return context.evaluateString(instanceScope, js, "js", 1, null)
 
 		} finally {

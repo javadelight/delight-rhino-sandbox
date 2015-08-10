@@ -40,8 +40,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     this.contextFactory.maxRuntimeInMs = this.maxDuration;
     try {
       final Context context = this.contextFactory.enterContext();
-      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, false);
-      this.globalScope = _initSafeStandardObjects;
+      ScriptableObject _initStandardObjects = context.initStandardObjects(null, false);
+      this.globalScope = _initStandardObjects;
       Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
       for (final Map.Entry<String, Object> entry : _entrySet) {
         String _key = entry.getKey();
@@ -71,7 +71,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     try {
       final Context context = Context.enter();
       this.globalScope.sealObject();
-      final Scriptable instanceScope = context.newObject(this.globalScope);
+      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(this.globalScope, true);
+      this.safeScope = _initSafeStandardObjects;
+      final Scriptable instanceScope = context.newObject(this.safeScope);
       instanceScope.setPrototype(this.globalScope);
       instanceScope.setParentScope(null);
       return context.evaluateString(instanceScope, js, "js", 1, null);

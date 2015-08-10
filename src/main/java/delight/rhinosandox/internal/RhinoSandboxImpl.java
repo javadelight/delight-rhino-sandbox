@@ -2,7 +2,9 @@ package delight.rhinosandox.internal;
 
 import com.google.common.base.Objects;
 import delight.rhinosandox.RhinoSandbox;
+import delight.rhinosandox.internal.SafeClassShutter;
 import delight.rhinosandox.internal.SafeContext;
+import delight.rhinosandox.internal.SafeWrapFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -67,6 +69,10 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       this.safeScope = _initSafeStandardObjects;
       return;
     }
+    SafeClassShutter _safeClassShutter = new SafeClassShutter();
+    context.setClassShutter(_safeClassShutter);
+    SafeWrapFactory _safeWrapFactory = new SafeWrapFactory();
+    context.setWrapFactory(_safeWrapFactory);
   }
   
   @Override

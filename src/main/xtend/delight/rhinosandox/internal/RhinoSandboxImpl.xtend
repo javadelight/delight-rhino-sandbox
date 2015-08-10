@@ -56,6 +56,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			return
 		}
 		
+		context.classShutter = new SafeClassShutter
+		context.wrapFactory = new SafeWrapFactory
 		
 	}
 

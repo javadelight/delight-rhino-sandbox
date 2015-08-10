@@ -31,7 +31,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   /**
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
    */
-  public void assertContext() {
+  public void assertContextFactory() {
     boolean _notEquals = (!Objects.equal(this.contextFactory, null));
     if (_notEquals) {
       return;
@@ -57,9 +57,14 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     }
   }
   
+  public void assertSafeScope(final Context context) {
+    ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(this.globalScope, true);
+    this.safeScope = _initSafeStandardObjects;
+  }
+  
   @Override
   public Object evalWithGlobalScope(final String js) {
-    this.assertContext();
+    this.assertContextFactory();
     try {
       final Context context = Context.enter();
       return context.evaluateString(this.globalScope, js, "js", 1, null);
@@ -70,11 +75,10 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   @Override
   public Object eval(final String js, final Map<String, Object> variables) {
-    this.assertContext();
+    this.assertContextFactory();
     try {
       final Context context = Context.enter();
-      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(this.globalScope, true);
-      this.safeScope = _initSafeStandardObjects;
+      this.assertSafeScope(context);
       final Scriptable instanceScope = context.newObject(this.safeScope);
       instanceScope.setPrototype(this.safeScope);
       instanceScope.setParentScope(null);

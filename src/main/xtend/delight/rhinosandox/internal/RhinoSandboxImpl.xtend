@@ -22,7 +22,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	/**
 	 * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
 	 */
-	def void assertContext() {
+	def void assertContextFactory() {
 		if (contextFactory != null) {
 			return
 		}
@@ -46,8 +46,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		}
 	}
 
+	def void assertSafeScope(Context context) {
+		safeScope = context.initSafeStandardObjects(globalScope, true)
+	}
+
 	override Object evalWithGlobalScope(String js) {
-		assertContext
+		assertContextFactory
 		
 		try {
 			val context = Context.enter
@@ -58,14 +62,13 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	override Object eval(String js, Map<String, Object> variables) {
-		assertContext
+		assertContextFactory
 
 		try {
 			val context = Context.enter
 			
-			
-			
-			safeScope = context.initSafeStandardObjects(globalScope, true)
+					
+			assertSafeScope(context)
 			//globalScope.sealObject
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(safeScope);

@@ -59,6 +59,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		context.classShutter = new SafeClassShutter
 		context.wrapFactory = new SafeWrapFactory
 		
+		safeScope = globalScope
+		
 	}
 
 	override Object evalWithGlobalScope(String js) {

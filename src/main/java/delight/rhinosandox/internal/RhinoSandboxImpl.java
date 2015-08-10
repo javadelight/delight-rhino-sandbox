@@ -73,6 +73,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     context.setClassShutter(_safeClassShutter);
     SafeWrapFactory _safeWrapFactory = new SafeWrapFactory();
     context.setWrapFactory(_safeWrapFactory);
+    this.safeScope = this.globalScope;
   }
   
   @Override

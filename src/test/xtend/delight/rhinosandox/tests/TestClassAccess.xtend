@@ -32,7 +32,9 @@ class TestClassAccess {
 		val sandbox = RhinoSandboxes.create();
 
 		sandbox.inject("fromJava", new Object());
-
+		
+		
+		
 		val Object res = sandbox.eval("fromJava.toString();");
 
 		println(res)

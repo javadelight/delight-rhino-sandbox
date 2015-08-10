@@ -19,6 +19,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	val Map<String, Object> inScope
 
+	var SafeClassShutter classShutter
+
 	/**
 	 * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
 	 */
@@ -56,7 +58,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			return
 		}
 		
-		context.classShutter = new SafeClassShutter
+		context.classShutter = classShutter
 		context.wrapFactory = new SafeWrapFactory
 		
 		safeScope = globalScope
@@ -134,13 +136,16 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		}
 
 		this.inScope.put(variableName, object)
-
+		
+		this.classShutter.allowedClasses.add(object.class.name)
+		
 		this
 	}
 
 	new() {
 		this.inScope = new HashMap<String, Object>
 		this.useSafeStandardObjects = false
+		this.classShutter = new SafeClassShutter
 	}
 
 }

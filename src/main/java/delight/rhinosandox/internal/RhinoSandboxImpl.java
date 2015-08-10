@@ -30,6 +30,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   private final Map<String, Object> inScope;
   
+  private SafeClassShutter classShutter;
+  
   /**
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
    */
@@ -69,8 +71,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       this.safeScope = _initSafeStandardObjects;
       return;
     }
-    SafeClassShutter _safeClassShutter = new SafeClassShutter();
-    context.setClassShutter(_safeClassShutter);
+    context.setClassShutter(this.classShutter);
     SafeWrapFactory _safeWrapFactory = new SafeWrapFactory();
     context.setWrapFactory(_safeWrapFactory);
     this.safeScope = this.globalScope;
@@ -163,6 +164,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
           (("A variable with the name [" + variableName) + "] has already been defined."));
       }
       this.inScope.put(variableName, object);
+      Class<?> _class = object.getClass();
+      String _name = _class.getName();
+      this.classShutter.allowedClasses.add(_name);
       _xblockexpression = this;
     }
     return _xblockexpression;
@@ -172,5 +176,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     HashMap<String, Object> _hashMap = new HashMap<String, Object>();
     this.inScope = _hashMap;
     this.useSafeStandardObjects = false;
+    SafeClassShutter _safeClassShutter = new SafeClassShutter();
+    this.classShutter = _safeClassShutter;
   }
 }

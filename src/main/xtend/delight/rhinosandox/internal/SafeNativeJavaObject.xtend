@@ -10,9 +10,9 @@ class SafeNativeJavaObject extends NativeJavaObject {
     }
 
    override Object get(String name, Scriptable start) {
-       // if ("getClass".equals(name)) {
-       //     return NOT_FOUND;
-      //  }
+        if ("forName".equals(name)) {
+            return NOT_FOUND;
+        }
         return super.get(name, start);
     }
 }

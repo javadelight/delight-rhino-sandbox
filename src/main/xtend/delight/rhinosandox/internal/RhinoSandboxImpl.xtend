@@ -142,7 +142,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		this.inScope.put(variableName, object)
 		
-		this.classShutter.allowedClasses.add(object.class.name)
+		allow(object.class)
 		
 		this
 	}

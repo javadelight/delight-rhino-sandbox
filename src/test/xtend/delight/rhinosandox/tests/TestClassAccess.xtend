@@ -37,7 +37,7 @@ class TestClassAccess {
 		
 		val Object res = sandbox.eval("fromJava.toString();");
 
-		println(res)
+		
 	}
 
 	@Test(expected=Exception)

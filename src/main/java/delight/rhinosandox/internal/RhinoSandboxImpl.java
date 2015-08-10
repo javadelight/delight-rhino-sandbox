@@ -176,8 +176,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       }
       this.inScope.put(variableName, object);
       Class<?> _class = object.getClass();
-      String _name = _class.getName();
-      this.classShutter.allowedClasses.add(_name);
+      this.allow(_class);
       _xblockexpression = this;
     }
     return _xblockexpression;

@@ -2,7 +2,6 @@ package delight.rhinosandox.tests;
 
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.RhinoSandboxes;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -32,7 +31,6 @@ public class TestClassAccess {
     sandbox.inject("fromJava", _object);
     sandbox.allow(String.class);
     final Object res = sandbox.eval("fromJava.toString();");
-    InputOutput.<Object>println(res);
   }
   
   @Test(expected = Exception.class)

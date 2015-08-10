@@ -42,7 +42,11 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     }
     SafeContext _safeContext = new SafeContext();
     this.contextFactory = _safeContext;
-    ContextFactory.initGlobal(this.contextFactory);
+    boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();
+    boolean _not = (!_hasExplicitGlobal);
+    if (_not) {
+      ContextFactory.initGlobal(this.contextFactory);
+    }
     this.contextFactory.maxInstructions = this.instructionLimit;
     this.contextFactory.maxRuntimeInMs = this.maxDuration;
     try {

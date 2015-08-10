@@ -31,7 +31,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		contextFactory = new SafeContext()
 
-		ContextFactory.initGlobal(contextFactory)
+		if (!ContextFactory.hasExplicitGlobal) {
+			ContextFactory.initGlobal(contextFactory)
+
+		}
 		contextFactory.maxInstructions = instructionLimit
 		contextFactory.maxRuntimeInMs = maxDuration
 
@@ -57,12 +60,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			safeScope = context.initSafeStandardObjects(globalScope, true)
 			return
 		}
-		
+
 		context.classShutter = classShutter
 		context.wrapFactory = new SafeWrapFactory
-		
+
 		safeScope = globalScope
-		
+
 	}
 
 	override Object evalWithGlobalScope(String js) {
@@ -123,12 +126,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		this
 	}
-	
+
 	override RhinoSandbox setUseSafeStandardObjects(boolean useSafeStandardObjects) {
 		this.useSafeStandardObjects = useSafeStandardObjects
 		this
 	}
-	
+
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
 		this
@@ -147,9 +150,9 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		}
 
 		this.inScope.put(variableName, object)
-		
+
 		allow(object.class)
-		
+
 		this
 	}
 

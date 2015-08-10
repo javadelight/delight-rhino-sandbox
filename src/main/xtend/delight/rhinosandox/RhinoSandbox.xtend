@@ -1,6 +1,7 @@
 package delight.rhinosandox
 
 import java.util.Map
+import org.mozilla.javascript.ScriptableObject
 
 interface RhinoSandbox {
 
@@ -9,7 +10,9 @@ interface RhinoSandbox {
 	 * Will add a global variable available to all scripts executed with this sandbox.
 	 */
 	def RhinoSandbox inject(String variableName, Object object)
-
+	
+	def RhinoSandbox inject(Class<ScriptableObject> clazz) 
+	
 	/**
 	 * Sets the maximum instructions allowed for script execution.
 	 */

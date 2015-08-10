@@ -13,6 +13,9 @@ class SafeNativeJavaObject extends NativeJavaObject {
         if ("forName".equals(name)) {
             return NOT_FOUND;
         }
+         if ("getClassLoader".equals(name)) {
+         	return NOT_FOUND;
+        }
         return super.get(name, start);
     }
 }

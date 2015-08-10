@@ -15,6 +15,10 @@ public class SafeNativeJavaObject extends NativeJavaObject {
     if (_equals) {
       return Scriptable.NOT_FOUND;
     }
+    boolean _equals_1 = "getClassLoader".equals(name);
+    if (_equals_1) {
+      return Scriptable.NOT_FOUND;
+    }
     return super.get(name, start);
   }
 }

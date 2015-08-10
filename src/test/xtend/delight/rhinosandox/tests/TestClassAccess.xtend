@@ -36,7 +36,7 @@ class TestClassAccess {
 		sandbox.allow(String)
 		sandbox.allow(Class)
 		
-		val Object res = sandbox.eval("fromJava.toString();");
+		sandbox.eval("fromJava.toString();");
 
 		
 	}

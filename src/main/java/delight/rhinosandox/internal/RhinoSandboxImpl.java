@@ -141,6 +141,17 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
+  public RhinoSandbox allow(final Class<?> clazz) {
+    RhinoSandboxImpl _xblockexpression = null;
+    {
+      String _name = clazz.getName();
+      this.classShutter.allowedClasses.add(_name);
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
+  }
+  
+  @Override
   public RhinoSandbox inject(final Class<ScriptableObject> clazz) {
     try {
       RhinoSandboxImpl _xblockexpression = null;

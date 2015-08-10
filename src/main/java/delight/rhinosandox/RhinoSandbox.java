@@ -5,6 +5,8 @@ import org.mozilla.javascript.ScriptableObject;
 
 @SuppressWarnings("all")
 public interface RhinoSandbox {
+  public abstract RhinoSandbox allow(final Class<?> clazz);
+  
   /**
    * Will add a global variable available to all scripts executed with this sandbox.
    */

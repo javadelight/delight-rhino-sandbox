@@ -2,6 +2,7 @@ package delight.rhinosandox.tests;
 
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.RhinoSandboxes;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,8 +27,12 @@ public class TestClassAccess {
   
   @Test
   public void test_java_variable() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method allow is undefined for the type TestClassAccess");
+    final RhinoSandbox sandbox = RhinoSandboxes.create();
+    Object _object = new Object();
+    sandbox.inject("fromJava", _object);
+    sandbox.allow(String.class);
+    final Object res = sandbox.eval("fromJava.toString();");
+    InputOutput.<Object>println(res);
   }
   
   @Test(expected = Exception.class)

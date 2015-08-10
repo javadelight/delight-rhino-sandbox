@@ -5,6 +5,7 @@ import org.mozilla.javascript.ScriptableObject
 
 interface RhinoSandbox {
 
+	def RhinoSandbox allow(Class<?> clazz)
 	
 	/**
 	 * Will add a global variable available to all scripts executed with this sandbox.

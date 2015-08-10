@@ -25,6 +25,11 @@ public interface RhinoSandbox {
   public abstract RhinoSandbox setMaxDuration(final int limitInMs);
   
   /**
+   * If .initSafeStandardObjects should be used.
+   */
+  public abstract RhinoSandbox setUseSafeStandardObjects(final boolean useSafeStandardObject);
+  
+  /**
    * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
    */
   public abstract Object evalWithGlobalScope(final String js);

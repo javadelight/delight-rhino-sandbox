@@ -25,6 +25,11 @@ interface RhinoSandbox {
 	def RhinoSandbox setMaxDuration(int limitInMs)
 
 	/**
+	 * If .initSafeStandardObjects should be used.
+	 */
+	def RhinoSandbox setUseSafeStandardObjects(boolean useSafeStandardObject)
+
+	/**
 	 * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
 	 */
 	def Object evalWithGlobalScope(String js)

@@ -2,6 +2,7 @@ package delight.rhinosandox.internal;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.ClassShutter;
 
 @SuppressWarnings("all")
@@ -10,6 +11,7 @@ public class SafeClassShutter implements ClassShutter {
   
   @Override
   public boolean visibleToScripts(final String fullClassName) {
+    InputOutput.<String>println(((("test " + fullClassName) + " has ") + this.allowedClasses));
     return this.allowedClasses.contains(fullClassName);
   }
   

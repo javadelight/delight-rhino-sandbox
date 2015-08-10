@@ -72,7 +72,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		assertContextFactory
 
 		try {
-			val context = Context.enter
+			val context = contextFactory.enterContext
 			return context.evaluateString(globalScope, js, "js", 1, null)
 		} finally {
 			Context.exit
@@ -83,11 +83,11 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		assertContextFactory
 
 		try {
-			val context = Context.enter
+			val context = contextFactory.enterContext
 
 			assertSafeScope(context)
 			// globalScope.sealObject
-			// any new globals will not be avaialbe in global scope
+			// any new globals will not be available in global scope
 			val Scriptable instanceScope = context.newObject(safeScope);
 			instanceScope.setPrototype(safeScope);
 			instanceScope.setParentScope(null);

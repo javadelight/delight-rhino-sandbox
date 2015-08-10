@@ -85,7 +85,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   public Object evalWithGlobalScope(final String js) {
     this.assertContextFactory();
     try {
-      final Context context = Context.enter();
+      final Context context = this.contextFactory.enterContext();
       return context.evaluateString(this.globalScope, js, "js", 1, null);
     } finally {
       Context.exit();
@@ -96,7 +96,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   public Object eval(final String js, final Map<String, Object> variables) {
     this.assertContextFactory();
     try {
-      final Context context = Context.enter();
+      final Context context = this.contextFactory.enterContext();
       this.assertSafeScope(context);
       final Scriptable instanceScope = context.newObject(this.safeScope);
       instanceScope.setPrototype(this.safeScope);

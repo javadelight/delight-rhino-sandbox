@@ -141,6 +141,16 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
+  public RhinoSandbox setUseSafeStandardObjects(final boolean useSafeStandardObjects) {
+    RhinoSandboxImpl _xblockexpression = null;
+    {
+      this.useSafeStandardObjects = useSafeStandardObjects;
+      _xblockexpression = this;
+    }
+    return _xblockexpression;
+  }
+  
+  @Override
   public RhinoSandbox allow(final Class<?> clazz) {
     RhinoSandboxImpl _xblockexpression = null;
     {
@@ -157,6 +167,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       RhinoSandboxImpl _xblockexpression = null;
       {
         ScriptableObject.<ScriptableObject>defineClass(this.globalScope, clazz);
+        this.allow(clazz);
         _xblockexpression = this;
       }
       return _xblockexpression;

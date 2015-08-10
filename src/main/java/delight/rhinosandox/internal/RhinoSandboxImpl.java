@@ -119,6 +119,12 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
+  public RhinoSandbox inject(final Class<?> clazz) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nBounds mismatch: The type argument <?> is not a valid substitute for the bounded type parameter <T extends Scriptable> of the method defineClass(Scriptable, Class<T>)");
+  }
+  
+  @Override
   public RhinoSandbox inject(final String variableName, final Object object) {
     RhinoSandboxImpl _xblockexpression = null;
     {

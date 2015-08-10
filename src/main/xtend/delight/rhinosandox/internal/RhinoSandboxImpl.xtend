@@ -105,7 +105,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		this
 	}
-
+	
+	override RhinoSandbox inject(Class<?> clazz) {
+		ScriptableObject.defineClass(globalScope, clazz)
+		this
+	}
+	
 	override RhinoSandbox inject(String variableName, Object object) {
 		if (this.inScope.containsKey(variableName)) {
 			throw new IllegalArgumentException(

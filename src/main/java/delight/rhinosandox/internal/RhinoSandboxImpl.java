@@ -70,9 +70,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     this.assertContext();
     try {
       final Context context = Context.enter();
-      this.globalScope.sealObject();
       ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(this.globalScope, true);
       this.safeScope = _initSafeStandardObjects;
+      this.globalScope.sealObject();
       final Scriptable instanceScope = context.newObject(this.safeScope);
       instanceScope.setPrototype(this.globalScope);
       instanceScope.setParentScope(null);

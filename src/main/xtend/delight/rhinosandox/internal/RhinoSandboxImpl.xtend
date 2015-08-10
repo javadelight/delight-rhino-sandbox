@@ -64,11 +64,11 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			
 			
 			
-			safeScope = context.initSafeStandardObjects(globalScope, true)
-			globalScope.sealObject
+			safeScope = context.initSafeStandardObjects(globalScope, false)
+			//globalScope.sealObject
 			// any new globals will not be avaialbe in global scope
 			val Scriptable instanceScope = context.newObject(safeScope);
-			instanceScope.setPrototype(globalScope);
+			instanceScope.setPrototype(safeScope);
 			instanceScope.setParentScope(null);
 			
 			return context.evaluateString(instanceScope, js, "js", 1, null)

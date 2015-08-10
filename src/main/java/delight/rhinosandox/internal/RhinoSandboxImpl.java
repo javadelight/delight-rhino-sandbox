@@ -15,7 +15,9 @@ import org.mozilla.javascript.ScriptableObject;
 public class RhinoSandboxImpl implements RhinoSandbox {
   private SafeContext contextFactory;
   
-  private ScriptableObject scope;
+  private ScriptableObject globalScope;
+  
+  private ScriptableObject safeScope;
   
   private int instructionLimit;
   
@@ -39,13 +41,13 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     try {
       final Context context = this.contextFactory.enterContext();
       ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(null, false);
-      this.scope = _initSafeStandardObjects;
+      this.globalScope = _initSafeStandardObjects;
       Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
       for (final Map.Entry<String, Object> entry : _entrySet) {
         String _key = entry.getKey();
         Object _value = entry.getValue();
-        Scriptable _object = Context.toObject(_value, this.scope);
-        this.scope.put(_key, this.scope, _object);
+        Scriptable _object = Context.toObject(_value, this.globalScope);
+        this.globalScope.put(_key, this.globalScope, _object);
       }
     } finally {
       Context.exit();
@@ -57,7 +59,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     this.assertContext();
     try {
       final Context context = Context.enter();
-      return context.evaluateString(this.scope, js, "js", 1, null);
+      return context.evaluateString(this.globalScope, js, "js", 1, null);
     } finally {
       Context.exit();
     }
@@ -68,9 +70,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     this.assertContext();
     try {
       final Context context = Context.enter();
-      this.scope.sealObject();
-      final Scriptable instanceScope = context.newObject(this.scope);
-      instanceScope.setPrototype(this.scope);
+      this.globalScope.sealObject();
+      final Scriptable instanceScope = context.newObject(this.globalScope);
+      instanceScope.setPrototype(this.globalScope);
       instanceScope.setParentScope(null);
       return context.evaluateString(instanceScope, js, "js", 1, null);
     } finally {

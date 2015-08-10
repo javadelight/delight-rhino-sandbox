@@ -11,7 +11,8 @@ import org.mozilla.javascript.ScriptableObject
 class RhinoSandboxImpl implements RhinoSandbox {
 
 	var SafeContext contextFactory
-	var ScriptableObject scope
+	var ScriptableObject globalScope
+	var ScriptableObject safeScope
 	var int instructionLimit
 	var long maxDuration
 
@@ -33,10 +34,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		try {
 			val Context context = contextFactory.enterContext
-			scope = context.initSafeStandardObjects(null, false)
+			globalScope = context.initSafeStandardObjects(null, false)
 
 			for (entry : inScope.entrySet) {
-				scope.put(entry.key, scope, Context.toObject(entry.value, scope))
+				globalScope.put(entry.key, globalScope, Context.toObject(entry.value, globalScope))
 			}
 
 		} finally {
@@ -49,7 +50,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		
 		try {
 			val context = Context.enter
-			return context.evaluateString(scope, js, "js", 1, null)
+			return context.evaluateString(globalScope, js, "js", 1, null)
 		} finally {
 			Context.exit
 		}
@@ -61,11 +62,11 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		try {
 			val context = Context.enter
 			
-			scope.sealObject
+			globalScope.sealObject
 			
 			// any new globals will not be avaialbe in global scope
-			val Scriptable instanceScope = context.newObject(scope);
-			instanceScope.setPrototype(scope);
+			val Scriptable instanceScope = context.newObject(globalScope);
+			instanceScope.setPrototype(globalScope);
 			instanceScope.setParentScope(null);
 
 			return context.evaluateString(instanceScope, js, "js", 1, null)

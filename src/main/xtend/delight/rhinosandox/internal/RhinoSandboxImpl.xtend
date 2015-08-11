@@ -92,6 +92,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			instanceScope.setPrototype(safeScope);
 			instanceScope.setParentScope(null);
 
+			for (entry : variables.entrySet) {
+				instanceScope.put(entry.key, instanceScope, Context.toObject(entry.value, instanceScope))
+			}
+
 			return context.evaluateString(instanceScope, js, "js", 1, null)
 
 		} finally {

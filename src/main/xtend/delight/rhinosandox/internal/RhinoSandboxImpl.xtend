@@ -93,6 +93,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			instanceScope.setParentScope(null);
 
 			for (entry : variables.entrySet) {
+				allow(entry.value.class)
 				instanceScope.put(entry.key, instanceScope, Context.toObject(entry.value, instanceScope))
 			}
 

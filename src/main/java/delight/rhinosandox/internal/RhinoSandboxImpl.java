@@ -103,10 +103,15 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       instanceScope.setParentScope(null);
       Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
       for (final Map.Entry<String, Object> entry : _entrySet) {
-        String _key = entry.getKey();
-        Object _value = entry.getValue();
-        Scriptable _object = Context.toObject(_value, instanceScope);
-        instanceScope.put(_key, instanceScope, _object);
+        {
+          Object _value = entry.getValue();
+          Class<?> _class = _value.getClass();
+          this.allow(_class);
+          String _key = entry.getKey();
+          Object _value_1 = entry.getValue();
+          Scriptable _object = Context.toObject(_value_1, instanceScope);
+          instanceScope.put(_key, instanceScope, _object);
+        }
       }
       return context.evaluateString(instanceScope, js, "js", 1, null);
     } finally {

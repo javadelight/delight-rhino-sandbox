@@ -139,7 +139,9 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
-
+		
+		evalWithGlobalScope('importClass('+clazz.name+');')
+		
 		this
 	}
 

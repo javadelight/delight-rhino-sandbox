@@ -16,6 +16,9 @@ class SafeClassShutter implements ClassShutter {
 	new() {
 		this.allowedClasses = new HashSet
 		this.allowedClasses.add('adapter1')
+		this.allowedClasses.add('adapter2')
+		this.allowedClasses.add('adapter3')
+		this.allowedClasses.add('adapter4')
 		this.allowedClasses.add(org.mozilla.javascript.EcmaError.name)
 	}
 	

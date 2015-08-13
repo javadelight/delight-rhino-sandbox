@@ -166,7 +166,13 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		if (contextFactory == null) {
 			this.inScope.put(variableName, object)
 		} else {
+			try {
+			contextFactory.enterContext
 			globalScope.put(variableName, globalScope, Context.toObject(object, globalScope))
+			
+			} finally {
+				Context.exit();
+			}
 		}
 	}
 

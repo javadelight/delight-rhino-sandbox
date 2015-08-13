@@ -214,8 +214,13 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     if (_equals) {
       this.inScope.put(variableName, object);
     } else {
-      Scriptable _object = Context.toObject(object, this.globalScope);
-      this.globalScope.put(variableName, this.globalScope, _object);
+      try {
+        this.contextFactory.enterContext();
+        Scriptable _object = Context.toObject(object, this.globalScope);
+        this.globalScope.put(variableName, this.globalScope, _object);
+      } finally {
+        Context.exit();
+      }
     }
   }
   

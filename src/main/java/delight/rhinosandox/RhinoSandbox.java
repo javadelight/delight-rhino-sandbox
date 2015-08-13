@@ -7,7 +7,9 @@ import org.mozilla.javascript.ScriptableObject;
 public interface RhinoSandbox {
   /**
    * <p>Will allow access to this class in Rhino scripts.
-   * <p>Note that this will make the class available under its simple name.
+   * <p>Note that for classes in packages which don't start with java., com., net. etc. the class name needs to be prefixed with Packages.
+   * <p>e.g. mypackage.Myclass will be Packages.mypackage.MyClass
+   * <p><a href='https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/New_in_Rhino_1.7R1#Common_package_names_preloaded'>see</a>
    */
   public abstract RhinoSandbox allow(final Class<?> clazz);
   

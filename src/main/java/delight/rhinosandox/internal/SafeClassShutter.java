@@ -11,16 +11,16 @@ public class SafeClassShutter implements ClassShutter {
   
   @Override
   public boolean visibleToScripts(final String fullClassName) {
+    boolean _startsWith = fullClassName.startsWith("adapter");
+    if (_startsWith) {
+      return true;
+    }
     return this.allowedClasses.contains(fullClassName);
   }
   
   public SafeClassShutter() {
     HashSet<String> _hashSet = new HashSet<String>();
     this.allowedClasses = _hashSet;
-    this.allowedClasses.add("adapter1");
-    this.allowedClasses.add("adapter2");
-    this.allowedClasses.add("adapter3");
-    this.allowedClasses.add("adapter4");
     String _name = EcmaError.class.getName();
     this.allowedClasses.add(_name);
   }

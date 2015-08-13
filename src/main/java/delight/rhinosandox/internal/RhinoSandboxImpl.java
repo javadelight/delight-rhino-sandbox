@@ -173,7 +173,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       String _name = clazz.getName();
       this.classShutter.allowedClasses.add(_name);
       String _simpleName = clazz.getSimpleName();
-      this.inject(_simpleName, clazz);
+      this.injectInt(_simpleName, clazz);
       _xblockexpression = this;
     }
     return _xblockexpression;
@@ -198,17 +198,21 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   public RhinoSandbox inject(final String variableName, final Object object) {
     RhinoSandboxImpl _xblockexpression = null;
     {
-      boolean _containsKey = this.inScope.containsKey(variableName);
-      if (_containsKey) {
-        throw new IllegalArgumentException(
-          (("A variable with the name [" + variableName) + "] has already been defined."));
-      }
-      this.inScope.put(variableName, object);
+      this.injectInt(variableName, object);
       Class<?> _class = object.getClass();
       this.allow(_class);
       _xblockexpression = this;
     }
     return _xblockexpression;
+  }
+  
+  private void injectInt(final String variableName, final Object object) {
+    boolean _containsKey = this.inScope.containsKey(variableName);
+    if (_containsKey) {
+      throw new IllegalArgumentException(
+        (("A variable with the name [" + variableName) + "] has already been defined."));
+    }
+    this.inScope.put(variableName, object);
   }
   
   public RhinoSandboxImpl() {

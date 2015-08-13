@@ -140,12 +140,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
 		
-		inject(clazz.simpleName, clazz)
+		injectInt(clazz.simpleName, clazz)
 		
 		this
 	}
-
-	
 
 	override RhinoSandbox inject(Class<ScriptableObject> clazz) {
 		ScriptableObject.defineClass(globalScope, clazz)
@@ -154,6 +152,14 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	override RhinoSandbox inject(String variableName, Object object) {
+		injectInt(variableName, object)
+
+		allow(object.class)
+
+		this
+	}
+	
+	private def void injectInt(String variableName, Object object) {
 		if (this.inScope.containsKey(variableName)) {
 			throw new IllegalArgumentException(
 				'A variable with the name [' + variableName + '] has already been defined.')
@@ -161,11 +167,9 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		this.inScope.put(variableName, object)
 
-		allow(object.class)
-
-		this
+		
 	}
-
+	
 	new() {
 		this.inScope = new HashMap<String, Object>
 		this.useSafeStandardObjects = false

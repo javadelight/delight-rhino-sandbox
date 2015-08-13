@@ -63,4 +63,7 @@ class SafeContext extends ContextFactory {
 		mcx.instructions = 0
 		return super.doTopCall(callable, cx, scope, thisObj, args);
 	}
+	
+	
+	
 }

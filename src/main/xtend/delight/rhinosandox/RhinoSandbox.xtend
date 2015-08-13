@@ -12,6 +12,9 @@ interface RhinoSandbox {
 	 */
 	def RhinoSandbox inject(String variableName, Object object)
 	
+	/**
+	 * Will make this class available to instantiate in Rhineo scripts.
+	 */
 	def RhinoSandbox inject(Class<ScriptableObject> clazz) 
 	
 	/**

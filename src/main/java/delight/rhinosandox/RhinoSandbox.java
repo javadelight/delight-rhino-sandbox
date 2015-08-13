@@ -12,6 +12,9 @@ public interface RhinoSandbox {
    */
   public abstract RhinoSandbox inject(final String variableName, final Object object);
   
+  /**
+   * Will make this class available to instantiate in Rhineo scripts.
+   */
   public abstract RhinoSandbox inject(final Class<ScriptableObject> clazz);
   
   /**

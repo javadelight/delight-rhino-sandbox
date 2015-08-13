@@ -172,6 +172,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     {
       String _name = clazz.getName();
       this.classShutter.allowedClasses.add(_name);
+      String _simpleName = clazz.getSimpleName();
+      this.inject(_simpleName, clazz);
       _xblockexpression = this;
     }
     return _xblockexpression;

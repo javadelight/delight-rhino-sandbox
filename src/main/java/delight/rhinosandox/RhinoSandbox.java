@@ -7,7 +7,7 @@ import org.mozilla.javascript.ScriptableObject;
 public interface RhinoSandbox {
   /**
    * <p>Will allow access to this class in Rhino scripts.
-   * <p>Note that this will not make this class available under its package and class name. For this use inject.
+   * <p>Note that this will make the class available under its simple name.
    */
   public abstract RhinoSandbox allow(final Class<?> clazz);
   

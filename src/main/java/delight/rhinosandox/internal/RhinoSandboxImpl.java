@@ -172,15 +172,6 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     {
       String _name = clazz.getName();
       this.classShutter.allowedClasses.add(_name);
-      this.assertContextFactory();
-      try {
-        this.contextFactory.enterContext();
-        String _simpleName = clazz.getSimpleName();
-        Object _javaToJS = Context.javaToJS(clazz, this.globalScope);
-        this.injectInt(_simpleName, _javaToJS);
-      } finally {
-        Context.exit();
-      }
       _xblockexpression = this;
     }
     return _xblockexpression;

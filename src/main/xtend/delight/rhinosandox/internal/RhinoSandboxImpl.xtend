@@ -55,7 +55,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		if (safeScope != null) {
 			return
 		}
-
+	
 		if (useSafeStandardObjects) {
 			safeScope = context.initSafeStandardObjects(globalScope, true)
 			return
@@ -139,18 +139,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
-		
-		assertContextFactory
-		try {
-			contextFactory.enterContext
-			
-			
-			injectInt(clazz.simpleName, Context.javaToJS(clazz, globalScope))
-		} finally {
-			Context.exit
-		}
-		
-		
+
 		this
 	}
 
@@ -176,7 +165,6 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		this.inScope.put(variableName, object)
 
-		
 	}
 	
 	new() {

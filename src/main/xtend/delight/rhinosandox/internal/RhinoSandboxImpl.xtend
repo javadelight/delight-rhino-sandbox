@@ -140,7 +140,14 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
 		
-		//injectInt(clazz.simpleName, clazz)
+		assertContextFactory
+		try {
+			contextFactory.enterContext
+			injectInt(clazz.simpleName, Context.javaToJS(clazz, globalScope))
+		} finally {
+			Context.exit
+		}
+		
 		
 		this
 	}

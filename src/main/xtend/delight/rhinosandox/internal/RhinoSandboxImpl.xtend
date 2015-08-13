@@ -55,7 +55,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		if (safeScope != null) {
 			return
 		}
-	
+
 		if (useSafeStandardObjects) {
 			safeScope = context.initSafeStandardObjects(globalScope, true)
 			return
@@ -139,9 +139,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
-		
-		//evalWithGlobalScope('importClass('+clazz.name+');')
-		
+
+		// evalWithGlobalScope('importClass('+clazz.name+');')
 		this
 	}
 
@@ -158,17 +157,19 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		this
 	}
-	
+
 	private def void injectInt(String variableName, Object object) {
 		if (this.inScope.containsKey(variableName)) {
 			throw new IllegalArgumentException(
 				'A variable with the name [' + variableName + '] has already been defined.')
 		}
-
-		this.inScope.put(variableName, object)
-
+		if (contextFactory == null) {
+			this.inScope.put(variableName, object)
+		} else {
+			globalScope.put(variableName, globalScope, Context.toObject(object, globalScope))
+		}
 	}
-	
+
 	new() {
 		this.inScope = new HashMap<String, Object>
 		this.useSafeStandardObjects = false

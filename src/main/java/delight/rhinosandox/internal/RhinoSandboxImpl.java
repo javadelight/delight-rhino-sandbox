@@ -210,7 +210,13 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       throw new IllegalArgumentException(
         (("A variable with the name [" + variableName) + "] has already been defined."));
     }
-    this.inScope.put(variableName, object);
+    boolean _equals = Objects.equal(this.contextFactory, null);
+    if (_equals) {
+      this.inScope.put(variableName, object);
+    } else {
+      Scriptable _object = Context.toObject(object, this.globalScope);
+      this.globalScope.put(variableName, this.globalScope, _object);
+    }
   }
   
   public RhinoSandboxImpl() {

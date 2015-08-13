@@ -5,6 +5,10 @@ import org.mozilla.javascript.ScriptableObject;
 
 @SuppressWarnings("all")
 public interface RhinoSandbox {
+  /**
+   * <p>Will allow access to this class in Rhino scripts.
+   * <p>Note that this will not
+   */
   public abstract RhinoSandbox allow(final Class<?> clazz);
   
   /**
@@ -13,7 +17,7 @@ public interface RhinoSandbox {
   public abstract RhinoSandbox inject(final String variableName, final Object object);
   
   /**
-   * Will make this class available to instantiate in Rhineo scripts.
+   * Will make this class available to instantiate in Rhino scripts.
    */
   public abstract RhinoSandbox inject(final Class<ScriptableObject> clazz);
   

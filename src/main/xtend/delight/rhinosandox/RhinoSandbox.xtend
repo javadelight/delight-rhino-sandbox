@@ -5,6 +5,10 @@ import org.mozilla.javascript.ScriptableObject
 
 interface RhinoSandbox {
 
+	/**
+	 * <p>Will allow access to this class in Rhino scripts.
+	 * <p>Note that this will not 
+	 */
 	def RhinoSandbox allow(Class<?> clazz)
 	
 	/**
@@ -13,7 +17,7 @@ interface RhinoSandbox {
 	def RhinoSandbox inject(String variableName, Object object)
 	
 	/**
-	 * Will make this class available to instantiate in Rhineo scripts.
+	 * Will make this class available to instantiate in Rhino scripts.
 	 */
 	def RhinoSandbox inject(Class<ScriptableObject> clazz) 
 	

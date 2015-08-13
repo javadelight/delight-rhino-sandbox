@@ -143,6 +143,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		assertContextFactory
 		try {
 			contextFactory.enterContext
+			
+			
 			injectInt(clazz.simpleName, Context.javaToJS(clazz, globalScope))
 		} finally {
 			Context.exit

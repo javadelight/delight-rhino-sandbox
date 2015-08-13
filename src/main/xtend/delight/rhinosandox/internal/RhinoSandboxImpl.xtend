@@ -176,6 +176,17 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		}
 	}
 
+	override toJsObject(Object javaObject) {
+		assertContextFactory
+
+		try {
+			val context = contextFactory.enterContext
+			return Context.javaToJS(javaObject, globalScope)
+		} finally {
+			Context.exit
+		}
+	}
+
 	new() {
 		this.inScope = new HashMap<String, Object>
 		this.useSafeStandardObjects = false

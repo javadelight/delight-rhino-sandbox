@@ -224,6 +224,17 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     }
   }
   
+  @Override
+  public Object toJsObject(final Object javaObject) {
+    this.assertContextFactory();
+    try {
+      final Context context = this.contextFactory.enterContext();
+      return Context.javaToJS(javaObject, this.globalScope);
+    } finally {
+      Context.exit();
+    }
+  }
+  
   public RhinoSandboxImpl() {
     HashMap<String, Object> _hashMap = new HashMap<String, Object>();
     this.inScope = _hashMap;

@@ -55,5 +55,6 @@ interface RhinoSandbox {
 	 */
 	def Object eval(String js, Map<String, Object> variables)
 
+	def Object toJsObject(Object javaObject)
 	
 }

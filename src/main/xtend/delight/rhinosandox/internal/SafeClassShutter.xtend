@@ -9,7 +9,7 @@ class SafeClassShutter implements ClassShutter {
 	val public Set<String> allowedClasses
 	
 	override visibleToScripts(String fullClassName) {
-		 println("test "+fullClassName+" has "+allowedClasses)
+		// println("test "+fullClassName+" has "+allowedClasses)
 		return allowedClasses.contains(fullClassName)
 	}
 	

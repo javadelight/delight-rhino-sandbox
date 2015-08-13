@@ -11,6 +11,8 @@ import org.mozilla.javascript.Scriptable;
 
 /**
  * see http://www-archive.mozilla.org/rhino/apidocs/org/mozilla/javascript/ContextFactory.html
+ * 
+ * Also see https://github.com/flozano/rhino-sandbox-test/blob/master/src/main/java/com/flozano/rhino/sandbox/SandboxContextFactory.java
  */
 @SuppressWarnings("all")
 public class SafeContext extends ContextFactory {

@@ -9,6 +9,8 @@ import delight.rhinosandox.exceptions.ScriptCPUAbuseException
 
 /**
  * see http://www-archive.mozilla.org/rhino/apidocs/org/mozilla/javascript/ContextFactory.html
+ * 
+ * Also see https://github.com/flozano/rhino-sandbox-test/blob/master/src/main/java/com/flozano/rhino/sandbox/SandboxContextFactory.java
  */
 class SafeContext extends ContextFactory {
 

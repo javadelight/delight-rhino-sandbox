@@ -20,4 +20,11 @@ public class TestCPUViolation {
     sandbox.setInstructionLimit(200000);
     sandbox.eval("for (var i=0;i<=10000;i++) { };");
   }
+  
+  @Test
+  public void test_catch() {
+    final RhinoSandbox sandbox = RhinoSandboxes.create();
+    sandbox.setInstructionLimit(200000);
+    sandbox.eval("try { while (true) { }; } catch (e) { }");
+  }
 }

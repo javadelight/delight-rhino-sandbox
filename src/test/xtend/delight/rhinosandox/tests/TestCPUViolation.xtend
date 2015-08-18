@@ -28,4 +28,15 @@ class TestCPUViolation {
 		
 	}
 	
+	@Test
+	def void test_catch() {
+		
+		val sandbox = RhinoSandboxes.create
+		
+		sandbox.instructionLimit = 200000
+		
+		sandbox.eval("try { while (true) { }; } catch (e) { }")
+		
+	}
+	
 }

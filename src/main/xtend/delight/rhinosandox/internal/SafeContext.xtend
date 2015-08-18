@@ -54,7 +54,7 @@ class SafeContext extends ContextFactory {
 		mcx.instructions = mcx.instructions + INSTRUCTION_STEPS
 		
 		if (maxInstructions > 0 && mcx.instructions > maxInstructions) {
-			println('cpu abuse')
+			
 			throw new ScriptCPUAbuseException
 		}
 	}

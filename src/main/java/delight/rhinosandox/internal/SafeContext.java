@@ -3,7 +3,6 @@ package delight.rhinosandox.internal;
 import delight.rhinosandox.exceptions.ScriptCPUAbuseException;
 import delight.rhinosandox.exceptions.ScriptDurationException;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.Callable;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
@@ -61,7 +60,6 @@ public class SafeContext extends ContextFactory {
       }
       mcx.instructions = (mcx.instructions + SafeContext.INSTRUCTION_STEPS);
       if (((this.maxInstructions > 0) && (mcx.instructions > this.maxInstructions))) {
-        InputOutput.<String>println("cpu abuse");
         throw new ScriptCPUAbuseException();
       }
     } catch (Throwable _e) {

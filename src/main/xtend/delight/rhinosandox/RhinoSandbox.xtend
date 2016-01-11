@@ -42,18 +42,18 @@ interface RhinoSandbox {
 	/**
 	 * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
 	 */
-	def Object evalWithGlobalScope(String js)
+	def Object evalWithGlobalScope(String sourceName, String js)
 	
 	/**
 	 * Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
 	 */
-	def Object eval(String js)
+	def Object eval(String sourceName, String js)
 	
 	/**
 	 * <p>Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
 	 * <p><code>variables</code> defines variables with Java objects which will be available for the execution of this script.
 	 */
-	def Object eval(String js, Map<String, Object> variables)
+	def Object eval(String soureName, String js, Map<String, Object> variables)
 
 	
 }

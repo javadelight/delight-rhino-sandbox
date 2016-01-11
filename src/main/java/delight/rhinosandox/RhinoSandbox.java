@@ -41,16 +41,16 @@ public interface RhinoSandbox {
   /**
    * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
    */
-  public abstract Object evalWithGlobalScope(final String js);
+  public abstract Object evalWithGlobalScope(final String sourceName, final String js);
   
   /**
    * Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
    */
-  public abstract Object eval(final String js);
+  public abstract Object eval(final String sourceName, final String js);
   
   /**
    * <p>Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
    * <p><code>variables</code> defines variables with Java objects which will be available for the execution of this script.
    */
-  public abstract Object eval(final String js, final Map<String, Object> variables);
+  public abstract Object eval(final String soureName, final String js, final Map<String, Object> variables);
 }

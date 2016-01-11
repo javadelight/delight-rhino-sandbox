@@ -13,7 +13,7 @@ class TestCPUViolation {
 		
 		sandbox.instructionLimit = 50000
 		
-		sandbox.eval("while (true) { };")
+		sandbox.eval("Test_"+this.class, "while (true) { };")
 		
 	}
 	
@@ -24,7 +24,7 @@ class TestCPUViolation {
 		
 		sandbox.instructionLimit = 200000
 		
-		sandbox.eval("for (var i=0;i<=10000;i++) { };")
+		sandbox.eval("Test_"+this.class, "for (var i=0;i<=10000;i++) { };")
 		
 	}
 	

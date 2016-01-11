@@ -13,7 +13,7 @@ class TestCPUViolationAndCatch {
 		
 		sandbox.instructionLimit = 200000
 		
-		sandbox.eval("try { while (true) { }; } catch (e) { }")
+		sandbox.eval("Test_"+this.class, "try { while (true) { }; } catch (e) { }")
 		
 	}
 	

@@ -21,7 +21,7 @@ class TestClassAccess {
 		val embedded = new TestEmbed
 		sandbox.inject("test", embedded)
 
-		sandbox.eval("var x=1+1;test.setValue(''+x);")
+		sandbox.eval("Test_"+this.class,"var x=1+1;test.setValue(''+x);")
 
 		Assert.assertEquals("2", embedded.value)
 
@@ -36,7 +36,7 @@ class TestClassAccess {
 		sandbox.allow(String)
 		sandbox.allow(Class)
 		
-		sandbox.eval("fromJava.toString();");
+		sandbox.eval("Test_"+this.class,"fromJava.toString();");
 
 		
 	}

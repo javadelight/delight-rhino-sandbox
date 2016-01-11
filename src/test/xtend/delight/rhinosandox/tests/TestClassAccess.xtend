@@ -45,7 +45,7 @@ class TestClassAccess {
 	def void test_system_out_forbidden() {
 		val sandbox = RhinoSandboxes.create
 
-		sandbox.eval("java.lang.System.out.println('hello');")
+		sandbox.eval("Test_"+this.class,"java.lang.System.out.println('hello');")
 
 	}
 

@@ -40,7 +40,9 @@ public class TestClassAccess {
   
   @Test(expected = Exception.class)
   public void test_system_out_forbidden() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nInvalid number of arguments. The method eval(String, String) is not applicable for the arguments (String)");
+    final RhinoSandbox sandbox = RhinoSandboxes.create();
+    Class<? extends TestClassAccess> _class = this.getClass();
+    String _plus = ("Test_" + _class);
+    sandbox.eval(_plus, "java.lang.System.out.println(\'hello\');");
   }
 }

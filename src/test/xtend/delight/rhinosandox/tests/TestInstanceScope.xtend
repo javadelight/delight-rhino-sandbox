@@ -11,22 +11,22 @@ class TestInstanceScope {
 		
 		val sandbox = RhinoSandboxes.create
 		
-		sandbox.eval('var s="me";');
+		sandbox.eval("Test_"+this.class,'var s="me";');
 		
-		sandbox.eval('s;')		
+		sandbox.eval("Test_"+this.class,'s;')		
 	}
 	
 	@Test
 	def void test_global_scope() {
 		val sandbox = RhinoSandboxes.create
 		
-		sandbox.evalWithGlobalScope('var s="me";');
+		sandbox.evalWithGlobalScope("Test_"+this.class,'var s="me";');
 		
-		Assert.assertEquals("me", sandbox.eval('s;'))
+		Assert.assertEquals("me", sandbox.eval("Test_"+this.class,'s;'))
 		
-		sandbox.eval('s="newvalue"; s;')
+		sandbox.eval("Test_"+this.class,'s="newvalue"; s;')
 		
-		Assert.assertEquals("me", sandbox.eval('s;'))		
+		Assert.assertEquals("me", sandbox.eval("Test_"+this.class,'s;'))		
 		
 		
 	}

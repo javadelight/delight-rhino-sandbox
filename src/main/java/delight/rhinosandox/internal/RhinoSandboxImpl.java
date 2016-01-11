@@ -82,18 +82,18 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   @Override
-  public Object evalWithGlobalScope(final String js) {
+  public Object evalWithGlobalScope(final String sourceName, final String js) {
     this.assertContextFactory();
     try {
       final Context context = this.contextFactory.enterContext();
-      return context.evaluateString(this.globalScope, js, "js", 1, null);
+      return context.evaluateString(this.globalScope, js, sourceName, 1, null);
     } finally {
       Context.exit();
     }
   }
   
   @Override
-  public Object eval(final String js, final Map<String, Object> variables) {
+  public Object eval(final String sourceName, final String js, final Map<String, Object> variables) {
     this.assertContextFactory();
     try {
       final Context context = this.contextFactory.enterContext();
@@ -113,16 +113,16 @@ public class RhinoSandboxImpl implements RhinoSandbox {
           instanceScope.put(_key, instanceScope, _object);
         }
       }
-      return context.evaluateString(instanceScope, js, "js", 1, null);
+      return context.evaluateString(instanceScope, js, sourceName, 1, null);
     } finally {
       Context.exit();
     }
   }
   
   @Override
-  public Object eval(final String js) {
+  public Object eval(final String sourceName, final String js) {
     HashMap<String, Object> _hashMap = new HashMap<String, Object>();
-    return this.eval(js, _hashMap);
+    return this.eval(sourceName, js, _hashMap);
   }
   
   @Override

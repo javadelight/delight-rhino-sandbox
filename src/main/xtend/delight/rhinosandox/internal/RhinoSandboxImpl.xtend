@@ -68,18 +68,18 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 	}
 
-	override Object evalWithGlobalScope(String js) {
+	override Object evalWithGlobalScope(String sourceName, String js) {
 		assertContextFactory
 
 		try {
 			val context = contextFactory.enterContext
-			return context.evaluateString(globalScope, js, "js", 1, null)
+			return context.evaluateString(globalScope, js, sourceName, 1, null)
 		} finally {
 			Context.exit
 		}
 	}
 
-	override Object eval(String js, Map<String, Object> variables) {
+	override Object eval(String sourceName, String js, Map<String, Object> variables) {
 		assertContextFactory
 
 		try {
@@ -97,15 +97,15 @@ class RhinoSandboxImpl implements RhinoSandbox {
 				instanceScope.put(entry.key, instanceScope, Context.toObject(entry.value, instanceScope))
 			}
 
-			return context.evaluateString(instanceScope, js, "js", 1, null)
+			return context.evaluateString(instanceScope, js, sourceName, 1, null)
 
 		} finally {
 			Context.exit
 		}
 	}
 
-	override Object eval(String js) {
-		eval(js, new HashMap)
+	override Object eval(String sourceName, String js) {
+		eval(sourceName, js, new HashMap)
 
 	}
 

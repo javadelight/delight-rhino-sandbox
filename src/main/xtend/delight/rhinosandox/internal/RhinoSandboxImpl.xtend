@@ -91,7 +91,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			//globalScope.sealObject
 			
 			// any new globals will not be available in global scope
-			val Scriptable instanceScope = context.newObject(null);
+			val Scriptable instanceScope = context.newObject(safeScope);
 			val sourceScriptable = context.newObject(safeScope);
 			//instanceScope.setPrototype(safeScope);
 			Scope.joinScopes(sourceScriptable as Scope, instanceScope as Scope);

@@ -99,7 +99,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     try {
       final Context context = this.contextFactory.enterContext();
       this.assertSafeScope(context);
-      final Scriptable instanceScope = context.newObject(null);
+      final Scriptable instanceScope = context.newObject(this.safeScope);
       final Scriptable sourceScriptable = context.newObject(this.safeScope);
       Scope.joinScopes(((Scope) sourceScriptable), ((Scope) instanceScope));
       instanceScope.setParentScope(null);

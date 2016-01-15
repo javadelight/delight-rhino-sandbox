@@ -13,6 +13,7 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.ast.Scope;
 
 @SuppressWarnings("all")
 public class RhinoSandboxImpl implements RhinoSandbox {
@@ -98,8 +99,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     try {
       final Context context = this.contextFactory.enterContext();
       this.assertSafeScope(context);
-      final Scriptable instanceScope = context.newObject(this.safeScope);
-      instanceScope.setPrototype(this.safeScope);
+      final Scriptable instanceScope = context.newObject(null);
+      final Scriptable sourceScriptable = context.newObject(this.safeScope);
+      Scope.joinScopes(((Scope) sourceScriptable), ((Scope) instanceScope));
       instanceScope.setParentScope(null);
       Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
       for (final Map.Entry<String, Object> entry : _entrySet) {

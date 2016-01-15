@@ -7,6 +7,7 @@ import org.mozilla.javascript.Context
 import org.mozilla.javascript.ContextFactory
 import org.mozilla.javascript.Scriptable
 import org.mozilla.javascript.ScriptableObject
+import org.mozilla.javascript.ast.Scope
 
 class RhinoSandboxImpl implements RhinoSandbox {
 
@@ -90,10 +91,12 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			//globalScope.sealObject
 			
 			// any new globals will not be available in global scope
-			val Scriptable instanceScope = context.newObject(safeScope);
-			instanceScope.setPrototype(safeScope);
+			val Scriptable instanceScope = context.newObject(null);
+			val sourceScriptable = context.newObject(safeScope);
+			//instanceScope.setPrototype(safeScope);
+			Scope.joinScopes(sourceScriptable as Scope, instanceScope as Scope);
 			instanceScope.setParentScope(null);
-
+		
 			for (entry : variables.entrySet) {
 				allow(entry.value.class)
 				instanceScope.put(entry.key, instanceScope, Context.toObject(entry.value, instanceScope))

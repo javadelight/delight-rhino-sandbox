@@ -28,6 +28,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   
   private boolean useSafeStandardObjects;
   
+  private boolean sealScope;
+  
   private final Map<String, Object> inScope;
   
   private SafeClassShutter classShutter;
@@ -98,6 +100,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     try {
       final Context context = this.contextFactory.enterContext();
       this.assertSafeScope(context);
+      if (this.sealScope) {
+        this.globalScope.sealObject();
+      }
       final Scriptable instanceScope = context.newObject(this.safeScope);
       instanceScope.setParentScope(null);
       Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
@@ -227,6 +232,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     HashMap<String, Object> _hashMap = new HashMap<String, Object>();
     this.inScope = _hashMap;
     this.useSafeStandardObjects = false;
+    this.sealScope = true;
     SafeClassShutter _safeClassShutter = new SafeClassShutter();
     this.classShutter = _safeClassShutter;
   }

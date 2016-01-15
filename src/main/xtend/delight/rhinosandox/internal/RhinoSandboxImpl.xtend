@@ -16,7 +16,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	var ScriptableObject safeScope
 	var int instructionLimit
 	var long maxDuration
-	var boolean useSafeStandardObjects;
+	var boolean useSafeStandardObjects
+	var boolean sealScope
 
 	val Map<String, Object> inScope
 
@@ -88,7 +89,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 			assertSafeScope(context)
 			// FIXME Is there a way to seal objects with the GWT libraries?
-			//globalScope.sealObject
+			if (sealScope) {
+			globalScope.sealObject
+			
+			}
 			
 			// any new globals will not be available in global scope
 			val Scriptable instanceScope = context.newObject(safeScope);
@@ -186,6 +190,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	new() {
 		this.inScope = new HashMap<String, Object>
 		this.useSafeStandardObjects = false
+		this.sealScope = true
 		this.classShutter = new SafeClassShutter
 	}
 

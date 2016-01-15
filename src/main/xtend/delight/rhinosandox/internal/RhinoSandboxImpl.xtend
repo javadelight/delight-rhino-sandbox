@@ -90,7 +90,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			assertSafeScope(context)
 			// FIXME Is there a way to seal objects with the GWT libraries?
 			if (sealScope) {
-			globalScope.sealObject
+				globalScope.sealObject
 			
 			}
 			

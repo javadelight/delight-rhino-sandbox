@@ -86,7 +86,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			val context = contextFactory.enterContext
 
 			assertSafeScope(context)
-			globalScope.sealObject
+			//globalScope.sealObject
 			// any new globals will not be available in global scope
 			val Scriptable instanceScope = context.newObject(safeScope);
 			instanceScope.setPrototype(safeScope);

@@ -38,6 +38,11 @@ interface RhinoSandbox {
 	 * If .initSafeStandardObjects should be used.
 	 */
 	def RhinoSandbox setUseSafeStandardObjects(boolean useSafeStandardObject)
+	
+	/**
+	 * If the global scope should be sealed (default: true).
+	 */
+	def RhinoSandbox setUseSealedScope(boolean value)
 
 	/**
 	 * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.

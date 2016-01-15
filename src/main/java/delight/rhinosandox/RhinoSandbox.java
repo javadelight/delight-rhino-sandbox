@@ -39,6 +39,11 @@ public interface RhinoSandbox {
   public abstract RhinoSandbox setUseSafeStandardObjects(final boolean useSafeStandardObject);
   
   /**
+   * If the global scope should be sealed (default: true).
+   */
+  public abstract RhinoSandbox setUseSealedScope(final boolean value);
+  
+  /**
    * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
    */
   public abstract Object evalWithGlobalScope(final String sourceName, final String js);

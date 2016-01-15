@@ -146,6 +146,8 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this
 	}
 
+
+
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
 
@@ -192,6 +194,11 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this.useSafeStandardObjects = false
 		this.sealScope = true
 		this.classShutter = new SafeClassShutter
+	}
+	
+	override setUseSealedScope(boolean value) {
+		this.sealScope = value
+		return this
 	}
 
 }

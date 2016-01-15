@@ -236,4 +236,10 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     SafeClassShutter _safeClassShutter = new SafeClassShutter();
     this.classShutter = _safeClassShutter;
   }
+  
+  @Override
+  public RhinoSandbox setUseSealedScope(final boolean value) {
+    this.sealScope = value;
+    return this;
+  }
 }

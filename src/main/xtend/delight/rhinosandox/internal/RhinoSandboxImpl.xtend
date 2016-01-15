@@ -90,17 +90,16 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			assertSafeScope(context)
 			// FIXME Is there a way to seal objects with the GWT libraries?
 			if (sealScope) {
-				globalScope.sealObject
-			
+				globalScope.sealObject 
 			}
-			
+
 			// any new globals will not be available in global scope
 			val Scriptable instanceScope = context.newObject(safeScope);
-			//val sourceScriptable = context.newObject(safeScope);
+			// val sourceScriptable = context.newObject(safeScope);
 			instanceScope.setPrototype(safeScope);
-			//Scope.joinScopes(sourceScriptable as Scope, instanceScope as Scope);
+			// Scope.joinScopes(sourceScriptable as Scope, instanceScope as Scope);
 			instanceScope.setParentScope(null);
-		
+
 			for (entry : variables.entrySet) {
 				allow(entry.value.class)
 				instanceScope.put(entry.key, instanceScope, Context.toObject(entry.value, instanceScope))
@@ -146,8 +145,6 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this
 	}
 
-
-
 	override RhinoSandbox allow(Class<?> clazz) {
 		this.classShutter.allowedClasses.add(clazz.name)
 
@@ -178,16 +175,14 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			this.inScope.put(variableName, object)
 		} else {
 			try {
-			contextFactory.enterContext
-			globalScope.put(variableName, globalScope, Context.toObject(object, globalScope))
-			
+				contextFactory.enterContext
+				globalScope.put(variableName, globalScope, Context.toObject(object, globalScope))
+
 			} finally {
 				Context.exit();
 			}
 		}
 	}
-
-	
 
 	new() {
 		this.inScope = new HashMap<String, Object>
@@ -195,7 +190,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 		this.sealScope = true
 		this.classShutter = new SafeClassShutter
 	}
-	
+
 	override setUseSealedScope(boolean value) {
 		this.sealScope = value
 		return this

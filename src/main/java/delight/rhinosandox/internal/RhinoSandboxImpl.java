@@ -104,6 +104,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
         this.globalScope.sealObject();
       }
       final Scriptable instanceScope = context.newObject(this.safeScope);
+      instanceScope.setPrototype(this.safeScope);
       instanceScope.setParentScope(null);
       Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
       for (final Map.Entry<String, Object> entry : _entrySet) {

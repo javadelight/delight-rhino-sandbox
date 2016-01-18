@@ -101,7 +101,9 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     try {
       final Context context = this.contextFactory.enterContext();
       this.assertSafeScope(context);
-      InputOutput.<String>println(("Sealing scope? " + Boolean.valueOf(this.sealScope)));
+      String _plus = (this + ": Sealing scope? ");
+      String _plus_1 = (_plus + Boolean.valueOf(this.sealScope));
+      InputOutput.<String>println(_plus_1);
       if (this.sealScope) {
       }
       final Scriptable instanceScope = context.newObject(this.safeScope);

@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.mozilla.javascript.Context;
-import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -38,33 +37,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
    */
   public void assertContextFactory() {
-    boolean _notEquals = (!Objects.equal(this.contextFactory, null));
-    if (_notEquals) {
-      return;
-    }
-    SafeContext _safeContext = new SafeContext();
-    this.contextFactory = _safeContext;
-    boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();
-    boolean _not = (!_hasExplicitGlobal);
-    if (_not) {
-      ContextFactory.initGlobal(this.contextFactory);
-    }
-    this.contextFactory.maxInstructions = this.instructionLimit;
-    this.contextFactory.maxRuntimeInMs = this.maxDuration;
-    try {
-      final Context context = this.contextFactory.enterContext();
-      ScriptableObject _initStandardObjects = context.initStandardObjects(null, false);
-      this.globalScope = _initStandardObjects;
-      Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
-      for (final Map.Entry<String, Object> entry : _entrySet) {
-        String _key = entry.getKey();
-        Object _value = entry.getValue();
-        Scriptable _object = Context.toObject(_value, this.globalScope);
-        this.globalScope.put(_key, this.globalScope, _object);
-      }
-    } finally {
-      Context.exit();
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The constructor RhinoEval(String, Member, Scriptable) is not applicable without arguments");
   }
   
   public void assertSafeScope(final Context context) {

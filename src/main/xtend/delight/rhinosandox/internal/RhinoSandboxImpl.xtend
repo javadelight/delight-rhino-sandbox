@@ -52,7 +52,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 				
 			}
 			
-			
+			globalScope.put("rhinoEval", globalScope, new RhinoEval())
 			
 		} finally {
 			Context.exit

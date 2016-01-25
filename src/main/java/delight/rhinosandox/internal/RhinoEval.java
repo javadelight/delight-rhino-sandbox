@@ -24,10 +24,10 @@ public class RhinoEval extends FunctionObject {
       int _plus = (idx + _length);
       String _substring = script.substring(_plus);
       scriptUrl = _substring;
+      String _replace = scriptUrl.replace("\n", "");
+      String _replace_1 = _replace.replace(" ", "");
+      scriptUrl = _replace_1;
     }
-    String _replace = scriptUrl.replace("\n", "");
-    String _replace_1 = _replace.replace(" ", "");
-    scriptUrl = _replace_1;
     InputOutput.<String>println(".....");
     InputOutput.<String>println(("scriptUrl " + scriptUrl));
     InputOutput.<String>println(".....");

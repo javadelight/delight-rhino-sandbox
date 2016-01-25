@@ -24,9 +24,10 @@ class RhinoEval extends FunctionObject {
 		var String scriptUrl = null
 		if (idx != -1) {
 			scriptUrl = script.substring(idx+toFind.length)
+			scriptUrl = scriptUrl.replace("\n", "").replace(" ", "")
 		}
 		
-		scriptUrl = scriptUrl.replace("\n", "").replace(" ", "")
+		
 		
 		//println("XXXXXXX")
 		//println(script)

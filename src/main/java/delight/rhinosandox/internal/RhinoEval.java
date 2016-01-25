@@ -26,6 +26,8 @@ public class RhinoEval extends FunctionObject {
       scriptUrl = _substring;
     }
     InputOutput.<String>println(scriptUrl);
+    int _indexOf = script.indexOf("\\n");
+    InputOutput.<Integer>println(Integer.valueOf(_indexOf));
     return cx.evaluateString(scope, script, scriptUrl, 1, null);
   }
 }

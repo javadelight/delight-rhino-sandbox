@@ -1,14 +1,13 @@
 package delight.rhinosandox.internal
 
 import delight.rhinosandox.RhinoSandbox
+import java.lang.reflect.Method
 import java.util.HashMap
 import java.util.Map
 import org.mozilla.javascript.Context
 import org.mozilla.javascript.ContextFactory
 import org.mozilla.javascript.Scriptable
 import org.mozilla.javascript.ScriptableObject
-import org.mozilla.javascript.ast.Scope
-import org.mozilla.javascript.FunctionObject
 
 class RhinoSandboxImpl implements RhinoSandbox {
 
@@ -51,8 +50,11 @@ class RhinoSandboxImpl implements RhinoSandbox {
 				
 				
 			}
+			val Class[] parameters = #[String] ;
+			val Method dealMethod = RhinoEvalDummy.getMethod("eval", parameters);
+			globalScope.defineProperty("rhinoEval", new RhinoEval("rhinoEval", dealMethod, globalScope), ScriptableObject.DONTENUM);
 			
-			globalScope.put("rhinoEval", globalScope, new RhinoEval())
+			//globalScope.put("rhinoEval", globalScope, )
 			
 		} finally {
 			Context.exit

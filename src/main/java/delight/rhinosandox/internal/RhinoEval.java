@@ -17,7 +17,7 @@ public class RhinoEval extends FunctionObject {
     Object _get = args[0];
     final String script = ((String) _get);
     final String toFind = "//# sourceURL=";
-    final int idx = script.indexOf(toFind);
+    final int idx = script.lastIndexOf(toFind);
     String scriptUrl = null;
     if ((idx != (-1))) {
       int _length = toFind.length();

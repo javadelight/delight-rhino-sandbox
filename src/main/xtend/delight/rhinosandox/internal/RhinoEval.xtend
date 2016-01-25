@@ -19,7 +19,7 @@ class RhinoEval extends FunctionObject {
 		
 		val toFind = "//# sourceURL="
 		
-		val idx = script.indexOf(toFind)
+		val idx = script.lastIndexOf(toFind)
 		
 		var String scriptUrl = null
 		if (idx != -1) {

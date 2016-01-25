@@ -52,7 +52,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			}
 			val Class[] parameters = #[String] ;
 			val Method dealMethod = RhinoEvalDummy.getMethod("eval", parameters);
-			globalScope.defineProperty("rhinoEval", new RhinoEval("rhinoEval", dealMethod, globalScope), ScriptableObject.DONTENUM);
+			globalScope.defineProperty("eval", new RhinoEval("eval", dealMethod, globalScope), ScriptableObject.DONTENUM);
 			
 			//globalScope.put("rhinoEval", globalScope, )
 			

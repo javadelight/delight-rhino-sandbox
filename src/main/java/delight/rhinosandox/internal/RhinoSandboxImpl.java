@@ -68,8 +68,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
         }
         final Class[] parameters = { String.class };
         final Method dealMethod = RhinoEvalDummy.class.getMethod("eval", parameters);
-        RhinoEval _rhinoEval = new RhinoEval("rhinoEval", dealMethod, this.globalScope);
-        this.globalScope.defineProperty("rhinoEval", _rhinoEval, ScriptableObject.DONTENUM);
+        RhinoEval _rhinoEval = new RhinoEval("eval", dealMethod, this.globalScope);
+        this.globalScope.defineProperty("eval", _rhinoEval, ScriptableObject.DONTENUM);
       } finally {
         Context.exit();
       }

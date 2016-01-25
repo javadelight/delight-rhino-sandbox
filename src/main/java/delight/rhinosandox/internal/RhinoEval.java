@@ -15,7 +15,7 @@ public class RhinoEval extends FunctionObject {
   @Override
   public Object call(final Context cx, final Scriptable scope, final Scriptable thisObj, final Object[] args) {
     Object _get = args[0];
-    final String script = ((String) _get);
+    final String script = _get.toString();
     final String toFind = "//# sourceURL=";
     final int idx = script.lastIndexOf(toFind);
     String scriptUrl = null;

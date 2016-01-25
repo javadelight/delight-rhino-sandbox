@@ -15,7 +15,7 @@ class RhinoEval extends FunctionObject {
 	
 	override Object call(Context cx, Scriptable scope, Scriptable thisObj, Object[] args) {
 		
-		val String script = args.get(0) as String
+		val String script = args.get(0).toString
 		
 		val toFind = "//# sourceURL="
 		

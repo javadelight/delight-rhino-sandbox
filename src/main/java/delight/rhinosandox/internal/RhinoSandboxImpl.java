@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.Scriptable;
@@ -101,10 +100,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     try {
       final Context context = this.contextFactory.enterContext();
       this.assertSafeScope(context);
-      String _plus = (this + ": Sealing scope? ");
-      String _plus_1 = (_plus + Boolean.valueOf(this.sealScope));
-      InputOutput.<String>println(_plus_1);
       if (this.sealScope) {
+        this.globalScope.sealObject();
       }
       final Scriptable instanceScope = context.newObject(this.safeScope);
       instanceScope.setPrototype(this.safeScope);

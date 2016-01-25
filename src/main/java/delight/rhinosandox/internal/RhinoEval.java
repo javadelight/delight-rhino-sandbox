@@ -25,7 +25,8 @@ public class RhinoEval extends FunctionObject {
       int _plus_1 = (idx + _length_1);
       String _substring = script.substring(_plus_1);
       int _indexOf = _substring.indexOf("\n");
-      String _substring_1 = script.substring(_plus, _indexOf);
+      int _minus = (_indexOf - 1);
+      String _substring_1 = script.substring(_plus, _minus);
       scriptUrl = _substring_1;
     }
     return cx.evaluateString(scope, script, scriptUrl, 1, null);

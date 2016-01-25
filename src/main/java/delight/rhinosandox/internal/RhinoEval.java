@@ -7,8 +7,8 @@ import org.mozilla.javascript.Scriptable;
 
 @SuppressWarnings("all")
 public class RhinoEval extends FunctionObject {
-  public RhinoEval(final String name, final Member methodOrConstructor, final Scriptable parentScope) {
-    super(name, methodOrConstructor, parentScope);
+  public RhinoEval(final String name, final Member methodOrConstructor, final Scriptable scope) {
+    super(name, methodOrConstructor, scope);
   }
   
   @Override

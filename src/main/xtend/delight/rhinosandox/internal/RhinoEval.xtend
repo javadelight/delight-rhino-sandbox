@@ -7,10 +7,12 @@ import org.mozilla.javascript.Scriptable
 
 class RhinoEval extends FunctionObject {
 
-	new(String name, Member methodOrConstructor, Scriptable parentScope) {
-		super(name, methodOrConstructor, parentScope);
-	}
 
+
+	new(String name, Member methodOrConstructor, Scriptable scope) {
+		super(name, methodOrConstructor, scope)
+	}
+	
 	override Object call(Context cx, Scriptable scope, Scriptable thisObj, Object[] args) {
 		
 		val String script = args.get(0) as String

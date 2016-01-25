@@ -25,12 +25,15 @@ class RhinoEval extends FunctionObject {
 		if (idx != -1) {
 			scriptUrl = script.substring(idx+toFind.length)
 		}
-		println("XXXXXXX")
-		println(script)
+		
+		scriptUrl = scriptUrl.replace("\n", "").replace(" ", "")
+		
+		//println("XXXXXXX")
+		//println(script)
 		println(".....")
 		println("scriptUrl "+scriptUrl)
 		println(".....")
-		println("index "+script.indexOf("\\n"))
+		
 		
 		return cx.evaluateString(scope, script, scriptUrl, 1, null)
 		

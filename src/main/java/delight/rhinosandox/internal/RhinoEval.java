@@ -25,14 +25,12 @@ public class RhinoEval extends FunctionObject {
       String _substring = script.substring(_plus);
       scriptUrl = _substring;
     }
-    InputOutput.<String>println("XXXXXXX");
-    InputOutput.<String>println(script);
+    String _replace = scriptUrl.replace("\n", "");
+    String _replace_1 = _replace.replace(" ", "");
+    scriptUrl = _replace_1;
     InputOutput.<String>println(".....");
     InputOutput.<String>println(("scriptUrl " + scriptUrl));
     InputOutput.<String>println(".....");
-    int _indexOf = script.indexOf("\\n");
-    String _plus_1 = ("index " + Integer.valueOf(_indexOf));
-    InputOutput.<String>println(_plus_1);
     return cx.evaluateString(scope, script, scriptUrl, 1, null);
   }
 }

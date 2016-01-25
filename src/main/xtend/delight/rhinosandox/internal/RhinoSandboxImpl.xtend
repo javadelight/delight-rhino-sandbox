@@ -8,6 +8,7 @@ import org.mozilla.javascript.ContextFactory
 import org.mozilla.javascript.Scriptable
 import org.mozilla.javascript.ScriptableObject
 import org.mozilla.javascript.ast.Scope
+import org.mozilla.javascript.FunctionObject
 
 class RhinoSandboxImpl implements RhinoSandbox {
 
@@ -45,7 +46,10 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			globalScope = context.initStandardObjects(null, false)
 
 			for (entry : inScope.entrySet) {
+				
 				globalScope.put(entry.key, globalScope, Context.toObject(entry.value, globalScope))
+				
+				
 			}
 
 		} finally {

@@ -1,6 +1,7 @@
 package delight.rhinosandox.internal;
 
 import java.lang.reflect.Member;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.FunctionObject;
 import org.mozilla.javascript.Scriptable;
@@ -21,14 +22,10 @@ public class RhinoEval extends FunctionObject {
     if ((idx != (-1))) {
       int _length = toFind.length();
       int _plus = (idx + _length);
-      int _length_1 = toFind.length();
-      int _plus_1 = (idx + _length_1);
-      String _substring = script.substring(_plus_1);
-      int _indexOf = _substring.indexOf("\n");
-      int _minus = (_indexOf - 1);
-      String _substring_1 = script.substring(_plus, _minus);
-      scriptUrl = _substring_1;
+      String _substring = script.substring(_plus);
+      scriptUrl = _substring;
     }
+    InputOutput.<String>println(scriptUrl);
     return cx.evaluateString(scope, script, scriptUrl, 1, null);
   }
 }

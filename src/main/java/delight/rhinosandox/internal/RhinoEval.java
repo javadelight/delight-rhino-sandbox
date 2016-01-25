@@ -1,7 +1,6 @@
 package delight.rhinosandox.internal;
 
 import java.lang.reflect.Member;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.FunctionObject;
 import org.mozilla.javascript.Scriptable;
@@ -28,9 +27,6 @@ public class RhinoEval extends FunctionObject {
       String _replace_1 = _replace.replace(" ", "");
       scriptUrl = _replace_1;
     }
-    InputOutput.<String>println(".....");
-    InputOutput.<String>println(("scriptUrl " + scriptUrl));
-    InputOutput.<String>println(".....");
     return cx.evaluateString(scope, script, scriptUrl, 1, null);
   }
 }

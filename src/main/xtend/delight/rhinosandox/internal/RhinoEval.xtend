@@ -31,9 +31,9 @@ class RhinoEval extends FunctionObject {
 		
 		//println("XXXXXXX")
 		//println(script)
-		println(".....")
-		println("scriptUrl "+scriptUrl)
-		println(".....")
+		//println(".....")
+		//println("scriptUrl "+scriptUrl)
+		//println(".....")
 		
 		
 		return cx.evaluateString(scope, script, scriptUrl, 1, null)

@@ -13,19 +13,15 @@ public class RhinoEval extends FunctionObject {
   
   @Override
   public Object call(final Context cx, final Scriptable scope, final Scriptable thisObj, final Object[] args) {
-    Object _get = args[0];
-    final String script = _get.toString();
+    final String script = args[0].toString();
     final String toFind = "//# sourceURL=";
     final int idx = script.lastIndexOf(toFind);
     String scriptUrl = null;
     if ((idx != (-1))) {
       int _length = toFind.length();
       int _plus = (idx + _length);
-      String _substring = script.substring(_plus);
-      scriptUrl = _substring;
-      String _replace = scriptUrl.replace("\n", "");
-      String _replace_1 = _replace.replace(" ", "");
-      scriptUrl = _replace_1;
+      scriptUrl = script.substring(_plus);
+      scriptUrl = scriptUrl.replace("\n", "").replace(" ", "");
     }
     return cx.evaluateString(scope, script, scriptUrl, 1, null);
   }

@@ -70,8 +70,7 @@ public class SafeContext extends ContextFactory {
   @Override
   public Object doTopCall(final Callable callable, final Context cx, final Scriptable scope, final Scriptable thisObj, final Object[] args) {
     final SafeContext.CountContext mcx = ((SafeContext.CountContext) cx);
-    long _currentTimeMillis = System.currentTimeMillis();
-    mcx.startTime = _currentTimeMillis;
+    mcx.startTime = System.currentTimeMillis();
     mcx.instructions = 0;
     return super.doTopCall(callable, cx, scope, thisObj, args);
   }

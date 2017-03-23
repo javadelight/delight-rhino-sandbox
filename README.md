@@ -36,19 +36,4 @@ sandbox.eval("while (true) { }");
 // --> results in ScriptCPUAbuseException
 ```
 
-## Dependency
 
-Just add the following dependency to your projects.
-
-```
-<dependency>
-    <groupId>org.javadelight</groupId>
-    <artifactId>delight-nashorn-sandbox</artifactId>
-    <version>[insert latest version]</version>
-</dependency>
-```
-
-This artifact is available on [Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cdelight-nashorn-sandbox) and 
-[BinTray](https://bintray.com/javadelight/javadelight/delight-nashorn-sandbox).
-
-[![Maven Central](https://img.shields.io/maven-central/v/org.javadelight/delight-nashorn-sandbox.svg)](https://search.maven.org/#search%7Cga%7C1%7Cdelight-nashorn-sandbox)

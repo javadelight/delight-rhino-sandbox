@@ -57,10 +57,14 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       this.contextFactory.maxRuntimeInMs = this.maxDuration;
       try {
         final Context context = this.contextFactory.enterContext();
-        this.globalScope = context.initStandardObjects(null, false);
+        ScriptableObject _initStandardObjects = context.initStandardObjects(null, false);
+        this.globalScope = _initStandardObjects;
         Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
         for (final Map.Entry<String, Object> entry : _entrySet) {
-          this.globalScope.put(entry.getKey(), this.globalScope, Context.toObject(entry.getValue(), this.globalScope));
+          String _key = entry.getKey();
+          Object _value = entry.getValue();
+          Scriptable _object = Context.toObject(_value, this.globalScope);
+          this.globalScope.put(_key, this.globalScope, _object);
         }
         final Class[] parameters = { String.class };
         final Method dealMethod = RhinoEvalDummy.class.getMethod("eval", parameters);
@@ -80,7 +84,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       return;
     }
     if (this.useSafeStandardObjects) {
-      this.safeScope = context.initSafeStandardObjects(this.globalScope, true);
+      ScriptableObject _initSafeStandardObjects = context.initSafeStandardObjects(this.globalScope, true);
+      this.safeScope = _initSafeStandardObjects;
       return;
     }
     context.setClassShutter(this.classShutter);
@@ -115,8 +120,13 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
       for (final Map.Entry<String, Object> entry : _entrySet) {
         {
-          this.allow(entry.getValue().getClass());
-          instanceScope.put(entry.getKey(), instanceScope, Context.toObject(entry.getValue(), instanceScope));
+          Object _value = entry.getValue();
+          Class<?> _class = _value.getClass();
+          this.allow(_class);
+          String _key = entry.getKey();
+          Object _value_1 = entry.getValue();
+          Scriptable _object = Context.toObject(_value_1, instanceScope);
+          instanceScope.put(_key, instanceScope, _object);
         }
       }
       return context.evaluateString(instanceScope, js, sourceName, 1, null);
@@ -176,7 +186,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   public RhinoSandbox allow(final Class<?> clazz) {
     RhinoSandboxImpl _xblockexpression = null;
     {
-      this.classShutter.allowedClasses.add(clazz.getName());
+      String _name = clazz.getName();
+      this.classShutter.allowedClasses.add(_name);
       _xblockexpression = this;
     }
     return _xblockexpression;
@@ -202,7 +213,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     RhinoSandboxImpl _xblockexpression = null;
     {
       this.injectInt(variableName, object);
-      this.allow(object.getClass());
+      Class<?> _class = object.getClass();
+      this.allow(_class);
       _xblockexpression = this;
     }
     return _xblockexpression;
@@ -220,7 +232,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     } else {
       try {
         this.contextFactory.enterContext();
-        this.globalScope.put(variableName, this.globalScope, Context.toObject(object, this.globalScope));
+        Scriptable _object = Context.toObject(object, this.globalScope);
+        this.globalScope.put(variableName, this.globalScope, _object);
       } finally {
         Context.exit();
       }

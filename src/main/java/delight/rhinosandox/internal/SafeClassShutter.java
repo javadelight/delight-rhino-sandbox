@@ -21,6 +21,7 @@ public class SafeClassShutter implements ClassShutter {
   public SafeClassShutter() {
     HashSet<String> _hashSet = new HashSet<String>();
     this.allowedClasses = _hashSet;
-    this.allowedClasses.add(EcmaError.class.getName());
+    String _name = EcmaError.class.getName();
+    this.allowedClasses.add(_name);
   }
 }

@@ -26,12 +26,14 @@ public class TestInstanceScope {
     sandbox.evalWithGlobalScope(_plus, "var s=\"me\";");
     Class<? extends TestInstanceScope> _class_1 = this.getClass();
     String _plus_1 = ("Test_" + _class_1);
-    Assert.assertEquals("me", sandbox.eval(_plus_1, "s;"));
+    Object _eval = sandbox.eval(_plus_1, "s;");
+    Assert.assertEquals("me", _eval);
     Class<? extends TestInstanceScope> _class_2 = this.getClass();
     String _plus_2 = ("Test_" + _class_2);
     sandbox.eval(_plus_2, "s=\"newvalue\"; s;");
     Class<? extends TestInstanceScope> _class_3 = this.getClass();
     String _plus_3 = ("Test_" + _class_3);
-    Assert.assertEquals("me", sandbox.eval(_plus_3, "s;"));
+    Object _eval_1 = sandbox.eval(_plus_3, "s;");
+    Assert.assertEquals("me", _eval_1);
   }
 }

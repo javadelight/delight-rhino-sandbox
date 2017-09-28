@@ -11,7 +11,7 @@ class TestCPUViolationAndCatch {
 		
 		val sandbox = RhinoSandboxes.create
 		
-		sandbox.instructionLimit = 200000
+		sandbox.instructionLimit = 50000
 		
 		sandbox.eval("Test_"+this.class, "try { while (true) { }; } catch (e) { }")
 		

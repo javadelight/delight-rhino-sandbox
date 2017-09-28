@@ -3,6 +3,7 @@ package delight.rhinosandox.tests
 import delight.rhinosandox.RhinoSandboxes
 import org.junit.Assert
 import org.junit.Test
+import org.mozilla.javascript.ContextFactory
 
 class TestInstanceScope {
 	

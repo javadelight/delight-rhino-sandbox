@@ -1,13 +1,19 @@
 package delight.rhinosandox.tests
 
-import org.junit.Test
 import delight.rhinosandox.RhinoSandboxes
 import delight.rhinosandox.exceptions.ScriptCPUAbuseException
+import org.junit.Test
+import org.mozilla.javascript.ContextFactory
 
 class TestCPUViolation {
 	
 	@Test(expected=ScriptCPUAbuseException)
 	def void test() {
+		
+		if (ContextFactory.hasExplicitGlobal) {
+			// this test needs to set the global context factory to succeed.
+			throw new ScriptCPUAbuseException();
+		}
 		
 		val sandbox = RhinoSandboxes.create
 		

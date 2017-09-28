@@ -27,7 +27,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	 * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
 	 */
 	def void assertContextFactory() {
-		if (contextFactory != null) {
+		if (contextFactory !== null) {
 			return
 		}
 
@@ -35,7 +35,6 @@ class RhinoSandboxImpl implements RhinoSandbox {
 
 		if (!ContextFactory.hasExplicitGlobal) {
 			ContextFactory.initGlobal(contextFactory)
-
 		}
 		contextFactory.maxInstructions = instructionLimit
 		contextFactory.maxRuntimeInMs = maxDuration
@@ -62,7 +61,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	}
 
 	def void assertSafeScope(Context context) {
-		if (safeScope != null) {
+		if (safeScope !== null) {
 			return
 		}
 
@@ -131,7 +130,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	override RhinoSandbox setInstructionLimit(int limit) {
 		this.instructionLimit = limit
 
-		if (contextFactory != null) {
+		if (contextFactory !== null) {
 			contextFactory.maxInstructions = instructionLimit
 		}
 
@@ -144,7 +143,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 	override RhinoSandbox setMaxDuration(int limitInMs) {
 		this.maxDuration = limitInMs
 
-		if (contextFactory != null) {
+		if (contextFactory !== null) {
 			contextFactory.maxRuntimeInMs = maxDuration
 		}
 
@@ -182,7 +181,7 @@ class RhinoSandboxImpl implements RhinoSandbox {
 			throw new IllegalArgumentException(
 				'A variable with the name [' + variableName + '] has already been defined.')
 		}
-		if (contextFactory == null) {
+		if (contextFactory === null) {
 			this.inScope.put(variableName, object)
 		} else {
 			try {

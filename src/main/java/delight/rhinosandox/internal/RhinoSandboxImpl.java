@@ -1,6 +1,5 @@
 package delight.rhinosandox.internal;
 
-import com.google.common.base.Objects;
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.internal.RhinoEval;
 import delight.rhinosandox.internal.RhinoEvalDummy;
@@ -42,8 +41,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
    */
   public void assertContextFactory() {
     try {
-      boolean _notEquals = (!Objects.equal(this.contextFactory, null));
-      if (_notEquals) {
+      if ((this.contextFactory != null)) {
         return;
       }
       SafeContext _safeContext = new SafeContext();
@@ -75,8 +73,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   }
   
   public void assertSafeScope(final Context context) {
-    boolean _notEquals = (!Objects.equal(this.safeScope, null));
-    if (_notEquals) {
+    if ((this.safeScope != null)) {
       return;
     }
     if (this.useSafeStandardObjects) {
@@ -136,8 +133,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     RhinoSandboxImpl _xblockexpression = null;
     {
       this.instructionLimit = limit;
-      boolean _notEquals = (!Objects.equal(this.contextFactory, null));
-      if (_notEquals) {
+      if ((this.contextFactory != null)) {
         this.contextFactory.maxInstructions = this.instructionLimit;
       }
       _xblockexpression = this;
@@ -153,8 +149,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     RhinoSandboxImpl _xblockexpression = null;
     {
       this.maxDuration = limitInMs;
-      boolean _notEquals = (!Objects.equal(this.contextFactory, null));
-      if (_notEquals) {
+      if ((this.contextFactory != null)) {
         this.contextFactory.maxRuntimeInMs = this.maxDuration;
       }
       _xblockexpression = this;
@@ -214,8 +209,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       throw new IllegalArgumentException(
         (("A variable with the name [" + variableName) + "] has already been defined."));
     }
-    boolean _equals = Objects.equal(this.contextFactory, null);
-    if (_equals) {
+    if ((this.contextFactory == null)) {
       this.inScope.put(variableName, object);
     } else {
       try {

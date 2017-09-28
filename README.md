@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/javadelight/delight-rhino-sandbox.svg?branch=master)](https://travis-ci.org/javadelight/delight-rhino-sandbox)
+
 # Rhino Sandbox
 
 A sandbox to execute JavaScript code with Rhino in Java.

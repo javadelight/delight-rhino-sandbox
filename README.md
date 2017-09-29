@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/javadelight/delight-rhino-sandbox.svg?branch=master)](https://travis-ci.org/javadelight/delight-rhino-sandbox)
+[![Build Status](https://travis-ci.org/javadelight/delight-rhino-sandbox.svg?branch=master)](https://travis-ci.org/javadelight/delight-rhino-sandbox) [![Maven Central](https://img.shields.io/maven-central/v/org.javadelight/delight-rhino-sandbox.svg)](https://search.maven.org/#search%7Cga%7C1%7Cdelight-rhino-sandbox)
 
 # Rhino Sandbox
 
@@ -38,4 +38,20 @@ sandbox.eval("while (true) { }");
 // --> results in ScriptCPUAbuseException
 ```
 
+## Maven
+
+Just add the following dependency to your projects.
+
+```
+<dependency>
+    <groupId>org.javadelight</groupId>
+    <artifactId>delight-rhino-sandbox</artifactId>
+    <version>0.0.6</version>
+</dependency>
+```
+
+This artifact is available on [Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cdelight-rhino-sandbox) and 
+[BinTray](https://bintray.com/javadelight/javadelight/delight-rhino-sandbox).
+
+[![Maven Central](https://img.shields.io/maven-central/v/org.javadelight/delight-rhino-sandbox.svg)](https://search.maven.org/#search%7Cga%7C1%7Cdelight-rhino-sandbox)
 

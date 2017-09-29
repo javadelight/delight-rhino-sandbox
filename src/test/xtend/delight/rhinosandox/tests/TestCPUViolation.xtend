@@ -28,7 +28,7 @@ class TestCPUViolation {
 		
 		if (ContextFactory.hasExplicitGlobal) {
 			// this test needs to set the global context factory to succeed.
-			throw new ScriptCPUAbuseException();
+			return;
 		}
 		
 		val sandbox = RhinoSandboxes.create

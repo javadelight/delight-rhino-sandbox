@@ -5,6 +5,7 @@
 	<version>0.0.4</version>
 	<description>A safe sandbox for running JavaScript using the Rhino Engine in Java.</description>
 	<url>https://github.com/javadelight/delight-rhino-sandbox</url>
+	
 	<properties>
 		<module.gwtVersion>2.5.1</module.gwtVersion>
 		<module.importedPackages>
@@ -89,9 +90,37 @@
 					</instructions>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<failOnError>false</failOnError>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 
 
@@ -268,8 +297,21 @@
 
 		
 	</build>
-
-
+	
+	<scm>
+		<connection>scm:git:git@github.com:javadelight/delight-rhino-sandbox.git</connection>
+		<url>https://github.com/javadelight/delight-rhino-sandbox</url>
+		<developerConnection>scm:git:git@github.com:javadelight/delight-rhino-sandbox.git
+		</developerConnection>
+	</scm>
+	
+	<distributionManagement>
+		<repository>
+			<id>bintray-javadelight-javadelight</id>
+			<name>javadelight-javadelight</name>
+			<url>https://api.bintray.com/maven/javadelight/javadelight/delight-rhino-sandbox/;publish=1</url>
+		</repository>
+	</distributionManagement>
 
 	<developers>
 		<developer>

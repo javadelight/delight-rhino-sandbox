@@ -28,10 +28,18 @@ public class TestCPUViolation {
   
   @Test
   public void test_all_okay() {
-    final RhinoSandbox sandbox = RhinoSandboxes.create();
-    sandbox.setInstructionLimit(200000);
-    Class<? extends TestCPUViolation> _class = this.getClass();
-    String _plus = ("Test_" + _class);
-    sandbox.eval(_plus, "for (var i=0;i<=10000;i++) { };");
+    try {
+      boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();
+      if (_hasExplicitGlobal) {
+        throw new ScriptCPUAbuseException();
+      }
+      final RhinoSandbox sandbox = RhinoSandboxes.create();
+      sandbox.setInstructionLimit(200000);
+      Class<? extends TestCPUViolation> _class = this.getClass();
+      String _plus = ("Test_" + _class);
+      sandbox.eval(_plus, "for (var i=0;i<=10000;i++) { };");
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
 }

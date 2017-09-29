@@ -26,6 +26,11 @@ class TestCPUViolation {
 	@Test
 	def void test_all_okay() {
 		
+		if (ContextFactory.hasExplicitGlobal) {
+			// this test needs to set the global context factory to succeed.
+			throw new ScriptCPUAbuseException();
+		}
+		
 		val sandbox = RhinoSandboxes.create
 		
 		sandbox.instructionLimit = 200000

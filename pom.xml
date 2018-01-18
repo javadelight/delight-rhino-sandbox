@@ -2,12 +2,11 @@
 	+ GWT + in workspace dependencies 27.11.2010 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>org.javadelight</groupId>
 	<artifactId>delight-rhino-sandbox</artifactId>
-	<version>0.0.8-SNAPSHOT</version>
+	<version>0.0.8</version>
 	<description>A safe sandbox for running JavaScript using the Rhino Engine in Java.</description>
 	<url>https://github.com/javadelight/delight-rhino-sandbox</url>
 	
 	<properties>
-		<module.gwtVersion>2.8.2</module.gwtVersion>
 		<module.importedPackages>
 			org.junit,
 			*
@@ -24,7 +23,7 @@
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
-			<version>1.7.7</version>
+			<version>1.7.7.2</version>
 		</dependency>
 		
 		<dependency>
@@ -41,13 +40,6 @@
 		</dependency>
 
 
-		<!-- only for gwt maven plugin!!! -->
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>${module.gwtVersion}</version>
-			<scope>provided</scope>
-		</dependency>
 
 	</dependencies>
 

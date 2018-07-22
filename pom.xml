@@ -8,7 +8,6 @@
 	
 	<properties>
 		<module.importedPackages>
-			org.junit,
 			*
 		</module.importedPackages>
 		<module.exportedPackages>!delight.rhinosandox.internal*,delight.rhinosandox*

@@ -46,7 +46,7 @@ Just add the following dependency to your projects.
 <dependency>
     <groupId>org.javadelight</groupId>
     <artifactId>delight-rhino-sandbox</artifactId>
-    <version>0.0.9</version>
+    <version>0.0.10</version>
 </dependency>
 ```
 

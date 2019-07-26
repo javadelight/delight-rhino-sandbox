@@ -35,6 +35,8 @@ public class RhinoSandboxImpl implements RhinoSandbox {
   private final Map<String, Object> inScope;
   
   private SafeClassShutter classShutter;
+
+  private static final Object ctxFactoryLock = new Object();
   
   /**
    * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
@@ -46,10 +48,12 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       }
       SafeContext _safeContext = new SafeContext();
       this.contextFactory = _safeContext;
-      boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();
-      boolean _not = (!_hasExplicitGlobal);
-      if (_not) {
-        ContextFactory.initGlobal(this.contextFactory);
+      synchronized(RhinoSandboxImpl.ctxFactoryLock) {
+        boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();
+        boolean _not = (!_hasExplicitGlobal);
+        if (_not) {
+          ContextFactory.initGlobal(this.contextFactory);
+        }
       }
       this.contextFactory.maxInstructions = this.instructionLimit;
       this.contextFactory.maxRuntimeInMs = this.maxDuration;

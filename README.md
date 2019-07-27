@@ -38,6 +38,10 @@ sandbox.eval("while (true) { }");
 // --> results in ScriptCPUAbuseException
 ```
 
+## Versions
+
+- 0.0.11: Fixing concurrency issue ([PR 9](https://github.com/javadelight/delight-rhino-sandbox/pull/9) by [kamac](https://github.com/kamac))
+
 ## Maven
 
 Just add the following dependency to your projects.

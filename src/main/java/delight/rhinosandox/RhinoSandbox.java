@@ -1,5 +1,7 @@
 package delight.rhinosandox;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.util.Map;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -47,15 +49,29 @@ public interface RhinoSandbox {
    * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
    */
   public abstract Object evalWithGlobalScope(final String sourceName, final String js);
-  
+
+  /**
+   * Evaluate the given script with the global scope. That is all new global variables written will be available to all other scripts.
+   */
+  public abstract Object evalWithGlobalScope(final String sourceName, final Reader js) throws IOException;
   /**
    * Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
    */
   public abstract Object eval(final String sourceName, final String js);
-  
+
+  /**
+   * Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
+   */
+  public abstract Object eval(final String sourceName, final Reader js) throws IOException;
   /**
    * <p>Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
    * <p><code>variables</code> defines variables with Java objects which will be available for the execution of this script.
    */
-  public abstract Object eval(final String soureName, final String js, final Map<String, Object> variables);
+  public abstract Object eval(final String sourceName, final String js, final Map<String, Object> variables);
+
+  /**
+   * <p>Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
+   * <p><code>variables</code> defines variables with Java objects which will be available for the execution of this script.
+   */
+  public abstract Object eval(final String sourceName, final Reader js, final Map<String, Object> variables) throws IOException;
 }

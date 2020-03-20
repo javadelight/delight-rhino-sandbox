@@ -6,6 +6,9 @@ import delight.rhinosandox.internal.RhinoEvalDummy;
 import delight.rhinosandox.internal.SafeClassShutter;
 import delight.rhinosandox.internal.SafeContext;
 import delight.rhinosandox.internal.SafeWrapFactory;
+
+import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +103,18 @@ public class RhinoSandboxImpl implements RhinoSandbox {
       Context.exit();
     }
   }
-  
+
+  @Override
+  public Object evalWithGlobalScope(String sourceName, Reader js) throws IOException {
+    this.assertContextFactory();
+    try {
+      final Context context = this.contextFactory.enterContext();
+      return context.evaluateReader(this.globalScope, js, sourceName, 1, null);
+    } finally {
+      Context.exit();
+    }
+  }
+
   @Override
   public Object eval(final String sourceName, final String js, final Map<String, Object> variables) {
     this.assertContextFactory();
@@ -121,17 +135,50 @@ public class RhinoSandboxImpl implements RhinoSandbox {
         }
       }
       return context.evaluateString(instanceScope, js, sourceName, 1, null);
+
     } finally {
       Context.exit();
     }
   }
-  
+
+  @Override
+  public Object eval(final String sourceName, Reader js, Map<String, Object> variables) throws IOException {
+    this.assertContextFactory();
+    try {
+      final Context context = this.contextFactory.enterContext();
+      this.assertSafeScope(context);
+      if (this.sealScope) {
+        this.globalScope.sealObject();
+      }
+      final Scriptable instanceScope = context.newObject(this.safeScope);
+      instanceScope.setPrototype(this.safeScope);
+      instanceScope.setParentScope(null);
+      Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
+      for (final Map.Entry<String, Object> entry : _entrySet) {
+        {
+          this.allow(entry.getValue().getClass());
+          instanceScope.put(entry.getKey(), instanceScope, Context.toObject(entry.getValue(), instanceScope));
+        }
+      }
+      return context.evaluateReader(instanceScope, js, sourceName, 1, null);
+
+    } finally {
+      Context.exit();
+    }
+  }
+
   @Override
   public Object eval(final String sourceName, final String js) {
     HashMap<String, Object> _hashMap = new HashMap<String, Object>();
     return this.eval(sourceName, js, _hashMap);
   }
-  
+
+  @Override
+  public Object eval(String sourceName, Reader js) throws IOException {
+    HashMap<String, Object> _hashMap = new HashMap<String, Object>();
+    return this.eval(sourceName, js, _hashMap);
+  }
+
   @Override
   public RhinoSandbox setInstructionLimit(final int limit) {
     RhinoSandboxImpl _xblockexpression = null;

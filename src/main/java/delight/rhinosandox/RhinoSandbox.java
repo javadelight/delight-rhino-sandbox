@@ -62,6 +62,12 @@ public interface RhinoSandbox {
      */
     public abstract Object eval(final String sourceName, final String js);
 
+    /**
+     * executes a javascript function
+     * @param function a Native function you may got from js
+     * @param args parameters you need to call the function
+     * @return the result of the javascript function
+     */
     public abstract Object callFunction(NativeFunction function, Object[] args);
 
     /**

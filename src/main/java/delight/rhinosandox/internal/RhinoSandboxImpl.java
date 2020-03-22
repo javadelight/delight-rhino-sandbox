@@ -1,12 +1,6 @@
 package delight.rhinosandox.internal;
 
 import delight.rhinosandox.RhinoSandbox;
-import delight.rhinosandox.internal.RhinoEval;
-import delight.rhinosandox.internal.RhinoEvalDummy;
-import delight.rhinosandox.internal.SafeClassShutter;
-import delight.rhinosandox.internal.SafeContext;
-import delight.rhinosandox.internal.SafeWrapFactory;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Method;
@@ -15,8 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.mozilla.javascript.*;
-
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.NativeFunction;
+import org.mozilla.javascript.ContextFactory;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 @SuppressWarnings("all")
 public class RhinoSandboxImpl implements RhinoSandbox {
     private SafeContext contextFactory;

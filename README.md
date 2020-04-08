@@ -46,7 +46,7 @@ sandbox.eval("while (true) { }");
 
 Just add the following dependency to your projects.
 
-```
+```xml
 <dependency>
     <groupId>org.javadelight</groupId>
     <artifactId>delight-rhino-sandbox</artifactId>

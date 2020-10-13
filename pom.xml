@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Template: Source 
-	+ GWT + in workspace dependencies 27.11.2010 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>org.javadelight</groupId>
 	<artifactId>delight-rhino-sandbox</artifactId>
-	<version>0.0.11</version>
+	<version>0.0.12</version>
 	<description>A safe sandbox for running JavaScript using the Rhino Engine in Java.</description>
 	<url>https://github.com/javadelight/delight-rhino-sandbox</url>
 	
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
-			<version>1.7.12</version>
+			<version>1.7.13</version>
 		</dependency>
 		
 		<dependency>
@@ -148,7 +148,6 @@
 				<version>3.4</version>
 				<configuration>
 					<skipDeploy>true</skipDeploy>
-
 					<reportPlugins>
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
@@ -168,8 +167,6 @@
 								<report>summary</report>
 							</reports>
 						</plugin>
-
-
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-javadoc-plugin</artifactId>
@@ -185,19 +182,16 @@
 								</links>
 							</configuration>
 						</plugin>
-
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-jxr-plugin</artifactId>
 							<version>2.1</version>
 						</plugin>
-
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-surefire-report-plugin</artifactId>
 							<version>2.6</version>
 						</plugin>
-
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>findbugs-maven-plugin</artifactId>
@@ -208,7 +202,6 @@
 								<xmlOutputDirectory>target/site</xmlOutputDirectory>
 							</configuration>
 						</plugin>
-
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-pmd-plugin</artifactId>
@@ -221,7 +214,6 @@
 								<targetJdk>1.6</targetJdk>
 							</configuration>
 						</plugin>
-
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-checkstyle-plugin</artifactId>
@@ -243,11 +235,6 @@
 							<artifactId>taglist-maven-plugin</artifactId>
 							<version>2.4</version>
 						</plugin>
-
-
-
-
-
 					</reportPlugins>
 				</configuration>
 			</plugin>

@@ -27,11 +27,16 @@ public class SafeContext extends ContextFactory {
   
   public int maxInstructions;
   
+  public SafeClassShutter classShutter;
+  
   @Override
   public Context makeContext() {
     final SafeContext.CountContext cx = new SafeContext.CountContext();
     cx.setOptimizationLevel((-1));
     cx.setInstructionObserverThreshold(SafeContext.INSTRUCTION_STEPS);
+    if (classShutter != null) {
+      cx.setClassShutter(classShutter);
+    }
     return cx;
   }
   

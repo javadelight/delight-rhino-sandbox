@@ -16,6 +16,10 @@ import org.mozilla.javascript.Scriptable;
 @SuppressWarnings("all")
 public class SafeContext extends ContextFactory {
   public static class CountContext extends Context {
+    CountContext(ContextFactory contextFactory) {
+      super(contextFactory);
+    }
+    
     private long startTime;
     
     private long instructions;
@@ -31,7 +35,7 @@ public class SafeContext extends ContextFactory {
   
   @Override
   public Context makeContext() {
-    final SafeContext.CountContext cx = new SafeContext.CountContext();
+    final SafeContext.CountContext cx = new SafeContext.CountContext(this);
     cx.setOptimizationLevel((-1));
     cx.setInstructionObserverThreshold(SafeContext.INSTRUCTION_STEPS);
     if (classShutter != null) {

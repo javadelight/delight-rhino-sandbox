@@ -76,6 +76,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
 
     public void assertSafeScope(final Context context) {
         if ((this.safeScope != null)) {
+            context.setClassShutter(this.classShutter);
             return;
         }
         if (this.useSafeStandardObjects) {

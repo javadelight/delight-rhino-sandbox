@@ -40,6 +40,7 @@ sandbox.eval("while (true) { }");
 
 ## Versions
 
+- 0.1.14: Fixing dependency to Guava 21 ([PR 20](https://github.com/javadelight/delight-rhino-sandbox/pull/20) by [candrews](https://github.com/candrews))
 - 0.1.13: Improving concurrency ([PR 18](https://github.com/javadelight/delight-rhino-sandbox/pull/18) [PR 19](https://github.com/javadelight/delight-rhino-sandbox/pull/19) by [Tamil Selva Kaushik G](https://github.com/gtskaushik))
 - 0.0.11: Fixing concurrency issue ([PR 9](https://github.com/javadelight/delight-rhino-sandbox/pull/9) by [kamac](https://github.com/kamac))
 
@@ -55,7 +56,7 @@ Just add the following dependency to your projects.
 <dependency>
     <groupId>org.javadelight</groupId>
     <artifactId>delight-rhino-sandbox</artifactId>
-    <version>0.0.10</version>
+    <version>0.0.14</version>
 </dependency>
 ```
 

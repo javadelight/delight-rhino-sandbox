@@ -2,7 +2,6 @@ package delight.rhinosandox.internal;
 
 import delight.rhinosandox.exceptions.ScriptCPUAbuseException;
 import delight.rhinosandox.exceptions.ScriptDurationException;
-import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.mozilla.javascript.Callable;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
@@ -61,7 +60,6 @@ public class SafeContext extends ContextFactory {
   
   @Override
   public void observeInstructionCount(final Context cx, final int instructionCount) {
-    try {
       final SafeContext.CountContext mcx = ((SafeContext.CountContext) cx);
       final long currentTime = System.currentTimeMillis();
       if (((this.maxRuntimeInMs > 0) && ((currentTime - mcx.startTime) > this.maxRuntimeInMs))) {
@@ -71,9 +69,7 @@ public class SafeContext extends ContextFactory {
       if (((this.maxInstructions > 0) && (mcx.instructions > this.maxInstructions))) {
         throw new ScriptCPUAbuseException();
       }
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+   
   }
   
   @Override

@@ -1,5 +1,5 @@
 package delight.rhinosandox.exceptions;
 
 @SuppressWarnings("all")
-public class ScriptDurationException extends Exception {
+public class ScriptDurationException extends RuntimeException {
 }

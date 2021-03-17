@@ -3,12 +3,12 @@ package delight.rhinosandox.internal;
 import delight.rhinosandox.RhinoSandbox;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.NativeFunction;
 import org.mozilla.javascript.ContextFactory;
@@ -40,38 +40,42 @@ public class RhinoSandboxImpl implements RhinoSandbox {
      * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
      */
     public void assertContextFactory() {
-        try {
-            if ((this.contextFactory != null)) {
-                return;
-            }
-            SafeContext _safeContext = new SafeContext();
-            this.contextFactory = _safeContext;
-            synchronized (RhinoSandboxImpl.ctxFactoryLock) {
-                boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();
-                boolean _not = (!_hasExplicitGlobal);
-                if (_not) {
-                    ContextFactory.initGlobal(this.contextFactory);
-                }
-            }
-            this.contextFactory.maxInstructions = this.instructionLimit;
-            this.contextFactory.maxRuntimeInMs = this.maxDuration;
-            try {
-                final Context context = this.contextFactory.enterContext();
-                this.globalScope = context.initStandardObjects(null, false);
-                Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
-                for (final Map.Entry<String, Object> entry : _entrySet) {
-                    this.globalScope.put(entry.getKey(), this.globalScope, Context.toObject(entry.getValue(), this.globalScope));
-                }
-                final Class[] parameters = {String.class};
-                final Method dealMethod = RhinoEvalDummy.class.getMethod("eval", parameters);
-                RhinoEval _rhinoEval = new RhinoEval("eval", dealMethod, this.globalScope);
-                this.globalScope.defineProperty("eval", _rhinoEval, ScriptableObject.DONTENUM);
-            } finally {
-                Context.exit();
-            }
-        } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
+        if ((this.contextFactory != null)) {
+            return;
         }
+        SafeContext _safeContext = new SafeContext();
+        this.contextFactory = _safeContext;
+        synchronized (RhinoSandboxImpl.ctxFactoryLock) {
+            boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();
+            boolean _not = (!_hasExplicitGlobal);
+            if (_not) {
+                ContextFactory.initGlobal(this.contextFactory);
+            }
+        }
+        this.contextFactory.maxInstructions = this.instructionLimit;
+        this.contextFactory.maxRuntimeInMs = this.maxDuration;
+        try {
+            final Context context = this.contextFactory.enterContext();
+            this.globalScope = context.initStandardObjects(null, false);
+            Set<Map.Entry<String, Object>> _entrySet = this.inScope.entrySet();
+            for (final Map.Entry<String, Object> entry : _entrySet) {
+                this.globalScope.put(entry.getKey(), this.globalScope, Context.toObject(entry.getValue(), this.globalScope));
+            }
+            final Class[] parameters = {String.class};
+            Method dealMethod;
+            try {
+                dealMethod = RhinoEvalDummy.class.getMethod("eval", parameters);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            } catch (SecurityException e) {
+                throw new RuntimeException(e);
+            }
+            RhinoEval _rhinoEval = new RhinoEval("eval", dealMethod, this.globalScope);
+            this.globalScope.defineProperty("eval", _rhinoEval, ScriptableObject.DONTENUM);
+        } finally {
+            Context.exit();
+        }
+
     }
 
     public void assertSafeScope(final Context context) {
@@ -248,17 +252,22 @@ public class RhinoSandboxImpl implements RhinoSandbox {
 
     @Override
     public RhinoSandbox inject(final Class<ScriptableObject> clazz) {
-        try {
-            RhinoSandboxImpl _xblockexpression = null;
-            {
+        RhinoSandboxImpl _xblockexpression = null;
+        {
+            try {
                 ScriptableObject.<ScriptableObject>defineClass(this.globalScope, clazz);
-                this.allow(clazz);
-                _xblockexpression = this;
+            } catch (IllegalAccessException e) {
+               throw new RuntimeException(e); 
+            } catch (InstantiationException e) {
+               throw new RuntimeException(e); 
+            } catch (InvocationTargetException e) {
+               throw new RuntimeException(e); 
             }
-            return _xblockexpression;
-        } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
+            this.allow(clazz);
+            _xblockexpression = this;
         }
+        return _xblockexpression;
+       
     }
 
     @Override

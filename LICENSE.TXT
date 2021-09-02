@@ -8,3 +8,5 @@ The MIT License (MIT)
 
 GPLv3
 (https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+The project can be used under ANY of these licenses.

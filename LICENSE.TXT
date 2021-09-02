@@ -5,3 +5,6 @@ Apache 2.0
 
 The MIT License (MIT)
 (http://opensource.org/licenses/MIT)
+
+GPLv3
+(https://www.gnu.org/licenses/gpl-3.0.en.html)

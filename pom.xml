@@ -5,26 +5,25 @@
 	<version>0.0.17</version>
 	<description>A safe sandbox for running JavaScript using the Rhino Engine in Java.</description>
 	<url>https://github.com/javadelight/delight-rhino-sandbox</url>
-	
+
 	<properties>
 		<module.importedPackages>
 			*
 		</module.importedPackages>
 		<module.exportedPackages>!delight.rhinosandox.internal*,delight.rhinosandox*
 		</module.exportedPackages>
-		<module.serviceDefinitions>
-		</module.serviceDefinitions>
+		<module.serviceDefinitions></module.serviceDefinitions>
 	</properties>
 
 	<!-- Dependent Modules -->
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
 			<version>1.7.13</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -44,6 +43,41 @@
 	<build>
 
 		<plugins>
+
+
+<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<gpgArguments>
+						<arg>--pinentry-mode</arg>
+						<arg>loopback</arg>
+					</gpgArguments>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -74,7 +108,7 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -107,7 +141,6 @@
 			</plugin>
 
 
-
 			<!-- Keep the MANIFEST.MF used by eclipse in sync with the MANIFEST.MF 
 				created by the maven bundle plugin -->
 			<plugin>
@@ -120,8 +153,8 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<delete file="${basedir}/META-INF/MANIFEST.MF"/>
-								<copy file="target/classes/META-INF/MANIFEST.MF" tofile="${basedir}/META-INF/MANIFEST.MF"/>
+								<delete file="${basedir}/META-INF/MANIFEST.MF" />
+								<copy file="target/classes/META-INF/MANIFEST.MF" tofile="${basedir}/META-INF/MANIFEST.MF" />
 							</tasks>
 						</configuration>
 					</execution>
@@ -263,24 +296,23 @@
 			</resource>
 
 
-
 		</resources>
 
-		
+
 	</build>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:javadelight/delight-rhino-sandbox.git</connection>
 		<url>https://github.com/javadelight/delight-rhino-sandbox</url>
 		<developerConnection>scm:git:git@github.com:javadelight/delight-rhino-sandbox.git
 		</developerConnection>
 	</scm>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<developers>
@@ -298,7 +330,7 @@
 			<organizationUrl>http://pureleap.com</organizationUrl>
 		</developer>
 	</developers>
-	
+
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
@@ -313,8 +345,6 @@
 			<url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
 		</license>
 	</licenses>
-	
-
 
 
 </project>

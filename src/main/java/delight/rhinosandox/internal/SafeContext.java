@@ -35,6 +35,7 @@ public class SafeContext extends ContextFactory {
   @Override
   public Context makeContext() {
     final SafeContext.CountContext cx = new SafeContext.CountContext(this);
+    cx.setLanguageVersion(Context.VERSION_ES6);
     cx.setOptimizationLevel((-1));
     cx.setInstructionObserverThreshold(SafeContext.INSTRUCTION_STEPS);
     if (classShutter != null) {

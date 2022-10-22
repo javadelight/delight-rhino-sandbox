@@ -277,11 +277,10 @@
 	</scm>
 	
 	<distributionManagement>
-		<repository>
-			<id>bintray-javadelight-javadelight</id>
-			<name>javadelight-javadelight</name>
-			<url>https://api.bintray.com/maven/javadelight/javadelight/delight-rhino-sandbox/;publish=1</url>
-		</repository>
+		<snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
 	</distributionManagement>
 
 	<developers>

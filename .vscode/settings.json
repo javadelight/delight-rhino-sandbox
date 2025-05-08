@@ -5,5 +5,9 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
-  }
+  },
+  "github-actions.workflows.pinned.workflows": [
+    ".github/workflows/publish.yml",
+    ".github/workflows/build.yml"
+  ]
 }

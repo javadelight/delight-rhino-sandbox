@@ -1,10 +1,8 @@
 name: Publish package to the Maven Central Repository
-# on:
-#   release:
-#     types: [created]
+on:
+  release:
+    types: [created]
 
-# Testing central release try #3
-on: push
 
 jobs:
   publish:

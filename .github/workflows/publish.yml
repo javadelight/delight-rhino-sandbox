@@ -3,7 +3,7 @@ name: Publish package to the Maven Central Repository
 #   release:
 #     types: [created]
 
-# Testing central release
+# Testing central release try #3
 on: push
 
 jobs:

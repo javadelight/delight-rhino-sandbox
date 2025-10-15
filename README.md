@@ -40,6 +40,7 @@ sandbox.eval("while (true) { }");
 
 ## Versions
 
+- 0.2.0: Requiring Java 1.8, allowing to provide scritable parameter for [#27](https://github.com/javadelight/delight-rhino-sandbox/issues/27)
 - 0.1.18: [Migrating Maven Namespace to Central Portal](https://maxrohde.com/2025/05/08/migrating-maven-namespace-to-central-portal/)
 - 0.1.14: Fixing dependency to Guava 21 ([PR 20](https://github.com/javadelight/delight-rhino-sandbox/pull/20) by [candrews](https://github.com/candrews))
 - 0.1.13: Improving concurrency ([PR 18](https://github.com/javadelight/delight-rhino-sandbox/pull/18) [PR 19](https://github.com/javadelight/delight-rhino-sandbox/pull/19) by [Tamil Selva Kaushik G](https://github.com/gtskaushik))

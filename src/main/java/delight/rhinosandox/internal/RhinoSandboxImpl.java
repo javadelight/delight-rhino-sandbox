@@ -16,25 +16,25 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 @SuppressWarnings("all")
 public class RhinoSandboxImpl implements RhinoSandbox {
-    private SafeContext contextFactory;
+    protected SafeContext contextFactory;
 
-    private ScriptableObject globalScope;
+    protected ScriptableObject globalScope;
 
-    private ScriptableObject safeScope;
+    protected ScriptableObject safeScope;
 
-    private int instructionLimit;
+    protected int instructionLimit;
 
-    private long maxDuration;
+    protected long maxDuration;
 
-    private boolean useSafeStandardObjects;
+    protected boolean useSafeStandardObjects;
 
-    private boolean sealScope;
+    protected boolean sealScope;
 
-    private final Map<String, Object> inScope;
+    protected final Map<String, Object> inScope;
 
-    private SafeClassShutter classShutter;
+    protected SafeClassShutter classShutter;
 
-    private static final Object ctxFactoryLock = new Object();
+    protected static final Object ctxFactoryLock = new Object();
 
     /**
      * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
@@ -117,6 +117,46 @@ public class RhinoSandboxImpl implements RhinoSandbox {
 
     @Override
     public Object eval(final String sourceName, final String js, final Map<String, Object> variables) {
+        return this.evalWithScope(sourceName, js, (context, instanceScope) -> {
+            // Add variables to the instance scope
+            Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
+            for (final Map.Entry<String, Object> entry : _entrySet) {
+                this.allow(entry.getValue().getClass());
+                instanceScope.put(entry.getKey(), instanceScope, Context.toObject(entry.getValue(), instanceScope));
+            }
+            return instanceScope;
+        });
+    }
+
+    /**
+     * Evaluates JavaScript code with a custom Scriptable object as the execution scope.
+     * This method provides more flexibility by allowing custom Scriptable objects while
+     * maintaining all security features of the sandbox.
+     *
+     * @param sourceName the name of the source file or context
+     * @param js the JavaScript code to evaluate
+     * @param scriptableObject the Scriptable object to use as the execution scope
+     * @return the result of the JavaScript evaluation
+     */
+    public Object eval(final String sourceName, final String js, final Scriptable scriptableObject) {
+        return this.evalWithScope(sourceName, js, (context, instanceScope) -> {
+            // Configure the scriptable object to use instanceScope as its parent
+            scriptableObject.setParentScope(instanceScope);
+            return scriptableObject;
+        });
+    }
+
+    /**
+     * Common evaluation logic that sets up the execution context and delegates
+     * scope-specific configuration to a callback function.
+     *
+     * @param sourceName the name of the source file or context
+     * @param js the JavaScript code to evaluate
+     * @param scopeConfigurer callback that configures the execution scope
+     * @return the result of the JavaScript evaluation
+     */
+    private Object evalWithScope(final String sourceName, final String js,
+            final ScopeConfigurer scopeConfigurer) {
         this.assertContextFactory();
         try {
             final Context context = this.contextFactory.enterContext();
@@ -124,53 +164,81 @@ public class RhinoSandboxImpl implements RhinoSandbox {
             if (this.sealScope) {
                 this.globalScope.sealObject();
             }
+
+            // Set up the scope chain properly
             final Scriptable instanceScope = context.newObject(this.safeScope);
             instanceScope.setPrototype(this.safeScope);
             instanceScope.setParentScope(null);
-            Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
-            for (final Map.Entry<String, Object> entry : _entrySet) {
-                {
-                    this.allow(entry.getValue().getClass());
-                    instanceScope.put(entry.getKey(), instanceScope, Context.toObject(entry.getValue(), instanceScope));
-                }
-            }
-            return context.evaluateString(instanceScope, js, sourceName, 1, null);
+
+            // Let the caller configure the execution scope
+            final Scriptable executionScope = scopeConfigurer.configureScope(context, instanceScope);
+
+            return context.evaluateString(executionScope, js, sourceName, 1, null);
 
         } finally {
             Context.exit();
         }
+    }
+
+    /**
+     * Common evaluation logic for Reader input that sets up the execution context and delegates
+     * scope-specific configuration to a callback function.
+     *
+     * @param sourceName the name of the source file or context
+     * @param js the JavaScript reader to evaluate
+     * @param scopeConfigurer callback that configures the execution scope
+     * @return the result of the JavaScript evaluation
+     * @throws IOException if there's an error reading from the Reader
+     */
+    private Object evalWithScope(final String sourceName, final Reader js,
+            final ScopeConfigurer scopeConfigurer) throws IOException {
+        this.assertContextFactory();
+        try {
+            final Context context = this.contextFactory.enterContext();
+            this.assertSafeScope(context);
+            if (this.sealScope) {
+                this.globalScope.sealObject();
+            }
+
+            // Set up the scope chain properly
+            final Scriptable instanceScope = context.newObject(this.safeScope);
+            instanceScope.setPrototype(this.safeScope);
+            instanceScope.setParentScope(null);
+
+            // Let the caller configure the execution scope
+            final Scriptable executionScope = scopeConfigurer.configureScope(context, instanceScope);
+
+            return context.evaluateReader(executionScope, js, sourceName, 1, null);
+
+        } finally {
+            Context.exit();
+        }
+    }
+
+    /**
+     * Functional interface for configuring the execution scope.
+     */
+    @FunctionalInterface
+    private interface ScopeConfigurer {
+        Scriptable configureScope(Context context, Scriptable instanceScope);
     }
 
     @Override
     public Object eval(final String sourceName, Reader js, Map<String, Object> variables) throws IOException {
-        this.assertContextFactory();
-        try {
-            final Context context = this.contextFactory.enterContext();
-            this.assertSafeScope(context);
-            if (this.sealScope) {
-                this.globalScope.sealObject();
-            }
-            final Scriptable instanceScope = context.newObject(this.safeScope);
-            instanceScope.setPrototype(this.safeScope);
-            instanceScope.setParentScope(null);
+        return this.evalWithScope(sourceName, js, (context, instanceScope) -> {
+            // Add variables to the instance scope
             Set<Map.Entry<String, Object>> _entrySet = variables.entrySet();
             for (final Map.Entry<String, Object> entry : _entrySet) {
-                {
-                    this.allow(entry.getValue().getClass());
-                    instanceScope.put(entry.getKey(), instanceScope, Context.toObject(entry.getValue(), instanceScope));
-                }
+                this.allow(entry.getValue().getClass());
+                instanceScope.put(entry.getKey(), instanceScope, Context.toObject(entry.getValue(), instanceScope));
             }
-            return context.evaluateReader(instanceScope, js, sourceName, 1, null);
-
-        } finally {
-            Context.exit();
-        }
+            return instanceScope;
+        });
     }
 
     @Override
     public Object eval(final String sourceName, final String js) {
-        HashMap<String, Object> _hashMap = new HashMap<String, Object>();
-        return this.eval(sourceName, js, _hashMap);
+        return this.eval(sourceName, js, new HashMap<String, Object>());
     }
 
     @Override
@@ -281,7 +349,7 @@ public class RhinoSandboxImpl implements RhinoSandbox {
         return _xblockexpression;
     }
 
-    private void injectInt(final String variableName, final Object object) {
+    protected void injectInt(final String variableName, final Object object) {
         boolean _containsKey = this.inScope.containsKey(variableName);
         if (_containsKey) {
             throw new IllegalArgumentException(

@@ -82,6 +82,14 @@ public interface RhinoSandbox {
     public abstract Object eval(final String sourceName, final String js, final Map<String, Object> variables);
 
     /**
+     * <p>Evaluate a script with a custom Scriptable object as the execution scope.
+     * <p>This method provides flexibility by allowing custom Scriptable objects while
+     * maintaining all security features of the sandbox.
+     * <p><code>scriptableObject</code> defines the Scriptable object to use as the execution scope.
+     */
+    public abstract Object eval(final String sourceName, final String js, final org.mozilla.javascript.Scriptable scriptableObject);
+
+    /**
      * <p>Evaluate a script with its own scope. It has access to all objects in the global scope but cannot add new ones.
      * <p><code>variables</code> defines variables with Java objects which will be available for the execution of this script.
      */

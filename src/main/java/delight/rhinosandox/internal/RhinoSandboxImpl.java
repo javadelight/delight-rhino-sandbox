@@ -37,13 +37,23 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     protected static final Object ctxFactoryLock = new Object();
 
     /**
+     * Creates a new SafeContext instance. Subclasses can override this method
+     * to provide custom SafeContext implementations while preserving all configuration logic.
+     *
+     * @return a new SafeContext instance
+     */
+    protected SafeContext getSafeContext() {
+        return new SafeContext();
+    }
+
+    /**
      * see https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scopes_and_Contexts
      */
     public void assertContextFactory() {
         if ((this.contextFactory != null)) {
             return;
         }
-        SafeContext _safeContext = new SafeContext();
+        SafeContext _safeContext = this.getSafeContext();
         this.contextFactory = _safeContext;
         synchronized (RhinoSandboxImpl.ctxFactoryLock) {
             boolean _hasExplicitGlobal = ContextFactory.hasExplicitGlobal();

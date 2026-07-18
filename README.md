@@ -38,6 +38,18 @@ sandbox.eval("while (true) { }");
 // --> results in ScriptCPUAbuseException
 ```
 
+## Limitations
+
+The instruction limit (CPU abuse protection) is enforced by Rhino's bytecode counter, which only
+tracks interpreted JavaScript — not work performed inside native Java calls. Scripts that do heavy
+work in few bytecodes (e.g. `Array.concat` in a loop doubling an array) can run far more native
+allocations than the instruction limit suggests.
+
+The duration watchdog partially mitigates this by enforcing a wall-clock timeout regardless of
+bytecode count.
+
+See [#31](https://github.com/javadelight/delight-rhino-sandbox/issues/31).
+
 ## Versions
 
 - 0.2.0: Requiring Java 1.8, allowing to provide scritable parameter for [#27](https://github.com/javadelight/delight-rhino-sandbox/issues/27)
@@ -58,7 +70,7 @@ Just add the following dependency to your projects.
 <dependency>
     <groupId>org.javadelight</groupId>
     <artifactId>delight-rhino-sandbox</artifactId>
-    <version>0.0.18</version>
+    <version>[get latest version from maven]</version>
 </dependency>
 ```
 

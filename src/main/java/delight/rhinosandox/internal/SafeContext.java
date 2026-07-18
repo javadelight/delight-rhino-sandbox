@@ -2,6 +2,10 @@ package delight.rhinosandox.internal;
 
 import delight.rhinosandox.exceptions.ScriptCPUAbuseException;
 import delight.rhinosandox.exceptions.ScriptDurationException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import org.mozilla.javascript.Callable;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
@@ -19,12 +23,22 @@ public class SafeContext extends ContextFactory {
       super(contextFactory);
     }
     
-    private long startTime;
+    volatile long startTime;
     
-    private long instructions;
+    volatile long deadline;
+
+    volatile boolean timedOut;
+    
+    long instructions;
   }
   
-  private final static int INSTRUCTION_STEPS = 10000;
+  private final static int INSTRUCTION_STEPS = 1000;
+
+  private static final ScheduledExecutorService WATCHDOG = Executors.newSingleThreadScheduledExecutor(r -> {
+    Thread t = new Thread(r, "rhino-sandbox-watchdog");
+    t.setDaemon(true);
+    return t;
+  });
   
   public long maxRuntimeInMs;
   
@@ -62,6 +76,9 @@ public class SafeContext extends ContextFactory {
   @Override
   public void observeInstructionCount(final Context cx, final int instructionCount) {
       final SafeContext.CountContext mcx = ((SafeContext.CountContext) cx);
+      if (mcx.timedOut) {
+        throw new ScriptDurationException();
+      }
       final long currentTime = System.currentTimeMillis();
       if (((this.maxRuntimeInMs > 0) && ((currentTime - mcx.startTime) > this.maxRuntimeInMs))) {
         throw new ScriptDurationException();
@@ -77,7 +94,29 @@ public class SafeContext extends ContextFactory {
   public Object doTopCall(final Callable callable, final Context cx, final Scriptable scope, final Scriptable thisObj, final Object[] args) {
     final SafeContext.CountContext mcx = ((SafeContext.CountContext) cx);
     mcx.startTime = System.currentTimeMillis();
+    mcx.deadline = this.maxRuntimeInMs > 0 ? mcx.startTime + this.maxRuntimeInMs : Long.MAX_VALUE;
+    mcx.timedOut = false;
     mcx.instructions = 0;
-    return super.doTopCall(callable, cx, scope, thisObj, args);
+
+    ScheduledFuture<?> watchdogFuture = null;
+    if (this.maxRuntimeInMs > 0) {
+      watchdogFuture = WATCHDOG.scheduleAtFixedRate(() -> {
+        if (System.currentTimeMillis() > mcx.deadline) {
+          mcx.timedOut = true;
+        }
+      }, 25, 25, TimeUnit.MILLISECONDS);
+    }
+
+    try {
+      Object result = super.doTopCall(callable, cx, scope, thisObj, args);
+      if (mcx.timedOut) {
+        throw new ScriptDurationException();
+      }
+      return result;
+    } finally {
+      if (watchdogFuture != null) {
+        watchdogFuture.cancel(false);
+      }
+    }
   }
 }

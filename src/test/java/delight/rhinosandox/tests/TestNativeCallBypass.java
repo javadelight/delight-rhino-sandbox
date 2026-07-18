@@ -14,6 +14,9 @@ public class TestNativeCallBypass {
     public void testDurationLimitWithWatchdog() {
         final RhinoSandbox sandbox = RhinoSandboxes.create();
         sandbox.setMaxDuration(2000);
+        sandbox.setInstructionLimit(10000);
+        sandbox.allow(String.class);
+        sandbox.allow(Integer.class);
 
         Assert.assertThrows(ScriptDurationException.class, new ThrowingRunnable() {
             @Override

@@ -52,6 +52,7 @@ See [#31](https://github.com/javadelight/delight-rhino-sandbox/issues/31).
 
 ## Versions
 
+- 0.2.3: Adding wall-clock watchdog and lowering instruction observer threshold to enforce max duration regardless of bytecode count [#31](https://github.com/javadelight/delight-rhino-sandbox/issues/31)
 - 0.2.0: Requiring Java 1.8, allowing to provide scritable parameter for [#27](https://github.com/javadelight/delight-rhino-sandbox/issues/27)
 - 0.1.18: [Migrating Maven Namespace to Central Portal](https://maxrohde.com/2025/05/08/migrating-maven-namespace-to-central-portal/)
 - 0.1.14: Fixing dependency to Guava 21 ([PR 20](https://github.com/javadelight/delight-rhino-sandbox/pull/20) by [candrews](https://github.com/candrews))

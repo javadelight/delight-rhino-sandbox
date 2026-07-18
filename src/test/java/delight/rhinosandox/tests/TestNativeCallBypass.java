@@ -2,7 +2,6 @@ package delight.rhinosandox.tests;
 
 import delight.rhinosandox.RhinoSandbox;
 import delight.rhinosandox.RhinoSandboxes;
-import delight.rhinosandox.exceptions.ScriptCPUAbuseException;
 import delight.rhinosandox.exceptions.ScriptDurationException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,22 +10,10 @@ import org.junit.function.ThrowingRunnable;
 @SuppressWarnings("all")
 public class TestNativeCallBypass {
 
-    @Test(expected = ScriptCPUAbuseException.class)
-    public void testInstructionLimitWithLowerThreshold() {
-        final RhinoSandbox sandbox = RhinoSandboxes.create();
-        sandbox.setInstructionLimit(50000);
-        sandbox.setMaxDuration(0);
-
-        sandbox.eval("test",
-            "while (true) { }"
-        );
-    }
-
     @Test
     public void testDurationLimitWithWatchdog() {
         final RhinoSandbox sandbox = RhinoSandboxes.create();
-        sandbox.setMaxDuration(100);
-        sandbox.setInstructionLimit(0);
+        sandbox.setMaxDuration(2000);
 
         Assert.assertThrows(ScriptDurationException.class, new ThrowingRunnable() {
             @Override

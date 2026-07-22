@@ -104,7 +104,7 @@ public class SafeContext extends ContextFactory {
         if (System.currentTimeMillis() > mcx.deadline) {
           mcx.timedOut = true;
         }
-      }, 25, 25, TimeUnit.MILLISECONDS);
+      }, 10, 10, TimeUnit.MILLISECONDS);
     }
 
     try {

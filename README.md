@@ -46,7 +46,9 @@ work in few bytecodes (e.g. `Array.concat` in a loop doubling an array) can run 
 allocations than the instruction limit suggests.
 
 The duration watchdog partially mitigates this by enforcing a wall-clock timeout regardless of
-bytecode count.
+bytecode count. However, memory exhaustion within the timeout window (e.g. `Array.concat` doubling
+in a loop) can still cause an `OutOfMemoryError` before the watchdog fires. A future
+`setMaxMemory()` or `setMaxArraySize()` API would close this remaining gap.
 
 See [#31](https://github.com/javadelight/delight-rhino-sandbox/issues/31).
 

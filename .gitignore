@@ -10,3 +10,4 @@ src/main/gwt-unitCache/
 *.xtendbin
 *._trace
 
+.classpath

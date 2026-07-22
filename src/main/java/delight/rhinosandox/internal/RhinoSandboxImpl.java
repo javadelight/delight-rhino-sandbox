@@ -89,17 +89,15 @@ public class RhinoSandboxImpl implements RhinoSandbox {
     }
 
     public void assertSafeScope(final Context context) {
+        context.setClassShutter(this.classShutter);
+        context.setWrapFactory(new SafeWrapFactory());
         if ((this.safeScope != null)) {
-            context.setClassShutter(this.classShutter);
             return;
         }
         if (this.useSafeStandardObjects) {
             this.safeScope = context.initSafeStandardObjects(this.globalScope, true);
             return;
         }
-        context.setClassShutter(this.classShutter);
-        SafeWrapFactory _safeWrapFactory = new SafeWrapFactory();
-        context.setWrapFactory(_safeWrapFactory);
         this.safeScope = this.globalScope;
     }
 

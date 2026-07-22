@@ -7,6 +7,7 @@ import delight.rhinosandox.RhinoSandboxes;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 import org.mozilla.javascript.EcmaError;
+import org.mozilla.javascript.EvaluatorException;
 
 @SuppressWarnings("all")
 public class TestUseSafeStandardObjectsBypass {
@@ -31,7 +32,7 @@ public class TestUseSafeStandardObjectsBypass {
         sandbox.setUseSafeStandardObjects(true);
         sandbox.inject("myObj", new Object());
 
-        assertThrows(EcmaError.class, new ThrowingRunnable() {
+        assertThrows(EvaluatorException.class, new ThrowingRunnable() {
             @Override
             public void run() throws Throwable {
                 sandbox.eval(null,

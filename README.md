@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/javadelight/delight-rhino-sandbox.svg?branch=master)](https://travis-ci.org/javadelight/delight-rhino-sandbox) [![Maven Central](https://img.shields.io/maven-central/v/org.javadelight/delight-rhino-sandbox.svg)](https://search.maven.org/#search%7Cga%7C1%7Cdelight-rhino-sandbox)
+[![Maven Central](https://img.shields.io/maven-central/v/org.javadelight/delight-rhino-sandbox.svg)](https://search.maven.org/#search%7Cga%7C1%7Cdelight-rhino-sandbox)
 
 # Rhino Sandbox
 

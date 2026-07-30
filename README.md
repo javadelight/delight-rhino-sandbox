@@ -54,6 +54,7 @@ See [#31](https://github.com/javadelight/delight-rhino-sandbox/issues/31).
 
 ## Versions
 
+- 0.2.5: Fixing sandbox escape via `evalWithGlobalScope()` where assertSafeScope was not called, allowing unrestricted Java class access [#35](https://github.com/javadelight/delight-rhino-sandbox/issues/35)
 - 0.2.4: Fixing useSafeStandardObjects bypass where ClassShutter and SafeWrapFactory were not installed, allowing unrestricted Java class access [#33](https://github.com/javadelight/delight-rhino-sandbox/issues/33)
 - 0.2.3: Adding wall-clock watchdog and lowering instruction observer threshold to enforce max duration regardless of bytecode count [#31](https://github.com/javadelight/delight-rhino-sandbox/issues/31)
 - 0.2.0: Requiring Java 1.8, allowing to provide scritable parameter for [#27](https://github.com/javadelight/delight-rhino-sandbox/issues/27)

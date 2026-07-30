@@ -101,27 +101,29 @@ public class RhinoSandboxImpl implements RhinoSandbox {
         this.safeScope = this.globalScope;
     }
 
-    @Override
-    public Object evalWithGlobalScope(final String sourceName, final String js) {
-        this.assertContextFactory();
-        try {
-            final Context context = this.contextFactory.enterContext();
-            return context.evaluateString(this.globalScope, js, sourceName, 1, null);
-        } finally {
-            Context.exit();
-        }
-    }
+	@Override
+	public Object evalWithGlobalScope(final String sourceName, final String js) {
+		this.assertContextFactory();
+		try {
+			final Context context = this.contextFactory.enterContext();
+			this.assertSafeScope(context);
+			return context.evaluateString(this.globalScope, js, sourceName, 1, null);
+		} finally {
+			Context.exit();
+		}
+	}
 
-    @Override
-    public Object evalWithGlobalScope(String sourceName, Reader js) throws IOException {
-        this.assertContextFactory();
-        try {
-            final Context context = this.contextFactory.enterContext();
-            return context.evaluateReader(this.globalScope, js, sourceName, 1, null);
-        } finally {
-            Context.exit();
-        }
-    }
+	@Override
+	public Object evalWithGlobalScope(String sourceName, Reader js) throws IOException {
+		this.assertContextFactory();
+		try {
+			final Context context = this.contextFactory.enterContext();
+			this.assertSafeScope(context);
+			return context.evaluateReader(this.globalScope, js, sourceName, 1, null);
+		} finally {
+			Context.exit();
+		}
+	}
 
     @Override
     public Object eval(final String sourceName, final String js, final Map<String, Object> variables) {
